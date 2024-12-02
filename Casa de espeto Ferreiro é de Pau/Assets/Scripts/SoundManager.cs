@@ -26,13 +26,16 @@ public class SoundManager : MonoBehaviour
 
 		level = masterSlider.value;
 		audioMixer.SetFloat("MasterVolume", Mathf.Log10(level) * 20f);
+
 		PlayerPrefs.SetFloat("MasterVolumeKey", level);
 		PlayerPrefs.Save();
+		Debug.Log(level);
 	}
 	public void SetMusicVolume(float level)
 	{
 		level = musicSlider.value;
 		audioMixer.SetFloat("MusicVolume", Mathf.Log10(level) * 20f);
+
 		PlayerPrefs.SetFloat("MusicVolumeKey", level);
 		PlayerPrefs.Save();
 	}
@@ -40,6 +43,7 @@ public class SoundManager : MonoBehaviour
 	{
 		level = sfxSlider.value;
 		audioMixer.SetFloat("SoundFXVolume", Mathf.Log10(level) * 20f);
+
 		PlayerPrefs.SetFloat("SoundFXVolumeKey", level);
 		PlayerPrefs.Save();
 	}
@@ -47,13 +51,19 @@ public class SoundManager : MonoBehaviour
 	public void LoadVolume() 
 	{
 		//Master
-		float savedVolumeMaster = PlayerPrefs.GetFloat("MasterVolumeKey", 0.75f);
+		float savedVolumeMaster = PlayerPrefs.GetFloat("MasterVolumeKey");
+		audioMixer.SetFloat("MasterVolume", Mathf.Log10(savedVolumeMaster) * 20f);
 		masterSlider.value = savedVolumeMaster;
+		Debug.Log(savedVolumeMaster);
+
 		//Music
-		float savedVolumeMusic = PlayerPrefs.GetFloat("MusicVolumeKey", 0.75f);
+		float savedVolumeMusic = PlayerPrefs.GetFloat("MusicVolumeKey");
+		audioMixer.SetFloat("MusicVolume", Mathf.Log10(savedVolumeMusic) * 20f);
 		musicSlider.value = savedVolumeMusic;
+
 		//SFX
-		float savedVolumeSFX = PlayerPrefs.GetFloat("SoundFXVolumeKey", 0.75f);
+		float savedVolumeSFX = PlayerPrefs.GetFloat("SoundFXVolumeKey");
+		audioMixer.SetFloat("SoundFXVolume", Mathf.Log10(savedVolumeSFX) * 20f);
 		sfxSlider.value = savedVolumeSFX;
 	}
 }
