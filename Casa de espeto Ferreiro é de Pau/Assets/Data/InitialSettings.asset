@@ -15,6 +15,8 @@ MonoBehaviour:
   Gold: 1000
   Items:
   - Settings: {fileID: 11400000, guid: 0bac17d6d98d6ac44812c6153c60959b, type: 2}
-    Quantity: 1
+    Quantity: 5
+    Quality: 0
   - Settings: {fileID: 11400000, guid: dc59740ab7dd137408b223225f9fa7c8, type: 2}
     Quantity: 10
+    Quality: 0

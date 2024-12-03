@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: 
   ItemName: Wood
-  BasePrice: 50
+  BasePrice: 35
   Sprite: {fileID: 21300000, guid: c7677c2c9c73fc946a6c65bc37324148, type: 3}
-  IsStackable: 0
+  IsStackable: 1
+  MeltedItem: {fileID: 0}
