@@ -1,28 +1,30 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 [System.Serializable]
 public class TimeValueRange // Classe específica para este script
 {
 	public float minValue;  // Valor mínimo da faixa
 	public float maxValue;  // Valor máximo da faixa
-	public string label;    // Rótulo associado a essa faixa
+	public QualityType quality;    // Qualidade associado a essa faixa
 	public Color color;     // Cor associada a essa faixa
 }
 
-public class TimedSlider : MonoBehaviour
+public class ForgeBar : MonoBehaviour
 {
 	public Slider slider;                              // Referência ao componente Slider
 	public float durationInSeconds = 120f;            // Duração total (em segundos)
 	public List<TimeValueRange> valueRanges = new List<TimeValueRange>();  // Lista de faixas definidas no Inspetor
-	public Button stopButton;                         // Referência ao botão para parar o slider
 
 	private float timeElapsed;                        // Tempo acumulado
-	private bool isRunning = true;                    // Controle se o slider está em execução
+	private bool isRunning;                    // Controle se o slider está em execução
 	private Image sliderBackgroundImage;              // Imagem que representa o fundo do slider
 
-	void Start()
+	public Action<QualityType> OnBarStopped;
+
+	void OnEnable()
 	{
 		if (slider == null)
 		{
@@ -36,11 +38,6 @@ public class TimedSlider : MonoBehaviour
 		slider.value = 0f;
 		slider.minValue = 0f;
 		slider.maxValue = 1f;
-
-		if (stopButton != null)
-		{
-			stopButton.onClick.AddListener(StopSlider);  // Adiciona o listener ao botão
-		}
 
 		timeElapsed = 0f;
 		SetBackgroundColors(); // Atualiza as cores no início
@@ -60,7 +57,7 @@ public class TimedSlider : MonoBehaviour
 		// Verifica se o tempo total foi atingido
 		if (timeElapsed >= durationInSeconds)
 		{
-			StopSlider(); // Para automaticamente quando o tempo acabar
+			StopBar(); // Para automaticamente quando o tempo acabar
 		}
 
 		// Exibe a faixa atual no console
@@ -73,16 +70,24 @@ public class TimedSlider : MonoBehaviour
 		{
 			if (currentValue >= range.minValue && currentValue <= range.maxValue)
 			{
-				Debug.Log($"O valor atual está na faixa: {range.label}");
+				Debug.Log($"O valor atual está na faixa: {range.quality}");
 				break;
 			}
 		}
 	}
 
-	// Método para parar o movimento do slider
-	public void StopSlider()
+	public void StartBar()
 	{
-		isRunning = false;  // Para o movimento
+		isRunning = true;
+		gameObject.SetActive(true);
+	}
+
+	// Método para parar o movimento do slider
+	public void StopBar()
+	{
+        gameObject.SetActive(false);
+
+        isRunning = false;  // Para o movimento
 		Debug.Log($"Slider parou no tempo de: {timeElapsed} segundos");
 
 		// Verifica em qual faixa o valor do slider parou
@@ -90,8 +95,9 @@ public class TimedSlider : MonoBehaviour
 		{
 			if (timeElapsed >= range.minValue && timeElapsed <= range.maxValue)
 			{
-				Debug.Log($"O slider parou na faixa: {range.label}");
-				break;
+				Debug.Log($"O slider parou na faixa: {range.quality}");
+				OnBarStopped?.Invoke(range.quality);
+                break;
 			}
 		}
 	}

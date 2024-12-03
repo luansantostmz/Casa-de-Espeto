@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9d58579db34c2f4ea13caf4848ed104, type: 3}
-  m_Name: IronOre
+  m_Name: IronIngot
   m_EditorClassIdentifier: 
-  ItemName: Iron Ore
-  BasePrice: 100
-  Sprite: {fileID: 21300000, guid: cb509dcaf848972479428aaedfca2c04, type: 3}
+  ItemName: Iron Ingot
+  BasePrice: 300
+  Sprite: {fileID: 21300000, guid: 229dea7f60402e1419c8f3c3eca91b00, type: 3}
   IsStackable: 1
-  MeltedItem: {fileID: 11400000, guid: ef8b032daed19db40a56bb6d3dd71b8a, type: 2}
+  MeltedItem: {fileID: 0}

@@ -8,4 +8,10 @@ public class ItemSettings : ScriptableObject
     public int BasePrice;
     public Sprite Sprite;
     public bool IsStackable;
+    public ItemSettings MeltedItem;
+}
+
+public enum QualityType
+{
+    Common, Uncommon, Rare, SuperRare, Legendary
 }

@@ -13,4 +13,9 @@ public class GameEvents
         public static Action OnGoldAdded;
         public static Action OnGoldSubtracted;
     }
+
+    public class Forge
+    {
+        public static Action<ItemSettings> OnItemAddedToForge;
+    }
 }

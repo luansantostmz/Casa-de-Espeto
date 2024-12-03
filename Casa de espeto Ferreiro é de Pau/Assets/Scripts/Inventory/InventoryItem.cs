@@ -4,10 +4,12 @@ public class InventoryItem
 {
     public ItemSettings Settings;
     public int Quantity;
+    public QualityType Quality;
 
-    public InventoryItem(ItemSettings item, int quantity = 1)
+    public InventoryItem(ItemSettings item, int quantity = 1, QualityType quality = QualityType.Common)
     {
         Settings = item;
         Quantity = quantity;
+        Quality = quality;
     }
 }
