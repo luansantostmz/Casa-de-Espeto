@@ -9,10 +9,10 @@ public class EconomyService
         GameEvents.Economy.OnGoldAdded?.Invoke();
     }
 
-    public static void RemoveGold(int quantity)
+    public static void SubtractGold(int quantity)
     {
         CurrentGold -= quantity;
-        GameEvents.Economy.OnGoldRemoved?.Invoke();
+        GameEvents.Economy.OnGoldSubtracted?.Invoke();
     }
 
     public static bool HaveEnoughGold(int necessary)

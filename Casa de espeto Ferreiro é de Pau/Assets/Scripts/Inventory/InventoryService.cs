@@ -4,11 +4,11 @@ public class InventoryService
 {
     public static List<InventoryItem> Items { get; private set; } = new List<InventoryItem>();
 
-    public void AddItem(ItemData itemData, int quantity = 1)
+    public static void AddItem(ItemSettings itemData, int quantity = 1)
     {
         if (itemData.IsStackable)
         {
-            InventoryItem existingItem = Items.Find(i => i.Data == itemData);
+            InventoryItem existingItem = Items.Find(i => i.Settings == itemData);
             if (existingItem != null)
             {
                 existingItem.Quantity += quantity;
@@ -22,13 +22,13 @@ public class InventoryService
         GameEvents.Inventory.OnItemAdded?.Invoke(newItem);
     }
 
-    public void RemoveItem(ItemData itemData, int quantity = 1)
+    public static void RemoveItem(ItemSettings itemData, int quantity = 1)
     {
-        InventoryItem existingItem = Items.Find(i => i.Data == itemData);
+        InventoryItem existingItem = Items.Find(i => i.Settings == itemData);
 
         if (existingItem != null)
         {
-            if (existingItem.Data.IsStackable)
+            if (existingItem.Settings.IsStackable)
             {
                 existingItem.Quantity -= quantity;
                 if (existingItem.Quantity <= 0)
