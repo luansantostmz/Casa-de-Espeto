@@ -69,4 +69,9 @@ public class UIForgeSlot : MonoBehaviour
         _completeButton.gameObject.SetActive(active);
         _cancelButton.gameObject.SetActive(active);
     }
+
+    public void SetForgeBarSettings(ForgeSettings forgeSettings) 
+    {
+        _forgeBar.forgeSettings = forgeSettings;
+    }
 }

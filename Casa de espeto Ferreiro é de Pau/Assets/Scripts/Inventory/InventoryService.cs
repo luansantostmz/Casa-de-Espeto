@@ -4,7 +4,7 @@ public class InventoryService
 {
     public static List<InventoryItem> Items { get; private set; } = new List<InventoryItem>();
 
-    public static void AddItem(ItemSettings itemData, int quantity = 1, QualityType qualityType = QualityType.Common)
+    public static void AddItem(ItemSettings itemData, int quantity = 1, QualityType qualityType = QualityType.Bom)
     {
         if (itemData.IsStackable)
         {
@@ -26,7 +26,7 @@ public class InventoryService
         GameEvents.Inventory.OnItemAdded?.Invoke(newItem);
     }
 
-    public static void RemoveItem(ItemSettings itemData, int quantity = 1, QualityType qualityType = QualityType.Common)
+    public static void RemoveItem(ItemSettings itemData, int quantity = 1, QualityType qualityType = QualityType.Bom)
     {
         // Procura o item na lista com a mesma qualidade
         InventoryItem existingItem = Items.Find(i => i.Settings == itemData && i.Quality == qualityType);

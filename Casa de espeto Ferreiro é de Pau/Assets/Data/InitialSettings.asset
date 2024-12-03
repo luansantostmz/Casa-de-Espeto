@@ -20,3 +20,6 @@ MonoBehaviour:
   - Settings: {fileID: 11400000, guid: dc59740ab7dd137408b223225f9fa7c8, type: 2}
     Quantity: 10
     Quality: 0
+  - Settings: {fileID: 11400000, guid: dc0e3e00f89637f4bbeef699784c05a3, type: 2}
+    Quantity: 10
+    Quality: 4

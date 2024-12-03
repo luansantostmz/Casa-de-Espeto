@@ -15,8 +15,8 @@ public class TimeValueRange // Classe específica para este script
 public class ForgeBar : MonoBehaviour
 {
 	public Slider slider;                              // Referência ao componente Slider
-	public float durationInSeconds = 120f;            // Duração total (em segundos)
-	public List<TimeValueRange> valueRanges = new List<TimeValueRange>();  // Lista de faixas definidas no Inspetor
+	public float durationInSeconds => forgeSettings.valueRanges[^1].maxValue;// Duração total (em segundos)
+	public ForgeSettings forgeSettings;
 
 	private float timeElapsed;                        // Tempo acumulado
 	private bool isRunning;                    // Controle se o slider está em execução
@@ -66,7 +66,7 @@ public class ForgeBar : MonoBehaviour
 
 	private void CheckCurrentRange(float currentValue)
 	{
-		foreach (var range in valueRanges)
+		foreach (var range in forgeSettings.valueRanges)
 		{
 			if (currentValue >= range.minValue && currentValue <= range.maxValue)
 			{
@@ -91,7 +91,7 @@ public class ForgeBar : MonoBehaviour
 		Debug.Log($"Slider parou no tempo de: {timeElapsed} segundos");
 
 		// Verifica em qual faixa o valor do slider parou
-		foreach (var range in valueRanges)
+		foreach (var range in forgeSettings.valueRanges)
 		{
 			if (timeElapsed >= range.minValue && timeElapsed <= range.maxValue)
 			{
@@ -117,7 +117,7 @@ public class ForgeBar : MonoBehaviour
 			}
 
 			// Agora, criamos as faixas de cores
-			foreach (var range in valueRanges)
+			foreach (var range in forgeSettings.valueRanges)
 			{
 				// Garantir que o alfa seja 1 (visível completamente)
 				Color colorWithAlpha = range.color;

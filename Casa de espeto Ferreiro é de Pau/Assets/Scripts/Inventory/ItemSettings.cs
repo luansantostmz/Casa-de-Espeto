@@ -9,9 +9,10 @@ public class ItemSettings : ScriptableObject
     public Sprite Sprite;
     public bool IsStackable;
     public ItemSettings MeltedItem;
+    public ForgeSettings ForgeSettings;
 }
 
 public enum QualityType
 {
-    Common, Uncommon, Rare, SuperRare, Legendary
+    Bom, Otimo, Perfeito
 }

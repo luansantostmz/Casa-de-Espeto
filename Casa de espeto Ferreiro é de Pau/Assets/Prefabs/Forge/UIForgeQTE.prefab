@@ -290,28 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 3687934512941621053}
-  durationInSeconds: 100
-  valueRanges:
-  - minValue: 0
-    maxValue: 30
-    quality: 0
-    color: {r: 0.8679245, g: 0.028657902, b: 0.028657902, a: 0}
-  - minValue: 30
-    maxValue: 50
-    quality: 1
-    color: {r: 0.9339623, g: 0.6974278, b: 0, a: 0}
-  - minValue: 50
-    maxValue: 60
-    quality: 2
-    color: {r: 0.16945773, g: 0.6603774, b: 0.028034877, a: 0}
-  - minValue: 60
-    maxValue: 75
-    quality: 1
-    color: {r: 0.93333334, g: 0.69803923, b: 0, a: 0}
-  - minValue: 75
-    maxValue: 100
-    quality: 0
-    color: {r: 0.8666667, g: 0.02745098, b: 0.02745098, a: 0}
+  forgeSettings: {fileID: 0}
 --- !u!1 &7793553620252932319
 GameObject:
   m_ObjectHideFlags: 0

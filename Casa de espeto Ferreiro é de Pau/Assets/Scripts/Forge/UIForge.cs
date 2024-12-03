@@ -22,7 +22,9 @@ public class UIForge : MonoBehaviour
             if (slot.Item == null)
             {
                 InventoryService.RemoveItem(itemSettings);
+                slot.SetForgeBarSettings(itemSettings.ForgeSettings);
                 slot.SetItem(itemSettings);
+
                 return;
             }
         }
