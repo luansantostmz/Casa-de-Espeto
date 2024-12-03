@@ -2,12 +2,12 @@
 [System.Serializable]
 public class InventoryItem
 {
-    public ItemData Data;
+    public ItemSettings Settings;
     public int Quantity;
 
-    public InventoryItem(ItemData item, int quantity = 1)
+    public InventoryItem(ItemSettings item, int quantity = 1)
     {
-        Data = item;
+        Settings = item;
         Quantity = quantity;
     }
 }

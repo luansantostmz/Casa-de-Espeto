@@ -14,8 +14,10 @@ public class UIInventoryItem : MonoBehaviour
     {
         Item = inventoryItem;
 
-        _name.text = inventoryItem.Data.ItemName;
+        _name.text = inventoryItem.Settings.ItemName;
         _amount.text = $"x{inventoryItem.Quantity}";
-        _sprite.sprite = inventoryItem.Data.Sprite;
+        _sprite.sprite = inventoryItem.Settings.Sprite;
+
+        GetComponent<ScaleDoTween>().PlayTween();
     }
 }

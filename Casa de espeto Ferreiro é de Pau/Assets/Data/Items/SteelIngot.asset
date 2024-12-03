@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 060c32ada41666049baad249a6fb2f59, type: 3}
-  m_Name: SteelOre
+  m_Script: {fileID: 11500000, guid: d9d58579db34c2f4ea13caf4848ed104, type: 3}
+  m_Name: SteelIngot
   m_EditorClassIdentifier: 
-  ItemName: Steel Ore
-  BasePrice: 200
-  Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  ItemName: Steel Ingot
+  BasePrice: 150
+  Sprite: {fileID: 21300000, guid: 22100390a6f3dbc43a965945ec192dfb, type: 3}
   IsStackable: 1

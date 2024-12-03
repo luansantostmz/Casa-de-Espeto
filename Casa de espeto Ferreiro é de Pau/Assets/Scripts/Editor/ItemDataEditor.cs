@@ -1,14 +1,14 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ItemData))]
+[CustomEditor(typeof(ItemSettings))]
 public class ItemDataEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        ItemData itemData = (ItemData)target;
+        ItemSettings itemData = (ItemSettings)target;
 
         if (itemData.Sprite != null)
         {
