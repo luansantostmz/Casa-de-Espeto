@@ -7,8 +7,9 @@ public class UIInventory : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private UIInventoryItem _itemPrefab;
     [SerializeField] private RectTransform _itemContainer;
+    [SerializeField] private List<InventoryItem> _items = new List<InventoryItem>();
 
-    private readonly Dictionary<ItemData, UIInventoryItem> _inventoryItems = new();
+    private readonly Dictionary<ItemSettings, UIInventoryItem> _inventoryItems = new();
 
     private void Awake()
     {
@@ -18,6 +19,7 @@ public class UIInventory : MonoBehaviour
     private void Start()
     {
         InitializeInventoryUI();
+        _items = InventoryService.Items;
     }
 
     private void OnDestroy()
@@ -54,12 +56,11 @@ public class UIInventory : MonoBehaviour
     private void HandleItemAdded(InventoryItem newItem)
     {
         // Check if the item already exists in the inventory and is stackable
-        if (_inventoryItems.TryGetValue(newItem.Data, out var uiItem))
+        if (_inventoryItems.TryGetValue(newItem.Settings, out var uiItem))
         {
-            if (newItem.Data.IsStackable)
+            if (newItem.Settings.IsStackable)
             {
                 // Update the existing item quantity
-                uiItem.Item.Quantity += newItem.Quantity;
                 uiItem.SetItem(uiItem.Item);
             }
             else
@@ -71,16 +72,17 @@ public class UIInventory : MonoBehaviour
         {
             AddItemToUI(newItem);
         }
+        _items = InventoryService.Items;
     }
 
     private void HandleItemRemoved(InventoryItem itemToRemove)
     {
-        if (_inventoryItems.TryGetValue(itemToRemove.Data, out var uiItem))
+        if (_inventoryItems.TryGetValue(itemToRemove.Settings, out var uiItem))
         {
             if (itemToRemove.Quantity <= 0)
             {
                 // Remove item from inventory UI
-                _inventoryItems.Remove(itemToRemove.Data);
+                _inventoryItems.Remove(itemToRemove.Settings);
                 Destroy(uiItem.gameObject);
             }
             else
@@ -89,13 +91,14 @@ public class UIInventory : MonoBehaviour
                 uiItem.SetItem(itemToRemove);
             }
         }
+        _items = InventoryService.Items;
     }
 
     private void AddItemToUI(InventoryItem item)
     {
         var uiItem = Instantiate(_itemPrefab, _itemContainer);
         uiItem.SetItem(item);
-        _inventoryItems[item.Data] = uiItem; // Use ItemData as the key
+        _inventoryItems[item.Settings] = uiItem; // Use ItemData as the key
     }
 
     #endregion

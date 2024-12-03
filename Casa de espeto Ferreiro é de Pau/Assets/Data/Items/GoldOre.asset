@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 060c32ada41666049baad249a6fb2f59, type: 3}
+  m_Script: {fileID: 11500000, guid: d9d58579db34c2f4ea13caf4848ed104, type: 3}
   m_Name: GoldOre
   m_EditorClassIdentifier: 
   ItemName: Gold Ore
   BasePrice: 250
-  Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  Sprite: {fileID: 21300000, guid: f6384cc3c5efc13479a1250068245292, type: 3}
   IsStackable: 1

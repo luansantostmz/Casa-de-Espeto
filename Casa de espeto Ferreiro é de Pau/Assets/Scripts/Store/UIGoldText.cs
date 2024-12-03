@@ -9,7 +9,7 @@ public class UIGoldText : MonoBehaviour
     {
         text = GetComponent<TMP_Text>();
         GameEvents.Economy.OnGoldAdded += UpdateValue;
-        GameEvents.Economy.OnGoldRemoved += UpdateValue; 
+        GameEvents.Economy.OnGoldSubtracted += UpdateValue; 
     }
 
     private void OnEnable()
@@ -20,11 +20,12 @@ public class UIGoldText : MonoBehaviour
     private void OnDestroy()
     {
         GameEvents.Economy.OnGoldAdded -= UpdateValue;
-        GameEvents.Economy.OnGoldRemoved -= UpdateValue;
+        GameEvents.Economy.OnGoldSubtracted -= UpdateValue;
     }
 
     private void UpdateValue()
     {
         text.text = EconomyService.CurrentGold.ToString();
+        GetComponent<ScaleDoTween>().PlayTween();
     }
 }
