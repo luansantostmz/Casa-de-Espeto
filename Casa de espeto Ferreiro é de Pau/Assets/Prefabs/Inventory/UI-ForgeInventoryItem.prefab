@@ -103,9 +103,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1634113674732738520}
   m_SourcePrefab: {fileID: 100100000, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
---- !u!114 &5372293053284025532 stripped
+--- !u!114 &5073821034141779172 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 379646372040511602, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+  m_CorrespondingSourceObject: {fileID: 694446138855231530, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
   m_PrefabInstance: {fileID: 5749687478138606798}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 5372293053284025532}
+  m_TargetGraphic: {fileID: 5073821034141779172}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
