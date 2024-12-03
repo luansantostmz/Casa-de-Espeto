@@ -29,7 +29,6 @@ public class SoundManager : MonoBehaviour
 
 		PlayerPrefs.SetFloat("MasterVolumeKey", level);
 		PlayerPrefs.Save();
-		Debug.Log(level);
 	}
 	public void SetMusicVolume(float level)
 	{
@@ -54,7 +53,6 @@ public class SoundManager : MonoBehaviour
 		float savedVolumeMaster = PlayerPrefs.GetFloat("MasterVolumeKey");
 		audioMixer.SetFloat("MasterVolume", Mathf.Log10(savedVolumeMaster) * 20f);
 		masterSlider.value = savedVolumeMaster;
-		Debug.Log(savedVolumeMaster);
 
 		//Music
 		float savedVolumeMusic = PlayerPrefs.GetFloat("MusicVolumeKey");
