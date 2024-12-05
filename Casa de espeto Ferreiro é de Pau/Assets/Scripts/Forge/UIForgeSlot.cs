@@ -3,75 +3,45 @@ using UnityEngine.UI;
 
 public class UIForgeSlot : MonoBehaviour
 {
-    [SerializeField] Image _itemImage;
     [SerializeField] ForgeBar _forgeBar;
 
-    [SerializeField] Button _completeButton;
-    [SerializeField] Button _cancelButton;
-
-    public ItemSettings Item { get; private set; }
+    public UIInventoryItem Item { get; private set; }
 
     private void Awake()
     {
         _forgeBar.StopBar();
-
-        _completeButton.onClick.AddListener(StopBar);
-        _cancelButton.onClick.AddListener(Cancel);
-        _forgeBar.OnBarStopped += OnBarStopped;
-
-        ActivateButtons(false);
     }
 
-    private void OnDestroy()
-    {
-        _completeButton.onClick.RemoveListener(StopBar);
-        _cancelButton.onClick.RemoveListener(Cancel);
-        _forgeBar.OnBarStopped -= OnBarStopped;
-    }
-
-    public void SetItem(ItemSettings itemSettings)
-    {
-        Item = itemSettings;
-        _forgeBar.StartBar();
-
-        _itemImage.sprite = itemSettings.Sprite;
-        _itemImage.gameObject.SetActive(true);
-
-        ActivateButtons(true);
-    }
-
-    void OnBarStopped(QualityType qualityType)
+    private void Update()
     {
         if (Item == null)
             return;
+     
+        var quality = _forgeBar.GetCurrentQuality();
+        Item.Item.Quality = quality;
 
-        InventoryService.AddItem(Item.MeltedItem, 1, qualityType);
-        ActivateButtons(false);
+        if (quality > 0 && Item.Item.Settings.MeltedItem)
+            Item.Item.Settings = Item.Item.Settings.MeltedItem;
+
+        Item.UpdateVisual();
     }
 
-    void StopBar()
+    public void SetItem(UIInventoryItem item)
     {
+        GetComponent<DropZone>().IsBlocked = true;
+
+        var itemSettings = item.Item.Settings;
+
+        Item = item;
+        _forgeBar.forgeSettings = itemSettings.ForgeSettings;
+        _forgeBar.StartBar();
+
+        InventoryService.RemoveItem(item.Item);
+    }
+
+    public void RemoveItem()
+    {
+        GetComponent<DropZone>().IsBlocked = false;
         _forgeBar.StopBar();
-        _itemImage.gameObject.SetActive(false);
-        Item = null;
-    }
-
-    void Cancel()
-    {
-        _forgeBar.gameObject.SetActive(false);
-        _itemImage.gameObject.SetActive(false);
-        Item = null;
-        ActivateButtons(false);
-    }
-
-    void ActivateButtons(bool active)
-    {
-        _completeButton.gameObject.SetActive(active);
-        _cancelButton.gameObject.SetActive(active);
-    }
-
-    public void SetForgeBarSettings(ForgeSettings forgeSettings) 
-    {
-        _forgeBar.forgeSettings = forgeSettings;
     }
 }

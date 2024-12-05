@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class UIInventoryItem : MonoBehaviour
 {
     [SerializeField] TMP_Text _name;
-    [SerializeField] TMP_Text _amount;
     [SerializeField] Image _sprite;
 
     [SerializeField] List<QualityObject> _qualityObjects = new List<QualityObject>();
@@ -16,10 +15,13 @@ public class UIInventoryItem : MonoBehaviour
     public void SetItem(InventoryItem inventoryItem)
     {
         Item = inventoryItem;
+        UpdateVisual();
+    }
 
-        _name.text = inventoryItem.Settings.ItemName;
-        _amount.text = $"x{inventoryItem.Quantity}";
-        _sprite.sprite = inventoryItem.Settings.Sprite;
+    public void UpdateVisual()
+    {
+        _name.text = Item.Settings.ItemName;
+        _sprite.sprite = Item.Settings.Sprite;
 
         _qualityObjects.ForEach(qualityObject => qualityObject.GameObject.SetActive(qualityObject.Quality == Item.Quality));
 

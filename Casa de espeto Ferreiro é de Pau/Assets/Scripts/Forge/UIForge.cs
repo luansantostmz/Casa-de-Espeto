@@ -15,16 +15,14 @@ public class UIForge : MonoBehaviour
         GameEvents.Forge.OnItemAddedToForge -= OnItemAddedToForge;
     }
 
-    private void OnItemAddedToForge(ItemSettings itemSettings)
+    private void OnItemAddedToForge(UIInventoryItem item)
     {
         foreach (var slot in _slots)
         {
             if (slot.Item == null)
             {
-                InventoryService.RemoveItem(itemSettings);
-                slot.SetForgeBarSettings(itemSettings.ForgeSettings);
-                slot.SetItem(itemSettings);
-
+                InventoryService.RemoveItem(item.Item);
+                slot.SetItem(item);
                 return;
             }
         }

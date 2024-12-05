@@ -8,12 +8,11 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	private Vector3 originalPosition;
 	private Transform originalParent;
 
+	public bool useSlotId;
 	public int objectID; // ID do objeto arrastável
 
-
-	public Action OnDrop;
+    public Action<DropZone> OnDrop;
 	public Action OnDragStart;
-
 
 	private void Awake()
 	{
@@ -30,7 +29,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 		GetComponent<Image>().raycastTarget = false;
 
-
 		// Eleva o objeto na hierarquia para evitar sobreposição visual
 		transform.SetParent(transform.root, true);
 	}
@@ -39,7 +37,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	{
 		// Atualiza a posição do objeto com o mouse
 		transform.position = Input.mousePosition;
-	}
+    }
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
@@ -49,35 +47,39 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 			if (dropZone != null)
 			{
-				if (dropZone.zoneID == objectID) // Verifica correspondência de IDs
+				if (!useSlotId || (dropZone.zoneID == objectID && useSlotId)) // Verifica correspondência de IDs
 				{
 					// Soltar na zona correta
-					transform.SetParent(dropZone.transform, true);
-					transform.position = dropZone.transform.position; // Fixa na posição da zona
+					transform.SetParent(dropZone.Container ? dropZone.Container : dropZone.transform, true);
+					transform.localPosition = Vector3.zero; // Fixa na posição da zona
 					dropZone.OnCorrectDrop();
-				}
-				else
+					OnDrop?.Invoke(dropZone);
+                }
+                else
 				{
 					// Soltar na zona errada
 					Debug.Log($"Objeto {objectID} foi solto na zona errada: {dropZone.zoneID}");
 					dropZone.OnWrongDrop();
 					ResetPosition();
-				}
-			}
+					OnDrop?.Invoke(null);
+                }
+            }
 			else
 			{
 				// Soltar em algo que não é uma zona de drop
 				ResetPosition();
-			}
-		}
+				OnDrop?.Invoke(null);
+            }
+        }
 		else
 		{
 			// Não soltou sobre nada
 			ResetPosition();
-		}
-		GetComponent<Image>().raycastTarget = true;
+			OnDrop?.Invoke(null);
+        }
+
+        GetComponent<Image>().raycastTarget = true;
 		GetComponent<ScaleDoTween>().PlayTween();
-		OnDrop?.Invoke();
 	}
 
 	private void ResetPosition()

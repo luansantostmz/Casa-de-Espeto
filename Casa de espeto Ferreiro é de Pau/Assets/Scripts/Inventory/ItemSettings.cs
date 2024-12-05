@@ -7,7 +7,6 @@ public class ItemSettings : ScriptableObject
     public string ItemName;
     public int BasePrice;
     public Sprite Sprite;
-    public bool IsStackable;
     public ItemSettings MeltedItem;
     public ForgeSettings ForgeSettings;
 }

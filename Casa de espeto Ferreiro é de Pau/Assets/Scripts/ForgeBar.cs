@@ -49,7 +49,6 @@ public class ForgeBar : MonoBehaviour
 
 		// Incrementa o tempo acumulado
 		timeElapsed += Time.deltaTime;
-		Debug.Log(timeElapsed);
 
 		// Atualiza o valor do slider conforme o tempo decorrido (mapeando de 0 a 1)
 		slider.value = Mathf.Clamp01(timeElapsed / durationInSeconds);
@@ -59,9 +58,6 @@ public class ForgeBar : MonoBehaviour
 		{
 			StopBar(); // Para automaticamente quando o tempo acabar
 		}
-
-		// Exibe a faixa atual no console
-		CheckCurrentRange(slider.value);
 	}
 
 	private void CheckCurrentRange(float currentValue)
@@ -70,7 +66,6 @@ public class ForgeBar : MonoBehaviour
 		{
 			if (currentValue >= range.minValue && currentValue <= range.maxValue)
 			{
-				Debug.Log($"O valor atual está na faixa: {range.quality}");
 				break;
 			}
 		}
@@ -88,19 +83,30 @@ public class ForgeBar : MonoBehaviour
         gameObject.SetActive(false);
 
         isRunning = false;  // Para o movimento
-		Debug.Log($"Slider parou no tempo de: {timeElapsed} segundos");
 
 		// Verifica em qual faixa o valor do slider parou
 		foreach (var range in forgeSettings.valueRanges)
 		{
 			if (timeElapsed >= range.minValue && timeElapsed <= range.maxValue)
 			{
-				Debug.Log($"O slider parou na faixa: {range.quality}");
 				OnBarStopped?.Invoke(range.quality);
                 break;
 			}
 		}
 	}
+
+	public QualityType GetCurrentQuality()
+	{
+        foreach (var range in forgeSettings.valueRanges)
+        {
+            if (timeElapsed >= range.minValue && timeElapsed <= range.maxValue)
+            {
+				return range.quality;
+            }
+        }
+
+		return QualityType.Bom;
+    }
 
 	// Método para dividir a barra de fundo em segmentos de cores conforme as faixas
 	private void SetBackgroundColors()

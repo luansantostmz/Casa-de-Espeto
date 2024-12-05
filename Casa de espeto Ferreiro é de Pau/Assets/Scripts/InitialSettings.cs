@@ -5,5 +5,12 @@ using UnityEngine;
 public class InitialSettings : ScriptableObject
 {
     public int Gold;
-    public List<InventoryItem> Items = new List<InventoryItem>();
+    public List<InitialItemData> Items = new List<InitialItemData>();
+}
+
+[System.Serializable]
+public class InitialItemData
+{
+    public ItemSettings Item;
+    public int Quantity;
 }

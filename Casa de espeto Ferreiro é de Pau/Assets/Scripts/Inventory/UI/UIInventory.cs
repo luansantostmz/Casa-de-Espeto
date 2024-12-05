@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    [Header("UI Components")]
     [SerializeField] private UIInventoryItem _itemPrefab;
     [SerializeField] private RectTransform _itemContainer;
 
-    private readonly Dictionary<(ItemSettings, QualityType), UIInventoryItem> _inventoryItems = new();
+    [SerializeField] private List<InventoryItem> _items = new List<InventoryItem>();
+    private List<UIInventoryItem> _inventoryItems = new();
 
     private void Awake()
     {
@@ -16,6 +16,7 @@ public class UIInventory : MonoBehaviour
 
     private void Start()
     {
+        _items = InventoryService.Items;
         InitializeInventoryUI();
     }
 
@@ -52,55 +53,30 @@ public class UIInventory : MonoBehaviour
 
     private void HandleItemAdded(InventoryItem newItem)
     {
-        var key = (newItem.Settings, newItem.Quality);
-
-        // Check if the item already exists in the inventory
-        if (_inventoryItems.TryGetValue(key, out var uiItem))
-        {
-            if (newItem.Settings.IsStackable)
-            {
-                // Update the existing item's UI for stackable items
-                uiItem.SetItem(newItem);
-            }
-            else
-            {
-                // Non-stackable items need a new UI entry
-                AddItemToUI(newItem);
-            }
-        }
-        else
-        {
-            AddItemToUI(newItem);
-        }
+        _items = InventoryService.Items;
+        AddItemToUI(newItem);
     }
 
     private void HandleItemRemoved(InventoryItem itemToRemove)
     {
-        var key = (itemToRemove.Settings, itemToRemove.Quality);
+        _items = InventoryService.Items;
+        // Find the exact UI item for this inventory item
+        var uiItem = _inventoryItems.Find(i => i.Item == itemToRemove);
 
-        if (_inventoryItems.TryGetValue(key, out var uiItem))
+        if (uiItem != null)
         {
-            if (itemToRemove.Quantity <= 0)
-            {
-                // Remove the item UI if quantity reaches 0
-                _inventoryItems.Remove(key);
-                Destroy(uiItem.gameObject);
-            }
-            else
-            {
-                // Update the item's UI for reduced quantity
-                uiItem.SetItem(itemToRemove);
-            }
+            // Remove the item from UI
+            _inventoryItems.Remove(uiItem);
+            //Destroy(uiItem.gameObject);
         }
     }
 
     private void AddItemToUI(InventoryItem item)
     {
-        var key = (item.Settings, item.Quality);
-
-        var uiItem = Instantiate(_itemPrefab, _itemContainer);
-        uiItem.SetItem(item);
-        _inventoryItems[key] = uiItem;
+        // Always create a new UI element for each inventory item
+        var newItemUI = Instantiate(_itemPrefab, _itemContainer);
+        newItemUI.SetItem(item);
+        _inventoryItems.Add(newItemUI);
     }
 
     #endregion

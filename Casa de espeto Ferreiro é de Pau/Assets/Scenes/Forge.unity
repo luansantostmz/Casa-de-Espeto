@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -304,6 +304,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1784149909165359277, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
+      propertyPath: zoneID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2344526440354493690, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
+      propertyPath: forgeSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: c6f4b3168088c604fb33af02aaea2171, type: 2}
     - target: {fileID: 2749045490711506897, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -314,7 +322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6433939439946834656, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_Name
-      value: UIForgeSlot (2)
+      value: UIForgeSlot_3
       objectReference: {fileID: 0}
     - target: {fileID: 8915688341766387330, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_AnchorMax.y
@@ -426,7 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -679,6 +687,9 @@ GameObject:
   m_Component:
   - component: {fileID: 623091635}
   - component: {fileID: 623091637}
+  - component: {fileID: 623091640}
+  - component: {fileID: 623091639}
+  - component: {fileID: 623091638}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -721,6 +732,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPrefab: {fileID: 2244978883429265648, guid: c929d7b9631b92e4198c6775b59ce0b2, type: 3}
   _itemContainer: {fileID: 1517080214}
+  _items: []
+--- !u!114 &623091638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623091634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &623091639
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623091634}
+  m_CullTransparentMesh: 1
+--- !u!114 &623091640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623091634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f451b1615850be4ea028ae39882a8fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneID: 1
+  IsBlocked: 0
+  Container: {fileID: 1517080214}
 --- !u!1 &681673643
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,6 +1015,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1784149909165359277, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
+      propertyPath: zoneID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2344526440354493690, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
+      propertyPath: forgeSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: c6f4b3168088c604fb33af02aaea2171, type: 2}
     - target: {fileID: 2749045490711506897, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -960,7 +1033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6433939439946834656, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_Name
-      value: UIForgeSlot (1)
+      value: UIForgeSlot_2
       objectReference: {fileID: 0}
     - target: {fileID: 8915688341766387330, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1071,7 +1144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.3584906, g: 0.3044879, b: 0.26548594, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1431,7 +1504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1802,9 +1875,13 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2344526440354493690, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
+      propertyPath: forgeSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: c6f4b3168088c604fb33af02aaea2171, type: 2}
     - target: {fileID: 6433939439946834656, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_Name
-      value: UIForgeSlot
+      value: UIForgeSlot_1
       objectReference: {fileID: 0}
     - target: {fileID: 8915688341766387330, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2090,10 +2167,10 @@ Animator:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1898549960}
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 227861430}
   - {fileID: 5593917641461321922}
   - {fileID: 7644806883170405933}
   - {fileID: 1943191530323857124}
-  - {fileID: 1898549960}
-  - {fileID: 227861430}

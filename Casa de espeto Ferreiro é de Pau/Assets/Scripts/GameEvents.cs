@@ -16,6 +16,6 @@ public class GameEvents
 
     public class Forge
     {
-        public static Action<ItemSettings> OnItemAddedToForge;
+        public static Action<UIInventoryItem> OnItemAddedToForge;
     }
 }

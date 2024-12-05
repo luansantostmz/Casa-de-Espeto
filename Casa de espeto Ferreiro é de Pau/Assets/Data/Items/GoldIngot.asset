@@ -15,6 +15,5 @@ MonoBehaviour:
   ItemName: Gold Ingot
   BasePrice: 500
   Sprite: {fileID: 21300000, guid: e84b15f4b00d029408a195a313d175c2, type: 3}
-  IsStackable: 1
   MeltedItem: {fileID: 0}
   ForgeSettings: {fileID: 0}

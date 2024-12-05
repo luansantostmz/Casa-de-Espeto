@@ -1,15 +1,50 @@
+using UnityEngine;
 
-
-public class UIForgeInventoryItem : BaseButton
+public class UIForgeInventoryItem : MonoBehaviour
 {
-    protected override void OnClick()
-    {
-        base.OnClick();
+    public UIInventoryItem InventoryItem;
+    public UIForgeSlot ForgeSlot;
 
-        var itemSettings = GetComponent<UIInventoryItem>().Item.Settings;
-        if (itemSettings.MeltedItem == null)
+    DragAndDrop DragNDrop;
+
+    private void Awake()
+    {
+        InventoryItem = GetComponent<UIInventoryItem>();
+        DragNDrop = GetComponent<DragAndDrop>();
+        DragNDrop.OnDrop += AddToSlot;
+    }
+
+    private void OnDestroy()
+    {
+        DragNDrop.OnDrop -= AddToSlot;
+    }
+
+    void AddToSlot(DropZone dropZone)
+    {
+        if (dropZone == null)
             return;
 
-        GameEvents.Forge.OnItemAddedToForge?.Invoke(itemSettings);
+        var item = GetComponent<UIInventoryItem>().Item;
+
+        if (dropZone.TryGetComponent(out UIForgeSlot slot) && !dropZone.IsBlocked)
+        {
+            if (item.Settings.MeltedItem == null)
+                return;
+
+            slot.SetItem(InventoryItem);
+            ForgeSlot = slot;
+            DragNDrop.useSlotId = true;
+            InventoryService.RemoveItem(item);
+        }
+        else if (dropZone.TryGetComponent(out UIInventory inventory))
+        {
+            if (!ForgeSlot)
+                return;
+
+            InventoryService.AddItem(item.Settings, item.Quality);
+            ForgeSlot.RemoveItem();
+            DragNDrop.useSlotId = false;
+            Destroy(gameObject);
+        }
     }
 }

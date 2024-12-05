@@ -9,9 +9,9 @@ public class GameInitializer : MonoBehaviour
         EconomyService.AddGold(_initialSettings.Gold);
         foreach(var item in _initialSettings.Items)
         {
-            for (int i = 0; i < item.Quantity; i++) 
+            for (int i = 0; i < item.Quantity; i++)
             {
-                InventoryService.AddItem(item.Settings);
+                InventoryService.AddItem(item.Item);
             }
         }
     }

@@ -15,6 +15,5 @@ MonoBehaviour:
   ItemName: Copper Ore
   BasePrice: 50
   Sprite: {fileID: 21300000, guid: bdfefa7c2c730e745918ae91d8520cbc, type: 3}
-  IsStackable: 1
   MeltedItem: {fileID: 11400000, guid: 28526a3c676ed814aa3c4c6969411570, type: 2}
   ForgeSettings: {fileID: 11400000, guid: c6f4b3168088c604fb33af02aaea2171, type: 2}
