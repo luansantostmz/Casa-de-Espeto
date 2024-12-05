@@ -16,7 +16,7 @@ MonoBehaviour:
   - minValue: 0
     maxValue: 30
     quality: 0
-    color: {r: 1, g: 0, b: 0, a: 1}
+    color: {r: 0.03127098, g: 0, b: 1, a: 1}
   - minValue: 30
     maxValue: 45
     quality: 1

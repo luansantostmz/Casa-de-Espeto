@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueRanges:
   - minValue: 0
-    maxValue: 20
+    maxValue: 40
     quality: 0
-    color: {r: 1, g: 0, b: 0, a: 1}
-  - minValue: 20
+    color: {r: 0.79935694, g: 0, b: 1, a: 1}
+  - minValue: 40
     maxValue: 50
     quality: 1
     color: {r: 1, g: 0.9728837, b: 0, a: 1}
@@ -26,10 +26,10 @@ MonoBehaviour:
     quality: 2
     color: {r: 0.078233, g: 1, b: 0, a: 1}
   - minValue: 70
-    maxValue: 80
+    maxValue: 90
     quality: 1
     color: {r: 1, g: 0.972549, b: 0, a: 1}
-  - minValue: 80
+  - minValue: 90
     maxValue: 100
     quality: 0
     color: {r: 1, g: 0, b: 0, a: 1}
