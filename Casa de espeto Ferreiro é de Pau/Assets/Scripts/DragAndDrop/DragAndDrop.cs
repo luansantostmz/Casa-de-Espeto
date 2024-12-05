@@ -34,10 +34,13 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	}
 
 	public void OnDrag(PointerEventData eventData)
-	{
-		// Atualiza a posição do objeto com o mouse
-		transform.position = Input.mousePosition;
-    }
+	{	
+		var newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+		newPos.z = 0;
+
+		transform.position = newPos;
+	}
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
