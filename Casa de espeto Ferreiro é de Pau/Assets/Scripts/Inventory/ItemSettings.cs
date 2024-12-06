@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,9 +10,10 @@ public class ItemSettings : ScriptableObject
     public Sprite Sprite;
     public ItemSettings MeltedItem;
     public ForgeSettings ForgeSettings;
+    public List<ItemSettings> Ingredients = new List<ItemSettings>();
 }
 
 public enum QualityType
 {
-    Bom, Otimo, Perfeito
+    Good, Great, Perfect
 }

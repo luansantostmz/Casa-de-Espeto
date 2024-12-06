@@ -2,29 +2,29 @@ using UnityEngine;
 
 public class UIForgeInventoryItem : MonoBehaviour
 {
-    public UIInventoryItem InventoryItem;
+    public UICardItem InventoryItem;
     public UIForgeSlot ForgeSlot;
 
     DragAndDrop DragNDrop;
 
     private void Awake()
     {
-        InventoryItem = GetComponent<UIInventoryItem>();
+        InventoryItem = GetComponent<UICardItem>();
         DragNDrop = GetComponent<DragAndDrop>();
-        DragNDrop.OnDrop += AddToSlot;
+        DragNDrop.OnDrop += OnDrop;
     }
 
     private void OnDestroy()
     {
-        DragNDrop.OnDrop -= AddToSlot;
+        DragNDrop.OnDrop -= OnDrop;
     }
 
-    void AddToSlot(DropZone dropZone)
+    void OnDrop(DropZone dropZone)
     {
         if (dropZone == null)
             return;
 
-        var item = GetComponent<UIInventoryItem>().Item;
+        var item = GetComponent<UICardItem>().Item;
 
         if (dropZone.TryGetComponent(out UIForgeSlot slot) && !dropZone.IsBlocked)
         {
@@ -41,10 +41,9 @@ public class UIForgeInventoryItem : MonoBehaviour
             if (!ForgeSlot)
                 return;
 
-            InventoryService.AddItem(item.Settings, item.Quality);
+            InventoryService.AddItem(item, false);
             ForgeSlot.RemoveItem();
             DragNDrop.useSlotId = false;
-            Destroy(gameObject);
         }
     }
 }

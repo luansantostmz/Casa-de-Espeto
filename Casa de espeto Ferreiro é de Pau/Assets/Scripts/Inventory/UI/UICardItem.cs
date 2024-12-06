@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIInventoryItem : MonoBehaviour
+public class UICardItem : MonoBehaviour
 {
     [SerializeField] TMP_Text _name;
     [SerializeField] Image _sprite;

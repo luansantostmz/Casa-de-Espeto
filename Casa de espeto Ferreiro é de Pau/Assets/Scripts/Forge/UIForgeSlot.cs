@@ -5,7 +5,7 @@ public class UIForgeSlot : MonoBehaviour
 {
     [SerializeField] ForgeBar _forgeBar;
 
-    public UIInventoryItem Item { get; private set; }
+    public UICardItem Item { get; private set; }
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class UIForgeSlot : MonoBehaviour
         Item.UpdateVisual();
     }
 
-    public void SetItem(UIInventoryItem item)
+    public void SetItem(UICardItem item)
     {
         GetComponent<DropZone>().IsBlocked = true;
 

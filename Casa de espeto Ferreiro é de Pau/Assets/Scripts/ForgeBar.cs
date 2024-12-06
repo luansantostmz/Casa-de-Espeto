@@ -105,7 +105,7 @@ public class ForgeBar : MonoBehaviour
             }
         }
 
-		return QualityType.Bom;
+		return QualityType.Good;
     }
 
 	// Método para dividir a barra de fundo em segmentos de cores conforme as faixas

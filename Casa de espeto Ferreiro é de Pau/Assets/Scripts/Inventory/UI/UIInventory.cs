@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    [SerializeField] private UIInventoryItem _itemPrefab;
+    [SerializeField] private UICardItem _itemPrefab;
     [SerializeField] private RectTransform _itemContainer;
 
     [SerializeField] private List<InventoryItem> _items = new List<InventoryItem>();
-    private List<UIInventoryItem> _inventoryItems = new();
+    private List<UICardItem> _inventoryItems = new();
 
     private void Awake()
     {
@@ -39,17 +39,39 @@ public class UIInventory : MonoBehaviour
     {
         GameEvents.Inventory.OnItemAdded += HandleItemAdded;
         GameEvents.Inventory.OnItemRemoved += HandleItemRemoved;
+
+        GameEvents.Inventory.OnCardItemAddedToInventory += HandleCardItemAdded;
+        GameEvents.Inventory.OnCardItemRemovedFromInventory += HandleCardItemRemoved;
     }
 
     private void UnregisterEventListeners()
     {
         GameEvents.Inventory.OnItemAdded -= HandleItemAdded;
         GameEvents.Inventory.OnItemRemoved -= HandleItemRemoved;
+
+        GameEvents.Inventory.OnCardItemAddedToInventory -= HandleCardItemAdded;
+        GameEvents.Inventory.OnCardItemRemovedFromInventory -= HandleCardItemRemoved;
     }
 
     #endregion
 
     #region Inventory Updates
+
+    private void HandleCardItemAdded(UICardItem item)
+    {
+        InventoryService.AddItem(item.Item, false);
+
+        if (_inventoryItems.Contains(item))
+            return;
+
+        _inventoryItems.Add(item);
+    }
+
+    private void HandleCardItemRemoved(UICardItem item)
+    {
+        InventoryService.RemoveItem(item.Item, false);
+        _inventoryItems.Remove(item);
+    }
 
     private void HandleItemAdded(InventoryItem newItem)
     {
@@ -60,20 +82,17 @@ public class UIInventory : MonoBehaviour
     private void HandleItemRemoved(InventoryItem itemToRemove)
     {
         _items = InventoryService.Items;
-        // Find the exact UI item for this inventory item
+
         var uiItem = _inventoryItems.Find(i => i.Item == itemToRemove);
 
         if (uiItem != null)
         {
-            // Remove the item from UI
             _inventoryItems.Remove(uiItem);
-            //Destroy(uiItem.gameObject);
         }
     }
 
     private void AddItemToUI(InventoryItem item)
     {
-        // Always create a new UI element for each inventory item
         var newItemUI = Instantiate(_itemPrefab, _itemContainer);
         newItemUI.SetItem(item);
         _inventoryItems.Add(newItemUI);

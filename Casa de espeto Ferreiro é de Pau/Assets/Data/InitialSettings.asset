@@ -22,3 +22,7 @@ MonoBehaviour:
     Quantity: 3
   - Item: {fileID: 11400000, guid: dc0e3e00f89637f4bbeef699784c05a3, type: 2}
     Quantity: 3
+  - Item: {fileID: 11400000, guid: ad9a5a1262af80742afa332d840ad690, type: 2}
+    Quantity: 3
+  - Item: {fileID: 11400000, guid: 28526a3c676ed814aa3c4c6969411570, type: 2}
+    Quantity: 3
