@@ -15,7 +15,7 @@ public class UIForge : MonoBehaviour
         GameEvents.Forge.OnItemAddedToForge -= OnItemAddedToForge;
     }
 
-    private void OnItemAddedToForge(UIInventoryItem item)
+    private void OnItemAddedToForge(UICardItem item)
     {
         foreach (var slot in _slots)
         {

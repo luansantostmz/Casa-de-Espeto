@@ -48,7 +48,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		{
 			DropZone dropZone = eventData.pointerEnter.GetComponent<DropZone>();
 
-			if (dropZone != null)
+			if (dropZone != null && !dropZone.IsBlocked)
 			{
 				if (!useSlotId || (dropZone.zoneID == objectID && useSlotId)) // Verifica correspondência de IDs
 				{
@@ -78,7 +78,6 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		{
 			// Não soltou sobre nada
 			ResetPosition();
-			OnDrop?.Invoke(null);
         }
 
         GetComponent<Image>().raycastTarget = true;

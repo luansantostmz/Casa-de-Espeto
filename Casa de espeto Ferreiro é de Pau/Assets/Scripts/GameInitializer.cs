@@ -11,7 +11,7 @@ public class GameInitializer : MonoBehaviour
         {
             for (int i = 0; i < item.Quantity; i++)
             {
-                InventoryService.AddItem(item.Item);
+                InventoryService.AddItem(new InventoryItem(item.Item, QualityType.Good));
             }
         }
     }
