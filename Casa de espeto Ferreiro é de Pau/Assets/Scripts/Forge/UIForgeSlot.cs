@@ -1,10 +1,14 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIForgeSlot : MonoBehaviour
 {
     [SerializeField] ForgeBar _forgeBar;
+    [SerializeField] DropZone _dropZone;
 
     public UICardItem Item { get; private set; }
+
+    QualitySettings _lastQuality;
 
     private void Awake()
     {
@@ -22,11 +26,16 @@ public class UIForgeSlot : MonoBehaviour
         if (quality != _forgeBar.forgeSettings.valueRanges[0].quality && Item.Item.Settings.MeltedItem)
             Item.Item.Settings = Item.Item.Settings.MeltedItem;
 
-        Item.UpdateVisual();
+        if (_lastQuality != quality)
+        {
+            Item.UpdateVisual();
+            _lastQuality = quality;
+        }
     }
 
     public void SetItem(UICardItem item)
     {
+        _lastQuality = item.Item.Quality;
         GetComponentInChildren<DropZone>(true).IsBlocked = true;
 
         var itemSettings = item.Item.Settings;
@@ -40,7 +49,7 @@ public class UIForgeSlot : MonoBehaviour
 
     public void RemoveItem()
     {
-        GetComponent<DropZone>().IsBlocked = false;
+        _dropZone.IsBlocked = false;
         _forgeBar.StopBar();
     }
 }
