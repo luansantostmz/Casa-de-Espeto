@@ -39,6 +39,7 @@ public class UIInventory : MonoBehaviour
     {
         GameEvents.Inventory.OnItemAdded += HandleItemAdded;
         GameEvents.Inventory.OnItemRemoved += HandleItemRemoved;
+        GameEvents.Inventory.OnItemDestroyed += HandleItemDestroyed;
 
         GameEvents.Inventory.OnCardItemAddedToInventory += HandleCardItemAdded;
         GameEvents.Inventory.OnCardItemRemovedFromInventory += HandleCardItemRemoved;
@@ -48,6 +49,7 @@ public class UIInventory : MonoBehaviour
     {
         GameEvents.Inventory.OnItemAdded -= HandleItemAdded;
         GameEvents.Inventory.OnItemRemoved -= HandleItemRemoved;
+        GameEvents.Inventory.OnItemDestroyed -= HandleItemDestroyed;
 
         GameEvents.Inventory.OnCardItemAddedToInventory -= HandleCardItemAdded;
         GameEvents.Inventory.OnCardItemRemovedFromInventory -= HandleCardItemRemoved;
@@ -88,6 +90,27 @@ public class UIInventory : MonoBehaviour
         if (uiItem != null)
         {
             _inventoryItems.Remove(uiItem);
+        }
+    }
+
+    private void HandleItemDestroyed(InventoryItem itemToRemove)
+    {
+        var uiItem = _inventoryItems.Find(i => i.Item == itemToRemove);
+
+        if (uiItem != null)
+        {
+            Destroy(uiItem.gameObject);
+        }
+        else
+        {
+            foreach(var ui in _inventoryItems)
+            {
+                if (ui.Item.Settings == itemToRemove.Settings && ui.Item.Quality == itemToRemove.Quality)
+                {
+                    Destroy(ui.gameObject);
+                    return;
+                }
+            }
         }
     }
 

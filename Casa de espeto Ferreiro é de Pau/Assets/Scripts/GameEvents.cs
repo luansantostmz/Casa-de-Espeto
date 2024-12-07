@@ -6,6 +6,7 @@ public class GameEvents
     {
         public static Action<InventoryItem> OnItemAdded;
         public static Action<InventoryItem> OnItemRemoved;
+        public static Action<InventoryItem> OnItemDestroyed;
 
         public static Action<UICardItem> OnCardItemAddedToInventory;
         public static Action<UICardItem> OnCardItemRemovedFromInventory;
@@ -15,6 +16,12 @@ public class GameEvents
     {
         public static Action OnGoldAdded;
         public static Action OnGoldSubtracted;
+    }
+
+    public class Order
+    {
+        public static Action<OrderData> OnOrderAdded;
+        public static Action<OrderData> OnOrderComplete;
     }
 
     public class DragAndDrop
