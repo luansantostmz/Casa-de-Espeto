@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI-ForgeInventoryItem
       objectReference: {fileID: 0}
+    - target: {fileID: 185005227534652967, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 379646372040511602, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
@@ -108,12 +112,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1426082927181636729, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2459038901691175928, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3493934852639931598, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002521841578161666, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4683484080568950502, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
       propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789360848282852606, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4802815312972135064, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5027934294695147397, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5609122070408956697, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6354684834393939112, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
@@ -126,6 +158,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7249177734647274048, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
       propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9164559794234126281, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

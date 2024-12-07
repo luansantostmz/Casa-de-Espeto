@@ -419,6 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2060666336}
   - component: {fileID: 2060666335}
+  - component: {fileID: 2060666337}
   m_Layer: 0
   m_Name: AutoSliderManager
   m_TagString: Untagged
@@ -471,6 +472,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2060666337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060666334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92ee2668e5fa484f9ef934a5c6fbd58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3242939268955251748 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1795344865766610850, guid: 21d096b59f885c14f8f6fd8f3f73057f, type: 3}
@@ -487,6 +500,10 @@ PrefabInstance:
     - target: {fileID: 1387879855199149652, guid: 21d096b59f885c14f8f6fd8f3f73057f, type: 3}
       propertyPath: m_Name
       value: SettingsManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387879855199149652, guid: 21d096b59f885c14f8f6fd8f3f73057f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1795344865766610850, guid: 21d096b59f885c14f8f6fd8f3f73057f, type: 3}
       propertyPath: m_Pivot.x
