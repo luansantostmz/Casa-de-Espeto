@@ -43,13 +43,13 @@ public class UIAnvil : MonoBehaviour
 
     private void OnHammer(QualitySettings quality)
     {
+        _dropZone.IsBlocked = true;
         _qualityPoints += quality.Points;
         _qualityPoints = _qualityPoints / 2;
+        _hammerCount++;
         UpdateToCraftItem(true);
         _bar.RestartBar();
         _hammerVFX.gameObject.SetActive(true);
-
-        _hammerCount++;
 
         _hammerCountText.gameObject.SetActive(true);
         _hammerCountText.text = $"{_hammerCount}/{_lastToCraftItem.HammerCount}";
@@ -64,36 +64,47 @@ public class UIAnvil : MonoBehaviour
         _bar.gameObject.SetActive(true);
         _hammerVFX.gameObject.SetActive(false);
 
-        if (_hammerCount >= _lastToCraftItem.HammerCount)
+        if (_items.Count > 0)
         {
-            InventoryService.AddItem(_toCraftItemUI.Item);
-            
-            foreach(var item in _items)
+            foreach (var item in _items)
             {
                 Destroy(item.gameObject);
             }
 
-            _dropZone.IsBlocked = false;
-            _qualityPoints = 0;
-            _hammerCount = 0;
-            _hammerCountText.gameObject.SetActive(false);
-
             _items.Clear();
+        }
 
+        if (_hammerCount >= _lastToCraftItem.HammerCount)
+        { 
+            InventoryService.AddItem(_toCraftItemUI.Item);
+            _hammerCount = 0;
+            _qualityPoints = 0;
+            _dropZone.IsBlocked = false;
+            _hammerCountText.gameObject.SetActive(false);
             UpdateToCraftItem();
         }
     }
 
     private void UpdateToCraftItem(bool forceUpdateVisual = false)
     {
+        if (_hammerCount > 0)
+        {
+            var quality = QualityProvider.Instance.GetQualityByPoints(_qualityPoints);
+            _toCraftItemUI.SetItem(new InventoryItem(_lastToCraftItem, quality));
+            _toCraftItemUI.gameObject.SetActive(true);
+
+            return;
+        }
+
         var toCraftItem = GetToCraftItem();
 
         if (_lastToCraftItem == toCraftItem && !forceUpdateVisual)
             return;
 
-        _lastToCraftItem = toCraftItem;
         if (toCraftItem != null)
         {
+            _lastToCraftItem = toCraftItem;
+
             _bar.SetQTESettings(toCraftItem.AnvilSettings);
             _bar.gameObject.SetActive(true);
 
