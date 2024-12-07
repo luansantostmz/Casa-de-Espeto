@@ -58,7 +58,6 @@ public class UIOrder : MonoBehaviour
 
     IEnumerator Fail()
     {
-        _orderData.IsFailed = true;
         _failObject.SetActive(true);
         yield return new WaitForSeconds(2f);
         _orderData.Fail();

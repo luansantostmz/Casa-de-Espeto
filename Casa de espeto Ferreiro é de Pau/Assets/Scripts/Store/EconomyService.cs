@@ -6,6 +6,7 @@ public class EconomyService
     public static void AddGold(int quantity)
     {
         CurrentGold += quantity;
+        GameEvents.Economy.OnEarnGold?.Invoke(quantity);
         GameEvents.Economy.OnGoldAdded?.Invoke();
     }
 

@@ -44,6 +44,7 @@ public class OrderData
 
         IsCompleted = true;
 
+        GameManager.Instance.GainReputation();
         EconomyService.AddGold(Reward);
 
         foreach (var item in GetItemsInStock())
@@ -59,6 +60,7 @@ public class OrderData
         if (IsFailed || IsCompleted) return;
 
         IsFailed = true;
+        GameManager.Instance.LoseReputation();
         GameEvents.Order.OnOrderFail?.Invoke(this);
     }
 }

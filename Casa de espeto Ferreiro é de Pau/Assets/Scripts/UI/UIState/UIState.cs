@@ -5,7 +5,7 @@ public class UIState : ScriptableObject
 {
     public UIStateGroup Group;
 
-    public void Active()
+    public void Activate()
     {
         UIStateOrchestrator.ActiveState(this);
     }

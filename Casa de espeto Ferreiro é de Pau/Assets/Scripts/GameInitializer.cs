@@ -6,7 +6,7 @@ public class GameInitializer : MonoBehaviour
 
     private void Start()
     {
-        GameManager.AddReputation(_initialSettings.Reputation);
+        GameManager.Instance.SetReputation(_initialSettings.Reputation);
         EconomyService.AddGold(_initialSettings.Gold);
         
         foreach (var item in _initialSettings.Items)

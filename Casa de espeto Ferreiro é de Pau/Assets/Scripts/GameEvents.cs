@@ -2,6 +2,8 @@ using System;
 
 public class GameEvents
 {
+    public static Action OnGameOver;
+
     public class Reputation
     {
         public static Action OnReputationChanged;
@@ -20,6 +22,7 @@ public class GameEvents
     public class Economy
     {
         public static Action OnGoldAdded;
+        public static Action<int> OnEarnGold;
         public static Action OnGoldSubtracted;
     }
 

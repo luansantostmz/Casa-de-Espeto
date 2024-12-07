@@ -6,6 +6,6 @@ public class UIStateInitializer : MonoBehaviour
 
     void Start()
     {
-        _initialState.Active();
+        _initialState.Activate();
     }
 }

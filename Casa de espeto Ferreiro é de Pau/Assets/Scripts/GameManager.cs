@@ -5,8 +5,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int MaxReputation = 100;
+    public int CurrentReputation;
 
-    public static int CurrentReputation;
+    public int ReputationToWinOnDeliver = 5;
+    public int ReputationToLoseOnFail = 20;
+
+    public UIState GameOverUI;
+    private bool IsGameOver;
 
     public static GameManager Instance;
 
@@ -22,16 +27,32 @@ public class GameManager : MonoBehaviour
         return;
     }
 
-    public static void AddReputation(int reputation)
+    public void SetReputation(int value)
     {
-        CurrentReputation += reputation;
+        CurrentReputation = ReputationToWinOnDeliver;
         GameEvents.Reputation.OnReputationChanged?.Invoke();
     }
 
-    public static void RemoveReputation(int reputation)
+    public void GainReputation()
     {
-        CurrentReputation -= reputation;
+        CurrentReputation += ReputationToWinOnDeliver;
         GameEvents.Reputation.OnReputationChanged?.Invoke();
+    }
+
+    public void LoseReputation()
+    {
+        if (IsGameOver)
+            return;
+
+        CurrentReputation -= ReputationToLoseOnFail;
+        GameEvents.Reputation.OnReputationChanged?.Invoke();
+
+        if (CurrentReputation <= 0)
+        {
+            IsGameOver = true;
+            GameOverUI.Activate();
+            GameEvents.OnGameOver?.Invoke();
+        }
     }
 
     public float GetReputationFill()
