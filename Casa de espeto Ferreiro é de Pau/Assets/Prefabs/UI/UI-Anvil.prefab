@@ -1069,7 +1069,7 @@ GameObject:
   - component: {fileID: 1912719696288779525}
   - component: {fileID: 4295303228273298425}
   m_Layer: 5
-  m_Name: UI-AnvilCanvas
+  m_Name: UI-Anvil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

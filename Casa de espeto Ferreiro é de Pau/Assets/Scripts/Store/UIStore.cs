@@ -1,18 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UIStore : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] UIStoreItem _storeItemPrefab;
+    [SerializeField] RectTransform _container;
+    [SerializeField] List<ItemSettings> _itemsToSell = new List<ItemSettings>();
+
+    List<UIStoreItem> _uiItems = new List<UIStoreItem>();
+
+    private void Start()
     {
-        
+        InitializeStore();
     }
 
-    // Update is called once per frame
-    void Update()
+    void InitializeStore()
     {
-        
+        foreach (var item in _itemsToSell)
+        {
+            var ui = Instantiate(_storeItemPrefab, _container);
+            ui.Initialize(item);
+            _uiItems.Add(ui);
+        }
     }
-}
+} 

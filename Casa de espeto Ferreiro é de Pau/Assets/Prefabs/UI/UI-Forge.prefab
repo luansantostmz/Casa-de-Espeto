@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 6828763911059215916}
   - component: {fileID: 3344789814949667703}
   m_Layer: 5
-  m_Name: UI-ForgeCanvas
+  m_Name: UI-Forge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

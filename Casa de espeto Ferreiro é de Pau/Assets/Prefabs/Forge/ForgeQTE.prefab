@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 6598041485350167614}
   - component: {fileID: 1583444473611061757}
   m_Layer: 5
-  m_Name: UIForgeQTE
+  m_Name: ForgeQTE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

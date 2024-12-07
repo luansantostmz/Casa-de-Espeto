@@ -13,32 +13,32 @@ public class UIStoreItem : MonoBehaviour
 
     private void Awake()
     {
-        GameEvents.Economy.OnGoldAdded += Initialize;
-        GameEvents.Economy.OnGoldSubtracted += Initialize;
+        GameEvents.Economy.OnGoldAdded += UpdateButton;
+        GameEvents.Economy.OnGoldSubtracted += UpdateButton;
 
         _purchaseButton.onClick.AddListener(PurchaseItem);
     }
 
     private void OnDestroy()
     {
-        GameEvents.Economy.OnGoldAdded -= Initialize;
-        GameEvents.Economy.OnGoldSubtracted -= Initialize;
+        GameEvents.Economy.OnGoldAdded -= UpdateButton;
+        GameEvents.Economy.OnGoldSubtracted -= UpdateButton;
 
         _purchaseButton.onClick.RemoveListener(PurchaseItem);
     }
 
-    private void OnEnable()
+    public void Initialize(ItemSettings item)
     {
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        _purchaseButton.interactable = EconomyService.HaveEnoughGold(_item.BasePrice);
+        _item = item;
 
         _name.text = _item.ItemName;
         _price.text = _item.BasePrice.ToString();
         _sprite.sprite = _item.Sprite;
+    }
+
+    public void UpdateButton()
+    {
+        _purchaseButton.interactable = EconomyService.HaveEnoughGold(_item.BasePrice);
     }
 
     private void PurchaseItem()
