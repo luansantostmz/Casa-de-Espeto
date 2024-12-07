@@ -30,17 +30,4 @@ public class InventoryService
         if (callAction) 
             GameEvents.Inventory.OnItemRemoved?.Invoke(item);
     }
-
-    public static int GetEqualsAmountInStock(InventoryItem item)
-    {
-        int count = 0;
-
-        foreach(var i in Items)
-        {
-            if (i.Settings ==  item.Settings && i.Quality == item.Quality) 
-                count++;
-        }
-
-        return count;
-    }
 }

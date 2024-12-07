@@ -3,7 +3,10 @@ using System.Collections.Generic;
 [System.Serializable]
 public class OrderData
 {
+    public int OrderId;
     public List<InventoryItem> Items = new List<InventoryItem>();
+    public int DeliveryTime;
+    public float RemainingTime;
     public int Reward;
 
     public List<InventoryItem> GetItemsInStock()
@@ -19,6 +22,7 @@ public class OrderData
                     !inStock.Contains(inventoryItem))
                 {
                     inStock.Add(inventoryItem);
+                    break;
                 }
             }
         }
@@ -35,9 +39,16 @@ public class OrderData
     {
         EconomyService.AddGold(Reward);
 
-        foreach (var item in Items)
+        foreach (var item in GetItemsInStock())
         {
             InventoryService.RemoveItem(item);
         }
+
+        GameEvents.Order.OnOrderComplete?.Invoke(this);
+    }
+
+    public void Fail()
+    {
+
     }
 }
