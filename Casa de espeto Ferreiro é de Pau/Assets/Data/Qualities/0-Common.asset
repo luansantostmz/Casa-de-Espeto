@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QualityName: Common
   Points: 1
-  PriceModifier: 0
+  PriceModifier: 1
   Color: {r: 0.6698113, g: 0.5892657, b: 0.38229796, a: 1}

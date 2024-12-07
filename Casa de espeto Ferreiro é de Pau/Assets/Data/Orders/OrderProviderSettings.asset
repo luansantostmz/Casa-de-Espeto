@@ -18,8 +18,8 @@ MonoBehaviour:
   - Threshold: 0
     MinDelay: 30
     MaxDelay: 45
-    MinOrderDeliveryTime: 0
-    MaxOrderDeliveryTime: 0
+    MinOrderDeliveryTime: 30
+    MaxOrderDeliveryTime: 60
     CanRepeatItem: 1
     Items:
     - {fileID: 11400000, guid: 60744eca0e925fb47b3640da253ce166, type: 2}
@@ -34,8 +34,8 @@ MonoBehaviour:
   - Threshold: 5
     MinDelay: 30
     MaxDelay: 40
-    MinOrderDeliveryTime: 0
-    MaxOrderDeliveryTime: 0
+    MinOrderDeliveryTime: 30
+    MaxOrderDeliveryTime: 40
     CanRepeatItem: 1
     Items:
     - {fileID: 11400000, guid: 60744eca0e925fb47b3640da253ce166, type: 2}

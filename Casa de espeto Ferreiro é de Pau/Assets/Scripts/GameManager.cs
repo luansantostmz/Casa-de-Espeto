@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public int MaxReputation = 100;
+
+    public static int CurrentReputation;
+
     public static GameManager Instance;
 
     private void Awake()
@@ -11,11 +15,27 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             return;
         }
 
         Destroy(gameObject);
         return;
+    }
+
+    public static void AddReputation(int reputation)
+    {
+        CurrentReputation += reputation;
+        GameEvents.Reputation.OnReputationChanged?.Invoke();
+    }
+
+    public static void RemoveReputation(int reputation)
+    {
+        CurrentReputation -= reputation;
+        GameEvents.Reputation.OnReputationChanged?.Invoke();
+    }
+
+    public float GetReputationFill()
+    {
+        return (float)CurrentReputation / MaxReputation;
     }
 }

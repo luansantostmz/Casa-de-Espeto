@@ -83,11 +83,20 @@ public class OrderProvider : MonoBehaviour
             }
         }
 
+        int deliveryTime = Random.Range(settings.MinOrderDeliveryTime, settings.MaxOrderDeliveryTime + 1);
+        
+        int reward = 0;
+        foreach (var item in items)
+        {
+            reward += Mathf.CeilToInt(item.Settings.BasePrice * item.Quality.PriceModifier);
+        }
+
         return new OrderData()
         {
             Items = items,
-            Reward = 1000,
-            DeliveryTime = Random.Range(settings.MinOrderDeliveryTime, settings.MaxOrderDeliveryTime + 1)
+            Reward = reward,
+            DeliveryTime = deliveryTime,
+            RemainingTime = deliveryTime
         };
     }
 

@@ -2,6 +2,11 @@ using System;
 
 public class GameEvents
 {
+    public class Reputation
+    {
+        public static Action OnReputationChanged;
+    }
+
     public class Inventory
     {
         public static Action<InventoryItem> OnItemAdded;
@@ -22,6 +27,7 @@ public class GameEvents
     {
         public static Action<OrderData> OnOrderAdded;
         public static Action<OrderData> OnOrderComplete;
+        public static Action<OrderData> OnOrderFail;
     }
 
     public class DragAndDrop

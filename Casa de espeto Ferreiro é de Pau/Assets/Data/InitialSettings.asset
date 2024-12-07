@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0972fe662478e4f9e4b483d067cd48, type: 3}
   m_Name: InitialSettings
   m_EditorClassIdentifier: 
+  Reputation: 50
   Gold: 1000
   Items:
   - Item: {fileID: 11400000, guid: 0bac17d6d98d6ac44812c6153c60959b, type: 2}
