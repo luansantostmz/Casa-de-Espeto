@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929959617634e76499dbc9b3a8ce706e, type: 3}
   m_Name: OrderProviderSettings
   m_EditorClassIdentifier: 
-  MinOrdersToInitialize: 10
-  MaxOrdersToInitialize: 10
+  MinOrdersToInitialize: 1
+  MaxOrdersToInitialize: 1
   OrderIntervals:
   - Threshold: 0
     MinDelay: 30
     MaxDelay: 45
-    MinOrderDeliveryTime: 30
-    MaxOrderDeliveryTime: 37
+    MinOrderDeliveryTime: 60
+    MaxOrderDeliveryTime: 90
     CanRepeatItem: 1
     Items:
     - {fileID: 11400000, guid: 60744eca0e925fb47b3640da253ce166, type: 2}
@@ -31,11 +31,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
     - {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}
     - {fileID: 11400000, guid: 3d75b2bf470c53d428532ffa40e6400c, type: 2}
-  - Threshold: 5
+  - Threshold: 15
     MinDelay: 30
     MaxDelay: 40
-    MinOrderDeliveryTime: 20
-    MaxOrderDeliveryTime: 30
+    MinOrderDeliveryTime: 60
+    MaxOrderDeliveryTime: 75
     CanRepeatItem: 1
     Items:
     - {fileID: 11400000, guid: 60744eca0e925fb47b3640da253ce166, type: 2}

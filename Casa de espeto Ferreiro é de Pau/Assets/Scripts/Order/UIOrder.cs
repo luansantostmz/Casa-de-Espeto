@@ -16,6 +16,7 @@ public class UIOrder : MonoBehaviour
 
     [SerializeField] GameObject _deliveredObject;
     [SerializeField] GameObject _failObject;
+    [SerializeField] GameObject _completeVFX;
     [SerializeField] Button _completeButton;
 
     List<UICardItem> _itemsUI = new List<UICardItem>();
@@ -66,7 +67,9 @@ public class UIOrder : MonoBehaviour
 
     private void UpdateVisual(InventoryItem item)
     {
-        _completeButton.interactable = _orderData.HaveAllItems();
+        bool haveAllItems = _orderData.HaveAllItems();
+        _completeButton.interactable = haveAllItems;
+        _completeVFX.SetActive(haveAllItems);
     }
 
     private void Complete()
@@ -76,10 +79,7 @@ public class UIOrder : MonoBehaviour
             GameEvents.Inventory.OnItemDestroyed?.Invoke(item);
         }
 
-        if (_orderData.RemainingTime < 0)
-        {
-            StartCoroutine(Deliver());
-        }
+        StartCoroutine(Deliver());
     }
 
     public void Initialize(OrderData orderData)

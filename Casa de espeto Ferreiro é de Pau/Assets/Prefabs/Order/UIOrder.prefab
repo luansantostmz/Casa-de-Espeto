@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 8808590997821451221}
   - component: {fileID: 9088688857442391320}
   m_Layer: 5
-  m_Name: BG (1)
+  m_Name: Bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 2941372250128967008}
   - component: {fileID: 7817253778915503117}
   m_Layer: 5
-  m_Name: BG
+  m_Name: BgFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1201,6 +1201,7 @@ MonoBehaviour:
   _container: {fileID: 1588353023468171784}
   _deliveredObject: {fileID: 4605760836717729716}
   _failObject: {fileID: 7524390285190407474}
+  _completeVFX: {fileID: 64100112725309621}
   _completeButton: {fileID: 4251729107262926343}
 --- !u!1 &5293655216220347724
 GameObject:
@@ -1813,6 +1814,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58139267dd38cc84a9d5ed0f90748749, type: 3}
+--- !u!1 &64100112725309621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5061953417529181828, guid: 58139267dd38cc84a9d5ed0f90748749, type: 3}
+  m_PrefabInstance: {fileID: 5105975210946543153}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7067622138454550127 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2650699906031687774, guid: 58139267dd38cc84a9d5ed0f90748749, type: 3}
