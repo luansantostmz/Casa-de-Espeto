@@ -14,13 +14,15 @@ public class ChangeScreens : MonoBehaviour
     [SerializeField] private Transform[] posItensAnvil;
 	private Vector3[] initialPositionItensAnvil;
 
-	[Header("Orders")]
-	[SerializeField] private GameObject ordersObject;
+	[Header("Store")]
+	[SerializeField] private Transform[] posItensStore;
+	private Vector3[] initialPositionItensStore;
 
 	private void Start()
 	{
 		initialPositionItensForge = new Vector3[posItensForge.Length];
 		initialPositionItensAnvil = new Vector3[posItensAnvil.Length];
+		initialPositionItensStore = new Vector3[posItensStore.Length];
 
 		//Forge
 		for (int i = 0; i < posItensForge.Length; i++)
@@ -38,6 +40,15 @@ public class ChangeScreens : MonoBehaviour
 				initialPositionItensAnvil[i] = posItensAnvil[i].position;
 			}
 		}
+		//Store
+		for (int i = 0; i < posItensStore.Length; i++)
+		{
+			if (posItensStore[i] != null) // Verifica se o objeto não está vazio
+			{
+				initialPositionItensStore[i] = posItensStore[i].position;
+			}
+		}
+
 
 		MoverParaForaDaCamera();
 	}
@@ -52,8 +63,7 @@ public class ChangeScreens : MonoBehaviour
 			{
 				posItensForge[i].position = initialPositionItensForge[i];
 			}
-		}
-		
+		}		
 	}
 	public void RestartPosAnvil()
 	{
@@ -66,8 +76,20 @@ public class ChangeScreens : MonoBehaviour
 			{
 				posItensAnvil[i].position = initialPositionItensAnvil[i];
 			}
+		}		
+	}
+	public void RestartPosStore()
+	{
+		MoverParaForaDaCamera();
+
+		Debug.Log("Ficou a Store");
+		for (int i = 0; i < posItensStore.Length; i++)
+		{
+			if (posItensStore[i] != null)
+			{
+				posItensStore[i].position = initialPositionItensStore[i];
+			}
 		}
-		
 	}
 	public void MoverParaForaDaCamera()
 	{
@@ -76,7 +98,7 @@ public class ChangeScreens : MonoBehaviour
 		Camera cameraPrincipal = Camera.main; // Obtém a câmera principal
 		if (cameraPrincipal == null) return; // Verifica se a câmera existe
 
-		Vector3 foraDaCamera = cameraPrincipal.ViewportToWorldPoint(new Vector3(1.5f, 0.5f, cameraPrincipal.nearClipPlane + 10f));
+		Vector3 foraDaCamera = cameraPrincipal.ViewportToWorldPoint(new Vector3(1000f, 1000f, cameraPrincipal.nearClipPlane + 10f));
 
 		//Forge
 		for (int i = 0; i < posItensForge.Length; i++)
@@ -92,6 +114,14 @@ public class ChangeScreens : MonoBehaviour
 			if (posItensAnvil[i] != null)
 			{
 				posItensAnvil[i].position = foraDaCamera;
+			}
+		}
+		//Store
+		for (int i = 0; i < posItensStore.Length; i++)
+		{
+			if (posItensStore[i] != null)
+			{
+				posItensStore[i].position = foraDaCamera;
 			}
 		}
 	}
