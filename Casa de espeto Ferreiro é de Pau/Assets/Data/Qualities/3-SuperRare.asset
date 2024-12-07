@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QualityName: Super Rare
   Points: 8
+  PriceModifier: 1.5
   Color: {r: 0.49471268, g: 0.28439835, b: 0.7264151, a: 1}

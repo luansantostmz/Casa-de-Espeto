@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Initial Settings", menuName = "Initial Settings", order = 0)]
 public class InitialSettings : ScriptableObject
 {
+    public int Reputation;
     public int Gold;
     public List<InitialItemData> Items = new List<InitialItemData>();
 }

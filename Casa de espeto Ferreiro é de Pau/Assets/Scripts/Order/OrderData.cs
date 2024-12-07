@@ -9,6 +9,8 @@ public class OrderData
     public float RemainingTime;
     public int Reward;
 
+    public bool IsFailed;
+
     public List<InventoryItem> GetItemsInStock()
     {
         List<InventoryItem> inStock = new List<InventoryItem>();
@@ -49,6 +51,6 @@ public class OrderData
 
     public void Fail()
     {
-
+        GameEvents.Order.OnOrderFail?.Invoke(this);
     }
 }
