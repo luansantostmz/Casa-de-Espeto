@@ -14,7 +14,10 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
     public Action<DropZone> OnDrop;
 	public Action OnDragStart;
 
-	Image _image;
+	public AudioClip _onDragClip;
+	public AudioClip _onDropClip;
+
+    Image _image;
 
 	private void Awake()
 	{
@@ -40,16 +43,24 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 		transform.SetParent(transform.root, true);
 
 		GameEvents.DragAndDrop.OnAnyDragStart?.Invoke(this);
+
+		if (_onDragClip)
+			AudioManager.Instance.PlaySFX(_onDragClip);
 	}
 
 	public void OnDrag(PointerEventData eventData)
 	{
 		// Atualiza a posição do objeto com o mouse
-		transform.position = Input.mousePosition;
+		var newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		newPos.z = 0;
+		transform.position = newPos;
     }
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
+		if (_onDropClip)
+			AudioManager.Instance.PlaySFX(_onDropClip);
+        
 		if (eventData.pointerEnter != null)
 		{
 			DropZone dropZone = eventData.pointerEnter.GetComponent<DropZone>();

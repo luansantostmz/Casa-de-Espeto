@@ -7,6 +7,7 @@ public class ItemSettings : ScriptableObject
 {
     public string ItemName;
     public bool IgnoreQualityOnAnvil;
+    public int HammerCount = 3;
     public int BasePrice;
     public Sprite Sprite;
     public ItemSettings MeltedItem;

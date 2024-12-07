@@ -175,13 +175,14 @@ GameObject:
   - component: {fileID: 2806016828387468036}
   - component: {fileID: 1621116723377635551}
   - component: {fileID: 379646372040511602}
+  - component: {fileID: 1926269556369128541}
   m_Layer: 5
   m_Name: BG-Common
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2806016828387468036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3019758, g: 0.41527328, b: 0.5471698, a: 1}
+  m_Color: {r: 0.101960786, g: 0.78039217, b: 0.8666667, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -239,6 +240,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1926269556369128541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493934852639931598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74ec6bab2891b04cb4eeb83098ad7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Quality: {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
 --- !u!1 &4002521841578161666
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +398,7 @@ GameObject:
   - component: {fileID: 4567430737938988170}
   - component: {fileID: 8382239598786094873}
   - component: {fileID: 2459038901691175928}
+  - component: {fileID: 3657873911786985113}
   m_Layer: 5
   m_Name: BG-Uncommon
   m_TagString: Untagged
@@ -431,7 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.35383713, g: 0.7735849, b: 0.26637593, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.10980392, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -448,6 +463,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3657873911786985113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4789360848282852606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74ec6bab2891b04cb4eeb83098ad7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Quality: {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}
 --- !u!1 &4802815312972135064
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,6 +487,7 @@ GameObject:
   - component: {fileID: 9072428468657338088}
   - component: {fileID: 2743560605137583605}
   - component: {fileID: 6354684834393939112}
+  - component: {fileID: 6591403511553222382}
   m_Layer: 5
   m_Name: BG-Legendary
   m_TagString: Untagged
@@ -523,6 +552,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6591403511553222382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4802815312972135064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74ec6bab2891b04cb4eeb83098ad7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Quality: {fileID: 11400000, guid: 912c4212a09a79941991fc00ab72c505, type: 2}
 --- !u!1 &5027934294695147397
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,6 +688,7 @@ GameObject:
   - component: {fileID: 7689951420293051761}
   - component: {fileID: 3126374576372352042}
   - component: {fileID: 4683484080568950502}
+  - component: {fileID: 585151917637570779}
   m_Layer: 5
   m_Name: BG-Rare
   m_TagString: Untagged
@@ -693,7 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.42623195, g: 0.24029905, b: 0.6792453, a: 1}
+  m_Color: {r: 0, g: 0.078431375, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -710,6 +753,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &585151917637570779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609122070408956697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74ec6bab2891b04cb4eeb83098ad7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Quality: {fileID: 11400000, guid: 3d75b2bf470c53d428532ffa40e6400c, type: 2}
 --- !u!1 &5905159830693563002
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,13 +852,14 @@ GameObject:
   - component: {fileID: 6048860236541188621}
   - component: {fileID: 4060295130849273997}
   - component: {fileID: 6943022327623776689}
+  - component: {fileID: 3999248211190229240}
   m_Layer: 5
   m_Name: BG-SuperRare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6048860236541188621
 RectTransform:
   m_ObjectHideFlags: 0
@@ -843,7 +900,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.745283, g: 0.12304199, b: 0.31522012, a: 1}
+  m_Color: {r: 0.4745098, g: 0, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -860,3 +917,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3999248211190229240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9164559794234126281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b74ec6bab2891b04cb4eeb83098ad7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Quality: {fileID: 11400000, guid: 418f343a8bcf55543ab67274973ad7be, type: 2}

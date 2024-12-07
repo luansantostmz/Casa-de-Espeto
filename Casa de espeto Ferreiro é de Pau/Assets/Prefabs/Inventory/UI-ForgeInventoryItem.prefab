@@ -236,6 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useSlotId: 0
   objectID: 0
+  _onDragClip: {fileID: 0}
+  _onDropClip: {fileID: 8300000, guid: 129dff4ff3abf164d80c7252f96bcff3, type: 3}
 --- !u!222 &6773975081866666784
 CanvasRenderer:
   m_ObjectHideFlags: 0
