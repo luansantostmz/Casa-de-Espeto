@@ -159,11 +159,41 @@ public class UIAnvil : MonoBehaviour
         if (firstList.Count != secondList.Count)
             return false;
 
-        HashSet<ItemSettings> firstSet = new HashSet<ItemSettings>(firstList);
-        HashSet<ItemSettings> secondSet = new HashSet<ItemSettings>(secondList);
+        // Cria dicionários para contar as ocorrências de cada item
+        Dictionary<ItemSettings, int> firstListCounts = GetItemCounts(firstList);
+        Dictionary<ItemSettings, int> secondListCounts = GetItemCounts(secondList);
 
-        return firstSet.SetEquals(secondSet);
+        // Compara os dicionários
+        foreach (var kvp in firstListCounts)
+        {
+            if (!secondListCounts.TryGetValue(kvp.Key, out int secondCount) || kvp.Value != secondCount)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
+
+    private Dictionary<ItemSettings, int> GetItemCounts(List<ItemSettings> list)
+    {
+        Dictionary<ItemSettings, int> itemCounts = new Dictionary<ItemSettings, int>();
+
+        foreach (var item in list)
+        {
+            if (itemCounts.ContainsKey(item))
+            {
+                itemCounts[item]++;
+            }
+            else
+            {
+                itemCounts[item] = 1;
+            }
+        }
+
+        return itemCounts;
+    }
+
 
     public void AddItem(UICardItem item)
     {
