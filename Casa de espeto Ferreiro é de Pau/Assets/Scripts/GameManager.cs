@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     public void SetReputation(int value)
     {
-        CurrentReputation = ReputationToWinOnDeliver;
+        CurrentReputation = value;
         GameEvents.Reputation.OnReputationChanged?.Invoke();
     }
 
