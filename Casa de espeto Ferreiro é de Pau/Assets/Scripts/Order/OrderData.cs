@@ -9,6 +9,7 @@ public class OrderData
     public float RemainingTime;
     public int Reward;
 
+    public bool IsCompleted;
     public bool IsFailed;
 
     public List<InventoryItem> GetItemsInStock()
@@ -39,6 +40,10 @@ public class OrderData
 
     public void Complete()
     {
+        if (IsFailed || IsCompleted) return;
+
+        IsCompleted = true;
+
         EconomyService.AddGold(Reward);
 
         foreach (var item in GetItemsInStock())
@@ -51,6 +56,9 @@ public class OrderData
 
     public void Fail()
     {
+        if (IsFailed || IsCompleted) return;
+
+        IsFailed = true;
         GameEvents.Order.OnOrderFail?.Invoke(this);
     }
 }

@@ -14,6 +14,7 @@ public class UIOrder : MonoBehaviour
     [SerializeField] TMP_Text _remainingTimeText;
     [SerializeField] RectTransform _container;
 
+    [SerializeField] GameObject _deliveredObject;
     [SerializeField] GameObject _failObject;
     [SerializeField] Button _completeButton;
 
@@ -35,16 +36,24 @@ public class UIOrder : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_orderData.IsFailed || _orderData.IsCompleted)
+            return;
+
         _orderData.RemainingTime -= Time.fixedDeltaTime;
         _remainingTimeText.text = $"{(int)_orderData.RemainingTime}s";
-
-        if (_orderData.IsFailed)
-            return;
 
         if (_orderData.RemainingTime < 0)
         {
             StartCoroutine(Fail());
         }
+    }
+
+    IEnumerator Deliver()
+    {
+        _deliveredObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        _orderData.Complete();
+        Destroy(gameObject);
     }
 
     IEnumerator Fail()
@@ -67,7 +76,11 @@ public class UIOrder : MonoBehaviour
         {
             GameEvents.Inventory.OnItemDestroyed?.Invoke(item);
         }
-        _orderData.Complete();
+
+        if (_orderData.RemainingTime < 0)
+        {
+            StartCoroutine(Deliver());
+        }
     }
 
     public void Initialize(OrderData orderData)

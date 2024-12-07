@@ -82,6 +82,7 @@ public class UIAnvil : MonoBehaviour
             _dropZone.IsBlocked = false;
             _hammerCountText.gameObject.SetActive(false);
             UpdateToCraftItem();
+            _lastToCraftItem = null;
         }
     }
 
@@ -214,6 +215,7 @@ public class UIAnvil : MonoBehaviour
 
         _dropZone.IsBlocked = false;
         UpdateToCraftItem();
+        _lastToCraftItem = null;
         _qualityPoints = 0;
         _hammerCount = 0;
         _hammerCountText.gameObject.SetActive(false);
