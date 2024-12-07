@@ -317,10 +317,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2344526440354493690, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
-      propertyPath: forgeSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: c6f4b3168088c604fb33af02aaea2171, type: 2}
     - target: {fileID: 4576787179297440185, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -470,6 +466,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIForgeSlot_3
       objectReference: {fileID: 0}
+    - target: {fileID: 7983365888797287973, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.959198
+      objectReference: {fileID: 0}
     - target: {fileID: 8915688341766387330, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -611,6 +611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIForgeSlot_2
       objectReference: {fileID: 0}
+    - target: {fileID: 7983365888797287973, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.959198
+      objectReference: {fileID: 0}
     - target: {fileID: 8915688341766387330, guid: fcc9779544f1fbd4b981d80b09008c88, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -706,11 +710,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2449807562957072342, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -350
+      value: -330
       objectReference: {fileID: 0}
     - target: {fileID: 2449807562957072342, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 58
       objectReference: {fileID: 0}
     - target: {fileID: 2449807562957072342, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -724,10 +728,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2496470439071661364, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
-      propertyPath: _itemPrefab
-      value: 
-      objectReference: {fileID: 2244978883429265648, guid: c929d7b9631b92e4198c6775b59ce0b2, type: 3}
     - target: {fileID: 2668879636954551683, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -756,10 +756,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9168532698847098622, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4293f3f43e7a5524dbcb191b0ef09d9c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
