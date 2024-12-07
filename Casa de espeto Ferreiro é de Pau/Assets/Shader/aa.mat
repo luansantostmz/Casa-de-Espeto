@@ -43,8 +43,8 @@ Material:
     m_Colors:
     - _InsideColor: {r: 1, g: 1, b: 1, a: 0}
     - _OutsideColor: {r: 1, g: 0, b: 0, a: 0}
-    - _SpeedA: {r: 0.5, g: -0.1, b: 0, a: 0}
-    - _SpeedB: {r: -0.02, g: -0.01, b: 0, a: 0}
+    - _SpeedA: {r: 0.03, g: -0.1, b: 0, a: 0}
+    - _SpeedB: {r: -0.03, g: -0.01, b: 0, a: 0}
     - _TilingA: {r: -1.17, g: 0.3, b: 0, a: 0}
     - _TilingB: {r: 2, g: 0.2, b: 0, a: 0}
   m_BuildTextureStacks: []

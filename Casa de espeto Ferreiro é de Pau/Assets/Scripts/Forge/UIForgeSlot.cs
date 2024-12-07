@@ -27,7 +27,7 @@ public class UIForgeSlot : MonoBehaviour
 
     public void SetItem(UICardItem item)
     {
-        GetComponent<DropZone>().IsBlocked = true;
+        GetComponentInChildren<DropZone>(true).IsBlocked = true;
 
         var itemSettings = item.Item.Settings;
 

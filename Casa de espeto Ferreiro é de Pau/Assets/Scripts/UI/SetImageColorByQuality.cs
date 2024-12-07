@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class SetColorByQuality : MonoBehaviour
+public class SetImageColorByQuality : MonoBehaviour
 {
     public QualitySettings Quality;
 

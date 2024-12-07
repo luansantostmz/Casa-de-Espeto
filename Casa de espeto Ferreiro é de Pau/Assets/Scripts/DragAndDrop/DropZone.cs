@@ -24,6 +24,9 @@ public class DropZone : MonoBehaviour
 
     private void OnAnyDragStart(DragAndDropObject dragObject)
     {
+        if (IsBlocked)
+            return;
+
         gameObject.SetActive(true);
     }
 
