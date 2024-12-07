@@ -6,14 +6,16 @@ public class GameInitializer : MonoBehaviour
 
     private void Awake()
     {
-        EconomyService.AddGold(_initialSettings.Gold);
-
-        foreach(var item in _initialSettings.Items)
-        {
-            for (int i = 0; i < item.Quantity; i++)
-            {
-                InventoryService.AddItem(new InventoryItem(item.Item, QualityProvider.Instance.GetFirstQuality()));
-            }
-        }
+        EconomyService.AddGold(_initialSettings.Gold);		       
     }
+	private void Start()
+	{
+		foreach (var item in _initialSettings.Items)
+		{
+			for (int i = 0; i < item.Quantity; i++)
+			{
+				InventoryService.AddItem(new InventoryItem(item.Item, QualityProvider.Instance.GetFirstQuality()));
+			}
+		}
+	}
 }
