@@ -5,5 +5,6 @@ public class QualitySettings : ScriptableObject
 {
     public string QualityName;
     public int Points;
+    public float PriceModifier;
     public Color Color;
 }

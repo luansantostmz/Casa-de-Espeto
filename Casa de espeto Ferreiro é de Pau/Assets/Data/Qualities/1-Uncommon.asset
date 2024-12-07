@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee16e51783e9c1547a2fd2a6718a0916, type: 3}
-  m_Name: Common
+  m_Name: 1-Uncommon
   m_EditorClassIdentifier: 
-  QualityName: Common
-  Points: 1
-  Color: {r: 0.6037736, g: 0.5106322, b: 0.3275187, a: 1}
+  QualityName: Uncommon
+  Points: 2
+  Color: {r: 0.30927375, g: 0.4716981, b: 0.3269286, a: 1}

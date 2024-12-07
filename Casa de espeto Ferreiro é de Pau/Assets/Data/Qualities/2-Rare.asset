@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee16e51783e9c1547a2fd2a6718a0916, type: 3}
-  m_Name: SuperRare
+  m_Name: 2-Rare
   m_EditorClassIdentifier: 
-  QualityName: Super Rare
-  Points: 8
-  Color: {r: 0.49471268, g: 0.28439835, b: 0.7264151, a: 1}
+  QualityName: Rare
+  Points: 4
+  Color: {r: 0.5754717, g: 0.18187076, b: 0.19592789, a: 1}
