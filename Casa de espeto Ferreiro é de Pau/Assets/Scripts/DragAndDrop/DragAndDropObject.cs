@@ -7,8 +7,11 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 {
 	private Vector3 originalPosition;
 	private Transform originalParent;
+	private Transform mainParent;
 
-	public bool useSlotId;
+	public DropZone CurrentDropZone;
+
+    public bool useSlotId;
 	public int objectID; // ID do objeto arrastável
 
     public Action<DropZone> OnDrop;
@@ -23,6 +26,7 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 	{
 		originalPosition = transform.position;
 		originalParent = transform.parent;
+        mainParent = transform.parent;
     }
 
     private void ActivateRaycastTarget(bool activate)
@@ -40,7 +44,7 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 		GetComponent<Image>().raycastTarget = false;
 
 		// Eleva o objeto na hierarquia para evitar sobreposição visual
-		transform.SetParent(transform.root, true);
+		transform.SetParent(mainParent.root, true);
 
 		GameEvents.DragAndDrop.OnAnyDragStart?.Invoke(this);
 
@@ -75,6 +79,7 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 					dropZone.OnCorrectDrop();
 					OnDrop?.Invoke(dropZone);
 					GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, dropZone);
+					CurrentDropZone = dropZone;
                 }
                 else
 				{

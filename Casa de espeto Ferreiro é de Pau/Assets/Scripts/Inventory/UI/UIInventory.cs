@@ -5,6 +5,7 @@ public class UIInventory : MonoBehaviour
 {
     [SerializeField] private UICardItem _itemPrefab;
     [SerializeField] private RectTransform _itemContainer;
+    [SerializeField] DropZone _dropZone;
 
     [SerializeField] private List<InventoryItem> _items = new List<InventoryItem>();
     private List<UICardItem> _inventoryItems = new();
@@ -123,6 +124,10 @@ public class UIInventory : MonoBehaviour
         }
 
         var newItemUI = Instantiate(_itemPrefab, _itemContainer);
+        if (newItemUI.TryGetComponent(out DragAndDropObject dragUI))
+        {
+            dragUI.CurrentDropZone = _dropZone;
+        }
         newItemUI.SetItem(item);
         _inventoryItems.Add(newItemUI);
     }
