@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchScenes : MonoBehaviour
+public class ChangeScreens : MonoBehaviour
 {
-    [Header("Forge")]
+	public Animator animator;
+
+	[Header("Forge")]
     [SerializeField] private Transform[] posItensForge;
 	private Vector3[] initialPositionItensForge;
 
@@ -12,6 +14,8 @@ public class SwitchScenes : MonoBehaviour
     [SerializeField] private Transform[] posItensAnvil;
 	private Vector3[] initialPositionItensAnvil;
 
+	[Header("Orders")]
+	[SerializeField] private GameObject ordersObject;
 
 	private void Start()
 	{
@@ -37,7 +41,6 @@ public class SwitchScenes : MonoBehaviour
 
 		MoverParaForaDaCamera();
 	}
-
 
 	public void RestartPosForge() 
 	{
@@ -66,7 +69,6 @@ public class SwitchScenes : MonoBehaviour
 		}
 		
 	}
-
 	public void MoverParaForaDaCamera()
 	{
 		Debug.Log("Moveu todos para fora");
@@ -94,7 +96,9 @@ public class SwitchScenes : MonoBehaviour
 		}
 	}
 
-
-
+	public void ToggleAnimationOrders()
+	{
+		animator.SetBool("IsOpen", !animator.GetBool("IsOpen"));		
+	}
 
 }
