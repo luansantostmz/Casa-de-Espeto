@@ -32,7 +32,7 @@ public class DropZone : MonoBehaviour
 
     private void OnAnyDragEnd(DragAndDropObject dragObject, DropZone dropZone)
     {
-        StartCoroutine(DeactivateAfter(.1f));
+        GameManager.Instance.StartCoroutine(DeactivateAfter(.1f));
     }
 
     IEnumerator DeactivateAfter(float seconds)

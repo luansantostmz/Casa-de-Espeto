@@ -93,6 +93,12 @@ public class UIInventory : MonoBehaviour
 
     private void AddItemToUI(InventoryItem item)
     {
+        foreach(var ui in _inventoryItems)
+        {
+            if (ui.Item == item)
+                return;
+        }
+
         var newItemUI = Instantiate(_itemPrefab, _itemContainer);
         newItemUI.SetItem(item);
         _inventoryItems.Add(newItemUI);
