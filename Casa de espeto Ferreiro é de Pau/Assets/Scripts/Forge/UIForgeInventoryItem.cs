@@ -5,12 +5,12 @@ public class UIForgeInventoryItem : MonoBehaviour
     public UICardItem InventoryItem;
     public UIForgeSlot ForgeSlot;
 
-    DragAndDrop DragNDrop;
+    DragAndDropObject DragNDrop;
 
     private void Awake()
     {
         InventoryItem = GetComponent<UICardItem>();
-        DragNDrop = GetComponent<DragAndDrop>();
+        DragNDrop = GetComponent<DragAndDropObject>();
         DragNDrop.OnDrop += OnDrop;
     }
 
@@ -26,7 +26,7 @@ public class UIForgeInventoryItem : MonoBehaviour
 
         var item = GetComponent<UICardItem>().Item;
 
-        if (dropZone.TryGetComponent(out UIForgeSlot slot) && !dropZone.IsBlocked)
+        if (dropZone.DropZoneOwner.TryGetComponent(out UIForgeSlot slot) && !dropZone.IsBlocked)
         {
             if (item.Settings.MeltedItem == null)
                 return;
@@ -36,7 +36,7 @@ public class UIForgeInventoryItem : MonoBehaviour
             DragNDrop.useSlotId = true;
             InventoryService.RemoveItem(item);
         }
-        else if (dropZone.TryGetComponent(out UIInventory inventory))
+        else if (dropZone.DropZoneOwner.TryGetComponent(out UIInventory inventory))
         {
             if (!ForgeSlot)
                 return;

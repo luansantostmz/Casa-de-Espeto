@@ -33,7 +33,7 @@ public class UIRecipes : MonoBehaviour
         foreach (var item in _items)
         {
             var newItemUI = Instantiate(_itemPrefab, _recipesContainer);
-            newItemUI.SetItem(new InventoryItem(item));
+            newItemUI.SetItem(new InventoryItem(item, QualityProvider.Instance.GetFirstQuality()));
             _uiItems.Add(newItemUI);
         }
 

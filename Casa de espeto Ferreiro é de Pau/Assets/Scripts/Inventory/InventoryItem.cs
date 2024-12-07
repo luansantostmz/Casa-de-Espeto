@@ -3,9 +3,9 @@
 public class InventoryItem
 {
     public ItemSettings Settings;
-    public QualityType Quality;
+    public QualitySettings Quality;
     
-    public InventoryItem(ItemSettings item, QualityType quality = QualityType.Good)
+    public InventoryItem(ItemSettings item, QualitySettings quality)
     {
         Settings = item;
         Quality = quality;

@@ -32,6 +32,6 @@ public class UICardItem : MonoBehaviour
 [System.Serializable]
 public class QualityObject
 {
-    public QualityType Quality;
+    public QualitySettings Quality;
     public GameObject GameObject;
 }

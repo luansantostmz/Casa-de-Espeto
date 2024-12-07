@@ -231,11 +231,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5574254617090163433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70630699089c6ef4b9863efe8d66cd56, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c6c6a1edb8896d4a96b6e2407c8943d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   useSlotId: 0
-  objectID: 1
+  objectID: 0
 --- !u!222 &6773975081866666784
 CanvasRenderer:
   m_ObjectHideFlags: 0

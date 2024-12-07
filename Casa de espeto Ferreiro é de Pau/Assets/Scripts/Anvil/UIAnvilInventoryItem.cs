@@ -3,13 +3,13 @@ using UnityEngine;
 public class UIAnvilInventoryItem : MonoBehaviour
 {
     UICardItem _uiInventory;
-    DragAndDrop _dragNDrop;
+    DragAndDropObject _dragNDrop;
 
     DropZone _currentDropZone;
 
     private void Awake()
     {
-        _dragNDrop = GetComponent<DragAndDrop>();
+        _dragNDrop = GetComponent<DragAndDropObject>();
         _uiInventory = GetComponent<UICardItem>();
 
         _dragNDrop.OnDrop += OnDrop;
@@ -25,12 +25,12 @@ public class UIAnvilInventoryItem : MonoBehaviour
         if (!dropZone)
             return;
 
-        if (dropZone.TryGetComponent(out UIAnvil anvil))
+        if (dropZone.DropZoneOwner.TryGetComponent(out UIAnvil anvil))
         {
             GameEvents.Inventory.OnCardItemRemovedFromInventory?.Invoke(_uiInventory);
             GameEvents.Anvil.OnItemAddedToAnvil?.Invoke(_uiInventory);
         }
-        else if (dropZone.TryGetComponent(out UIInventory inventory))
+        else if (dropZone.DropZoneOwner.TryGetComponent(out UIInventory inventory))
         {
             GameEvents.Inventory.OnCardItemAddedToInventory?.Invoke(_uiInventory);
             GameEvents.Anvil.OnItemRemovedFromAnvil?.Invoke(_uiInventory);

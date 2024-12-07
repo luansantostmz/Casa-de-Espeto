@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIForgeSlot : MonoBehaviour
 {
@@ -20,7 +19,7 @@ public class UIForgeSlot : MonoBehaviour
         var quality = _forgeBar.GetCurrentQuality();
         Item.Item.Quality = quality;
 
-        if (quality > 0 && Item.Item.Settings.MeltedItem)
+        if (quality != _forgeBar.forgeSettings.valueRanges[0].quality && Item.Item.Settings.MeltedItem)
             Item.Item.Settings = Item.Item.Settings.MeltedItem;
 
         Item.UpdateVisual();

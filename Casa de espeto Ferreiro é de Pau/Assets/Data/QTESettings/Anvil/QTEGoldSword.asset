@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780c4b3d6d56ddb4faab88bf7755857e, type: 3}
+  m_Name: QTEGoldSword
+  m_EditorClassIdentifier: 
+  speed: 0.5
+  acceleration: 0.5
+  maxSpeed: 5
+  QTESettings: {fileID: 11400000, guid: b2757fe91a2afb74d850e057fa167394, type: 2}

@@ -419,7 +419,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2060666336}
   - component: {fileID: 2060666335}
-  - component: {fileID: 2060666337}
   m_Layer: 0
   m_Name: AutoSliderManager
   m_TagString: Untagged
@@ -472,38 +471,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2060666337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060666334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d92ee2668e5fa484f9ef934a5c6fbd58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 0}
-  durationInSeconds: 120
-  valueRanges:
-  - minValue: 0
-    maxValue: 30
-    label: 30 segundos
-    color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0}
-  - minValue: 30
-    maxValue: 60
-    label: 60 segundos
-    color: {r: 1, g: 0.28719693, b: 0, a: 0}
-  - minValue: 60
-    maxValue: 100
-    label: 100 segundos
-    color: {r: 1, g: 0, b: 0.11461401, a: 0}
-  - minValue: 100
-    maxValue: 120
-    label: 120 segundos
-    color: {r: 0, g: 0.37088633, b: 1, a: 0}
-  stopButton: {fileID: 0}
 --- !u!224 &3242939268955251748 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1795344865766610850, guid: 21d096b59f885c14f8f6fd8f3f73057f, type: 3}

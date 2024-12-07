@@ -4,5 +4,6 @@ using UnityEngine;
 public class QualitySettings : ScriptableObject
 {
     public string QualityName;
+    public int Points;
     public Color Color;
 }

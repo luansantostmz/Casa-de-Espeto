@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: SilverOre
   m_EditorClassIdentifier: 
   ItemName: Silver Ore
+  IgnoreQualityOnAnvil: 0
   BasePrice: 150
   Sprite: {fileID: 21300000, guid: c8dccffa1b4febb4f9dce038a130cab9, type: 3}
   MeltedItem: {fileID: 11400000, guid: 66e14d0033be440438a83a21643fe55d, type: 2}
   ForgeSettings: {fileID: 11400000, guid: 19725587b678dbf4b82499088611aa19, type: 2}
+  AnvilSettings: {fileID: 0}
+  Ingredients: []

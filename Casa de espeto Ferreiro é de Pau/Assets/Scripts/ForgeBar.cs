@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 using System;
 
 [System.Serializable]
@@ -8,21 +7,20 @@ public class TimeValueRange // Classe específica para este script
 {
 	public float minValue;  // Valor mínimo da faixa
 	public float maxValue;  // Valor máximo da faixa
-	public QualityType quality;    // Qualidade associado a essa faixa
-	public Color color;     // Cor associada a essa faixa
+	public QualitySettings quality;    // Qualidade associado a essa faixa
 }
 
 public class ForgeBar : MonoBehaviour
 {
 	public Slider slider;                              // Referência ao componente Slider
 	public float durationInSeconds => forgeSettings.valueRanges[^1].maxValue;// Duração total (em segundos)
-	public ForgeSettings forgeSettings;
+	public QTESettings forgeSettings;
 
 	private float timeElapsed;                        // Tempo acumulado
 	private bool isRunning;                    // Controle se o slider está em execução
 	private Image sliderBackgroundImage;              // Imagem que representa o fundo do slider
 
-	public Action<QualityType> OnBarStopped;
+	public Action<QualitySettings> OnBarStopped;
 
 	void OnEnable()
 	{
@@ -95,7 +93,7 @@ public class ForgeBar : MonoBehaviour
 		}
 	}
 
-	public QualityType GetCurrentQuality()
+	public QualitySettings GetCurrentQuality()
 	{
         foreach (var range in forgeSettings.valueRanges)
         {
@@ -105,7 +103,7 @@ public class ForgeBar : MonoBehaviour
             }
         }
 
-		return QualityType.Good;
+		return null;
     }
 
 	// Método para dividir a barra de fundo em segmentos de cores conforme as faixas
@@ -126,7 +124,7 @@ public class ForgeBar : MonoBehaviour
 			foreach (var range in forgeSettings.valueRanges)
 			{
 				// Garantir que o alfa seja 1 (visível completamente)
-				Color colorWithAlpha = range.color;
+				Color colorWithAlpha = range.quality.Color;
 				colorWithAlpha.a = 1f;
 
 				// Normaliza os valores de minValue e maxValue de acordo com a duração total

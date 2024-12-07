@@ -6,14 +6,11 @@ using UnityEngine;
 public class ItemSettings : ScriptableObject
 {
     public string ItemName;
+    public bool IgnoreQualityOnAnvil;
     public int BasePrice;
     public Sprite Sprite;
     public ItemSettings MeltedItem;
-    public ForgeSettings ForgeSettings;
+    public QTESettings ForgeSettings;
+    public QTEAnvilSettings AnvilSettings;
     public List<ItemSettings> Ingredients = new List<ItemSettings>();
-}
-
-public enum QualityType
-{
-    Good, Great, Perfect
 }

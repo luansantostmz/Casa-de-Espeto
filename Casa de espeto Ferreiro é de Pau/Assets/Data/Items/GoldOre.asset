@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GoldOre
   m_EditorClassIdentifier: 
   ItemName: Gold Ore
+  IgnoreQualityOnAnvil: 0
   BasePrice: 250
   Sprite: {fileID: 21300000, guid: a40f91b96cab60e4e9c5e2dd5f56a4a0, type: 3}
   MeltedItem: {fileID: 11400000, guid: 9a875c88bc897174daec5048643a07a2, type: 2}
-  ForgeSettings: {fileID: 11400000, guid: 4c9da33e620406f4b8d4f04b6ac707b5, type: 2}
+  ForgeSettings: {fileID: 11400000, guid: 2a424d60c80ecd34794b36605e318dc4, type: 2}
+  AnvilSettings: {fileID: 0}
+  Ingredients: []

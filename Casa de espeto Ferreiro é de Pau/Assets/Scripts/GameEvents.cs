@@ -17,6 +17,12 @@ public class GameEvents
         public static Action OnGoldSubtracted;
     }
 
+    public class DragAndDrop
+    {
+        public static Action<DragAndDropObject> OnAnyDragStart;
+        public static Action<DragAndDropObject, DropZone> OnAnyDragEnd;
+    }
+
     public class Forge
     {
         public static Action<UICardItem> OnItemAddedToForge;
@@ -27,5 +33,7 @@ public class GameEvents
         public static Action<UICardItem> OnItemAddedToAnvil;
         public static Action<UICardItem> OnItemRemovedFromAnvil;
         public static Action<ItemSettings> OnRecipeItemClicked;
+
+        public static Action<QualitySettings> OnHammer;
     }
 }

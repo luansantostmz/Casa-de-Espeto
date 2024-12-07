@@ -17,6 +17,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 96971fe461850a64c83862761e32c973, type: 3}
   MeltedItem: {fileID: 0}
   ForgeSettings: {fileID: 0}
+  AnvilSettings: {fileID: 11400000, guid: 0e7d7de83fd3b7048854ccb50e8eb4a3, type: 2}
   Ingredients:
   - {fileID: 11400000, guid: ef8b032daed19db40a56bb6d3dd71b8a, type: 2}
   - {fileID: 11400000, guid: ef8b032daed19db40a56bb6d3dd71b8a, type: 2}

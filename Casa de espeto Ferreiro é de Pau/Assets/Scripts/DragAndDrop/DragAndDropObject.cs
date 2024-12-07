@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	private Vector3 originalPosition;
 	private Transform originalParent;
@@ -14,11 +14,18 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public Action<DropZone> OnDrop;
 	public Action OnDragStart;
 
+	Image _image;
+
 	private void Awake()
 	{
 		originalPosition = transform.position;
 		originalParent = transform.parent;
-	}
+    }
+
+    private void ActivateRaycastTarget(bool activate)
+	{
+		_image.raycastTarget = activate;
+    }
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
@@ -31,6 +38,8 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 		// Eleva o objeto na hierarquia para evitar sobreposição visual
 		transform.SetParent(transform.root, true);
+
+		GameEvents.DragAndDrop.OnAnyDragStart?.Invoke(this);
 	}
 
 	public void OnDrag(PointerEventData eventData)
@@ -45,7 +54,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		{
 			DropZone dropZone = eventData.pointerEnter.GetComponent<DropZone>();
 
-			if (dropZone != null && !dropZone.IsBlocked)
+            if (dropZone != null && !dropZone.IsBlocked)
 			{
 				if (!useSlotId || (dropZone.zoneID == objectID && useSlotId)) // Verifica correspondência de IDs
 				{
@@ -54,6 +63,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 					transform.localPosition = Vector3.zero; // Fixa na posição da zona
 					dropZone.OnCorrectDrop();
 					OnDrop?.Invoke(dropZone);
+					GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, dropZone);
                 }
                 else
 				{
@@ -62,6 +72,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 					dropZone.OnWrongDrop();
 					ResetPosition();
 					OnDrop?.Invoke(null);
+					GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
                 }
             }
 			else
@@ -69,12 +80,14 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 				// Soltar em algo que não é uma zona de drop
 				ResetPosition();
 				OnDrop?.Invoke(null);
+				GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
             }
         }
 		else
 		{
 			// Não soltou sobre nada
 			ResetPosition();
+			GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
         }
 
         GetComponent<Image>().raycastTarget = true;
