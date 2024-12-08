@@ -228,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5824675087199417647, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
-      value: 1.7
+      value: 3.09
       objectReference: {fileID: 0}
     - target: {fileID: 7174654866105812562, guid: 1d7fb086cdd195448bddf146a43efff5, type: 3}
       propertyPath: m_SizeDelta.y

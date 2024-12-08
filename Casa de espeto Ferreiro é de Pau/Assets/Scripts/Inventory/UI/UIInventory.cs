@@ -129,6 +129,7 @@ public class UIInventory : MonoBehaviour
             dragUI.CurrentDropZone = _dropZone;
         }
         newItemUI.SetItem(item);
+        newItemUI.transform.SetAsFirstSibling();
         _inventoryItems.Add(newItemUI);
     }
 
