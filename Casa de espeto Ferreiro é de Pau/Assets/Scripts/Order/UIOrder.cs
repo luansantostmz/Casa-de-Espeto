@@ -24,6 +24,9 @@ public class UIOrder : MonoBehaviour
     {
         GameEvents.Inventory.OnItemAdded += UpdateVisual;
         GameEvents.Inventory.OnItemRemoved += UpdateVisual;
+        GameEvents.Forge.OnItemAddedToForge += UpdateVisual;
+        GameEvents.Anvil.OnItemRemovedFromAnvil += UpdateVisual;
+        GameEvents.Anvil.OnItemAddedToAnvil += UpdateVisual;
         _completeButton.onClick.AddListener(Complete);
     }
 
@@ -31,6 +34,9 @@ public class UIOrder : MonoBehaviour
     {
         GameEvents.Inventory.OnItemAdded -= UpdateVisual;
         GameEvents.Inventory.OnItemRemoved -= UpdateVisual;
+        GameEvents.Forge.OnItemAddedToForge -= UpdateVisual;
+        GameEvents.Anvil.OnItemRemovedFromAnvil -= UpdateVisual;
+        GameEvents.Anvil.OnItemAddedToAnvil -= UpdateVisual;
         _completeButton.onClick.RemoveListener(Complete); 
     }
 
@@ -69,6 +75,12 @@ public class UIOrder : MonoBehaviour
     }
 
     private void UpdateVisual(InventoryItem item)
+    {
+        bool haveAllItems = _orderData.HaveAllItems();
+        _completeButton.interactable = haveAllItems;
+    }
+
+    private void UpdateVisual(UICardItem item)
     {
         bool haveAllItems = _orderData.HaveAllItems();
         _completeButton.interactable = haveAllItems;
