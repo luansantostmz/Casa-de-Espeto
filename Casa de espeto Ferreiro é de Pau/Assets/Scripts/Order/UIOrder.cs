@@ -52,6 +52,7 @@ public class UIOrder : MonoBehaviour
     IEnumerator Deliver()
     {
         _deliveredObject.SetActive(true);
+        _orderData.DestroyItems();
         yield return new WaitForSeconds(2f);
         _orderData.Complete();
         Destroy(gameObject);
@@ -74,11 +75,6 @@ public class UIOrder : MonoBehaviour
 
     private void Complete()
     {
-        foreach (var item in _orderData.Items)
-        {
-            GameEvents.Inventory.OnItemDestroyed?.Invoke(item);
-        }
-
         StartCoroutine(Deliver());
     }
 

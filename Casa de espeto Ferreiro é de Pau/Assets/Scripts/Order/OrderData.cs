@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public class OrderData
@@ -9,19 +11,24 @@ public class OrderData
     public float RemainingTime;
     public int Reward;
 
+    public List<InventoryItem> DeliveredItems = new List<InventoryItem>();
+
     public bool IsCompleted;
     public bool IsFailed;
 
     public List<InventoryItem> GetItemsInStock()
     {
+        var organizedList = new List<InventoryItem>(Items);
+        organizedList.OrderByDescending(item => item.Quality.Points).ToList();
+
         List<InventoryItem> inStock = new List<InventoryItem>();
 
-        foreach (var orderItem in Items)
+        foreach (var orderItem in organizedList)
         {
             foreach (InventoryItem inventoryItem in InventoryService.Items)
             {
                 if (inventoryItem.Settings == orderItem.Settings && 
-                    inventoryItem.Quality == orderItem.Quality &&
+                    (inventoryItem.Quality.Points >= orderItem.Quality.Points) &&
                     !inStock.Contains(inventoryItem))
                 {
                     inStock.Add(inventoryItem);
@@ -36,6 +43,16 @@ public class OrderData
     public bool HaveAllItems()
     {
         return GetItemsInStock().Count >= Items.Count;
+    }
+
+    public void DestroyItems()
+    {
+        DeliveredItems = GetItemsInStock();
+
+        foreach (var item in DeliveredItems)
+        {
+            GameEvents.Inventory.OnItemDestroyed?.Invoke(item);
+        }
     }
 
     public void Complete()
