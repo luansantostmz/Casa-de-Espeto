@@ -26,7 +26,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 5a08c95dc356a2448ad2fbcd1251e418, type: 2}
     - {fileID: 11400000, guid: 5506386ef5a139845a9e2a757f7c05b6, type: 2}
     MinItemQuantity: 1
-    MaxItemQuantity: 2
+    MaxItemQuantity: 1
     Qualities:
     - {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
     - {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}

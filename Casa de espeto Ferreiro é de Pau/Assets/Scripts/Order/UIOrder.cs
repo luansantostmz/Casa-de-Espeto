@@ -16,7 +16,6 @@ public class UIOrder : MonoBehaviour
 
     [SerializeField] GameObject _deliveredObject;
     [SerializeField] GameObject _failObject;
-    [SerializeField] GameObject _completeVFX;
     [SerializeField] Button _completeButton;
 
     List<UICardItem> _itemsUI = new List<UICardItem>();
@@ -73,7 +72,6 @@ public class UIOrder : MonoBehaviour
     {
         bool haveAllItems = _orderData.HaveAllItems();
         _completeButton.interactable = haveAllItems;
-        _completeVFX.SetActive(haveAllItems);
     }
 
     private void Complete()
