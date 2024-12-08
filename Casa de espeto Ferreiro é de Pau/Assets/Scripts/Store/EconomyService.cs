@@ -1,7 +1,7 @@
 
 public class EconomyService
 {
-    public static int CurrentGold { get; private set; } = 0;
+    public static int CurrentGold { get; set; } = 0;
 
     public static void AddGold(int quantity)
     {
