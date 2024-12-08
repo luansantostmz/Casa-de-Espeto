@@ -61,6 +61,7 @@ public class DataManager : MonoBehaviour
             });
         }
 
+        DataService.CachedData.TotalDeliveredOrders++;
         DataService.CurrentRunData.DeliveredOrders.Add(new SavedOrderData()
         {
             Reward = order.Reward,
@@ -83,6 +84,7 @@ public class DataManager : MonoBehaviour
             });
         }
 
+        DataService.CachedData.TotalFailedOrders++;
         DataService.CurrentRunData.FailedOrders.Add(new SavedOrderData()
         {
             Reward = order.Reward,
