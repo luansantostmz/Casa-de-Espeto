@@ -215,6 +215,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9071253304842158282, guid: b80d85de54072524b973f141c4334a78, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 9161154334333973428, guid: b80d85de54072524b973f141c4334a78, type: 3}
       propertyPath: m_Name
       value: UI-GameOver
