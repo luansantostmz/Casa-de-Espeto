@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780c4b3d6d56ddb4faab88bf7755857e, type: 3}
   m_Name: QTEGoldSword
   m_EditorClassIdentifier: 
-  speed: 0.5
-  acceleration: 0.5
-  maxSpeed: 5
+  speed: 2
+  acceleration: 3
+  maxSpeed: 10
   QTESettings: {fileID: 11400000, guid: b2757fe91a2afb74d850e057fa167394, type: 2}

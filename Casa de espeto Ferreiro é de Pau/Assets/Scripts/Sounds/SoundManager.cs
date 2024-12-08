@@ -50,17 +50,17 @@ public class SoundManager : MonoBehaviour
 	public void LoadVolume() 
 	{
 		//Master
-		float savedVolumeMaster = PlayerPrefs.GetFloat("MasterVolumeKey");
+		float savedVolumeMaster = PlayerPrefs.GetFloat("MasterVolumeKey", .5f);
 		audioMixer.SetFloat("MasterVolume", Mathf.Log10(savedVolumeMaster) * 20f);
 		masterSlider.value = savedVolumeMaster;
 
 		//Music
-		float savedVolumeMusic = PlayerPrefs.GetFloat("MusicVolumeKey");
+		float savedVolumeMusic = PlayerPrefs.GetFloat("MusicVolumeKey", .5f);
 		audioMixer.SetFloat("MusicVolume", Mathf.Log10(savedVolumeMusic) * 20f);
 		musicSlider.value = savedVolumeMusic;
 
 		//SFX
-		float savedVolumeSFX = PlayerPrefs.GetFloat("SoundFXVolumeKey");
+		float savedVolumeSFX = PlayerPrefs.GetFloat("SoundFXVolumeKey", .5f);
 		audioMixer.SetFloat("SoundFXVolume", Mathf.Log10(savedVolumeSFX) * 20f);
 		sfxSlider.value = savedVolumeSFX;
 	}
