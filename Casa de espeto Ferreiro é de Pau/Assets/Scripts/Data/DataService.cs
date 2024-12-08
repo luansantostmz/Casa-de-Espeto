@@ -5,7 +5,7 @@ using UnityEngine;
 public class DataService
 {
     public static RunData CurrentRunData;
-    public static Data CachedDataList;
+    public static Data CachedData;
 
     public static void InitializeNewRun()
     {
@@ -17,6 +17,7 @@ public class DataService
 
     public static void EndRun()
     {
+        CachedData.TotalSecondsPlayed += (int)(DateTime.Now - CurrentRunData.GameplayDate).TotalSeconds;
         CurrentRunData.GameplayTime = (int)(DateTime.Now - CurrentRunData.GameplayDate).TotalSeconds;
         SaveCurrentRunData();
         CurrentRunData = null;
@@ -24,8 +25,8 @@ public class DataService
 
     public static void SaveCurrentRunData()
     {
-        CachedDataList.RunsData.Add(CurrentRunData);
-        SaveData(CachedDataList);
+        CachedData.RunsData.Add(CurrentRunData);
+        SaveData(CachedData);
     }
 
     public static void SaveData(Data data)
@@ -37,18 +38,21 @@ public class DataService
 
     public static Data LoadData()
     {
-        CachedDataList = JsonUtility.FromJson<Data>(PlayerPrefs.GetString(nameof(Data)));
-        if (CachedDataList == null)
-            CachedDataList = new Data();
+        CachedData = JsonUtility.FromJson<Data>(PlayerPrefs.GetString(nameof(Data)));
+        if (CachedData == null)
+            CachedData = new Data();
 
         Debug.Log("LOADED DATA: " + PlayerPrefs.GetString(nameof(Data)));
-        return CachedDataList;
+        return CachedData;
     }
 }
 
 [System.Serializable]
 public class Data
 {
+    public int TotalDeliveredOrders;
+    public int TotalFailedOrders;
+    public int TotalSecondsPlayed;
     public List<RunData> RunsData = new List<RunData>();
 }
 
