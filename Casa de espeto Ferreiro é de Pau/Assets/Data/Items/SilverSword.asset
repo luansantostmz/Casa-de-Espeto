@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemName: Silver Sword
   IgnoreQualityOnAnvil: 0
   HammerCount: 3
-  BasePrice: 3500
+  BasePrice: 400
   Sprite: {fileID: 21300000, guid: 98e731b2add3883418b6eed0d41fa737, type: 3}
   MeltedItem: {fileID: 0}
   ForgeSettings: {fileID: 0}
@@ -24,4 +24,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66e14d0033be440438a83a21643fe55d, type: 2}
   - {fileID: 11400000, guid: 66e14d0033be440438a83a21643fe55d, type: 2}
   - {fileID: 11400000, guid: 66e14d0033be440438a83a21643fe55d, type: 2}
+  - {fileID: 11400000, guid: ad9a5a1262af80742afa332d840ad690, type: 2}
   - {fileID: 11400000, guid: ad9a5a1262af80742afa332d840ad690, type: 2}

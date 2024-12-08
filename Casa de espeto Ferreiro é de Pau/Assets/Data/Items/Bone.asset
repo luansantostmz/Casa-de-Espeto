@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemName: Bone
   IgnoreQualityOnAnvil: 1
   HammerCount: 3
-  BasePrice: 35
+  BasePrice: 50
   Sprite: {fileID: 21300000, guid: b45939f11371c524684402713923fe54, type: 3}
   MeltedItem: {fileID: 0}
   ForgeSettings: {fileID: 0}

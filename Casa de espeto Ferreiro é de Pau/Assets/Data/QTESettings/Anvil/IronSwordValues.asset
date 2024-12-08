@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valueRanges:
   - minValue: 0
-    maxValue: 0.15
-    quality: {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
-  - minValue: 0.15
     maxValue: 0.3
-    quality: {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}
+    quality: {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
   - minValue: 0.3
-    maxValue: 0.6
+    maxValue: 0.5
+    quality: {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}
+  - minValue: 0.5
+    maxValue: 0.7
     quality: {fileID: 11400000, guid: 3d75b2bf470c53d428532ffa40e6400c, type: 2}
-  - minValue: 0.6
-    maxValue: 0.8
+  - minValue: 0.7
+    maxValue: 0.9
     quality: {fileID: 11400000, guid: 418f343a8bcf55543ab67274973ad7be, type: 2}
-  - minValue: 0.8
+  - minValue: 0.9
     maxValue: 1
     quality: {fileID: 11400000, guid: 912c4212a09a79941991fc00ab72c505, type: 2}

@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxReputation: 100
-  ReputationToWinOnDeliver: 5
+  CurrentReputation: 0
+  ReputationToWinOnDeliver: 10
   ReputationToLoseOnFail: 20
   GameOverUI: {fileID: 11400000, guid: ca8c0345a02705e4cbd9cff5f6546b23, type: 2}
+  IsGameOver: 0

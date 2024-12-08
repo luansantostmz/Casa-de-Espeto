@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: QTECopperSword
   m_EditorClassIdentifier: 
   speed: 2
-  acceleration: 1
-  maxSpeed: 10
+  acceleration: 0.2
+  maxSpeed: 4
   QTESettings: {fileID: 11400000, guid: c5fffe176024ca04586f9859618aa28b, type: 2}

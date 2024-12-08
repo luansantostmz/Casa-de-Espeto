@@ -15,7 +15,7 @@ MonoBehaviour:
   ItemName: Leather
   IgnoreQualityOnAnvil: 1
   HammerCount: 3
-  BasePrice: 35
+  BasePrice: 30
   Sprite: {fileID: 21300000, guid: 6c65a05aef6895840a9b7291ac53bfaa, type: 3}
   MeltedItem: {fileID: 0}
   ForgeSettings: {fileID: 0}

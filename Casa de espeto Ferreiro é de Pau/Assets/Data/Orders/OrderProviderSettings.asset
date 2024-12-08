@@ -12,30 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929959617634e76499dbc9b3a8ce706e, type: 3}
   m_Name: OrderProviderSettings
   m_EditorClassIdentifier: 
-  MinOrdersToInitialize: 10
-  MaxOrdersToInitialize: 10
+  MinOrdersToInitialize: 1
+  MaxOrdersToInitialize: 1
   OrderIntervals:
   - Threshold: 0
     MinDelay: 30
     MaxDelay: 45
-    MinOrderDeliveryTime: 1
-    MaxOrderDeliveryTime: 1
+    MinOrderDeliveryTime: 100
+    MaxOrderDeliveryTime: 180
     CanRepeatItem: 1
     Items:
     - {fileID: 11400000, guid: 60744eca0e925fb47b3640da253ce166, type: 2}
     - {fileID: 11400000, guid: 5a08c95dc356a2448ad2fbcd1251e418, type: 2}
     - {fileID: 11400000, guid: 5506386ef5a139845a9e2a757f7c05b6, type: 2}
+    - {fileID: 11400000, guid: 807feae28a823b94da33621414810e04, type: 2}
+    - {fileID: 11400000, guid: 1850b21358cb038448558df49ba0f786, type: 2}
+    - {fileID: 11400000, guid: 0201acea451e52b4aa87f1dfc0a140a3, type: 2}
     MinItemQuantity: 1
     MaxItemQuantity: 1
     Qualities:
     - {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
     - {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}
-    - {fileID: 11400000, guid: 3d75b2bf470c53d428532ffa40e6400c, type: 2}
-  - Threshold: 15
+  - Threshold: 3
     MinDelay: 30
-    MaxDelay: 40
-    MinOrderDeliveryTime: 60
-    MaxOrderDeliveryTime: 90
+    MaxDelay: 45
+    MinOrderDeliveryTime: 80
+    MaxOrderDeliveryTime: 140
     CanRepeatItem: 1
     Items:
     - {fileID: 11400000, guid: 60744eca0e925fb47b3640da253ce166, type: 2}
@@ -44,9 +46,54 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 1850b21358cb038448558df49ba0f786, type: 2}
     - {fileID: 11400000, guid: 807feae28a823b94da33621414810e04, type: 2}
     - {fileID: 11400000, guid: 0201acea451e52b4aa87f1dfc0a140a3, type: 2}
+    - {fileID: 11400000, guid: 723fed7c6727346499f88e330fb365b9, type: 2}
+    - {fileID: 11400000, guid: 147421dc31be56f41961fde4bee8fc6c, type: 2}
+    - {fileID: 11400000, guid: bc6df2885b80875488b3afd842a847f6, type: 2}
     MinItemQuantity: 1
     MaxItemQuantity: 2
     Qualities:
     - {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
     - {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}
     - {fileID: 11400000, guid: 3d75b2bf470c53d428532ffa40e6400c, type: 2}
+  - Threshold: 12
+    MinDelay: 20
+    MaxDelay: 45
+    MinOrderDeliveryTime: 60
+    MaxOrderDeliveryTime: 120
+    CanRepeatItem: 1
+    Items:
+    - {fileID: 11400000, guid: 1850b21358cb038448558df49ba0f786, type: 2}
+    - {fileID: 11400000, guid: 807feae28a823b94da33621414810e04, type: 2}
+    - {fileID: 11400000, guid: 0201acea451e52b4aa87f1dfc0a140a3, type: 2}
+    - {fileID: 11400000, guid: 723fed7c6727346499f88e330fb365b9, type: 2}
+    - {fileID: 11400000, guid: 147421dc31be56f41961fde4bee8fc6c, type: 2}
+    - {fileID: 11400000, guid: bc6df2885b80875488b3afd842a847f6, type: 2}
+    - {fileID: 11400000, guid: 6379c9752e56927489ef2e6bc896ef19, type: 2}
+    - {fileID: 11400000, guid: 28eaebdd82b248844b00dba44e92de48, type: 2}
+    - {fileID: 11400000, guid: 0c118cb78792bc743aa67766e89c9160, type: 2}
+    MinItemQuantity: 2
+    MaxItemQuantity: 3
+    Qualities:
+    - {fileID: 11400000, guid: 073ec6fa845f65842a03388211b29e55, type: 2}
+    - {fileID: 11400000, guid: 3d75b2bf470c53d428532ffa40e6400c, type: 2}
+    - {fileID: 11400000, guid: 418f343a8bcf55543ab67274973ad7be, type: 2}
+    - {fileID: 11400000, guid: 912c4212a09a79941991fc00ab72c505, type: 2}
+  - Threshold: 16
+    MinDelay: 20
+    MaxDelay: 30
+    MinOrderDeliveryTime: 30
+    MaxOrderDeliveryTime: 60
+    CanRepeatItem: 1
+    Items:
+    - {fileID: 11400000, guid: 723fed7c6727346499f88e330fb365b9, type: 2}
+    - {fileID: 11400000, guid: 147421dc31be56f41961fde4bee8fc6c, type: 2}
+    - {fileID: 11400000, guid: bc6df2885b80875488b3afd842a847f6, type: 2}
+    - {fileID: 11400000, guid: 6379c9752e56927489ef2e6bc896ef19, type: 2}
+    - {fileID: 11400000, guid: 28eaebdd82b248844b00dba44e92de48, type: 2}
+    - {fileID: 11400000, guid: 0c118cb78792bc743aa67766e89c9160, type: 2}
+    MinItemQuantity: 2
+    MaxItemQuantity: 3
+    Qualities:
+    - {fileID: 11400000, guid: 3d75b2bf470c53d428532ffa40e6400c, type: 2}
+    - {fileID: 11400000, guid: 418f343a8bcf55543ab67274973ad7be, type: 2}
+    - {fileID: 11400000, guid: 912c4212a09a79941991fc00ab72c505, type: 2}

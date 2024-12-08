@@ -15,11 +15,14 @@ MonoBehaviour:
   ItemName: Gold Sword
   IgnoreQualityOnAnvil: 0
   HammerCount: 3
-  BasePrice: 3500
+  BasePrice: 600
   Sprite: {fileID: 21300000, guid: b293832774df95a43b81da9aab714579, type: 3}
   MeltedItem: {fileID: 0}
   ForgeSettings: {fileID: 0}
   AnvilSettings: {fileID: 11400000, guid: 354c18994735528498ef103dd3111c69, type: 2}
   Ingredients:
-  - {fileID: 11400000, guid: d55c04b49662c5f489be7faee5974a11, type: 2}
-  - {fileID: 11400000, guid: d55c04b49662c5f489be7faee5974a11, type: 2}
+  - {fileID: 11400000, guid: 9a875c88bc897174daec5048643a07a2, type: 2}
+  - {fileID: 11400000, guid: 9a875c88bc897174daec5048643a07a2, type: 2}
+  - {fileID: 11400000, guid: 9a875c88bc897174daec5048643a07a2, type: 2}
+  - {fileID: 11400000, guid: ad9a5a1262af80742afa332d840ad690, type: 2}
+  - {fileID: 11400000, guid: d936018f0bbeab645b0b5f3a1f761c28, type: 2}
