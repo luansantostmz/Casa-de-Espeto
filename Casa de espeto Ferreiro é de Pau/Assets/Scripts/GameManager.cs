@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public int ReputationToLoseOnFail = 20;
 
     public UIState GameOverUI;
-    private bool IsGameOver;
+    public bool IsGameOver;
 
     public static GameManager Instance;
 

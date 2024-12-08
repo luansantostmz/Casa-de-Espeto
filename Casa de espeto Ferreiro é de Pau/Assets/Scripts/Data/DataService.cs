@@ -38,6 +38,9 @@ public class DataService
     public static Data LoadData()
     {
         CachedDataList = JsonUtility.FromJson<Data>(PlayerPrefs.GetString(nameof(Data)));
+        if (CachedDataList == null)
+            CachedDataList = new Data();
+
         Debug.Log("LOADED DATA: " + PlayerPrefs.GetString(nameof(Data)));
         return CachedDataList;
     }
@@ -55,8 +58,8 @@ public class RunData
     public int GameplayTime;
     public int GoldEarned;
     public DateTime GameplayDate;
-    public List<SavedOrderData> DeliveredOrders;
-    public List<SavedOrderData> FailedOrders;
+    public List<SavedOrderData> DeliveredOrders = new List<SavedOrderData>();
+    public List<SavedOrderData> FailedOrders = new List<SavedOrderData>();
 }
 
 [System.Serializable]
