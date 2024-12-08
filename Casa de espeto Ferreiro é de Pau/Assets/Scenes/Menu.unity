@@ -582,15 +582,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8647267001424435251, guid: 58139267dd38cc84a9d5ed0f90748749, type: 3}
       propertyPath: m_Color.a
-      value: 0.12941177
+      value: 0.03529412
       objectReference: {fileID: 0}
     - target: {fileID: 8647267001424435251, guid: 58139267dd38cc84a9d5ed0f90748749, type: 3}
       propertyPath: m_Color.b
-      value: 0.2688679
+      value: 0.27058828
       objectReference: {fileID: 0}
     - target: {fileID: 8647267001424435251, guid: 58139267dd38cc84a9d5ed0f90748749, type: 3}
       propertyPath: m_Color.g
-      value: 0.9147997
+      value: 0.9164837
       objectReference: {fileID: 0}
     - target: {fileID: 8647267001424435251, guid: 58139267dd38cc84a9d5ed0f90748749, type: 3}
       propertyPath: m_Color.r
@@ -1070,7 +1070,6 @@ GameObject:
   - component: {fileID: 637635426}
   - component: {fileID: 637635425}
   - component: {fileID: 637635424}
-  - component: {fileID: 637635423}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -1097,19 +1096,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &637635423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637635421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7686f9c85b7f54345939c62bf43a738c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GamePlayScene: InventoryItemTest
 --- !u!114 &637635424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1903,15 +1889,15 @@ RectTransform:
   m_GameObject: {fileID: 1046664984}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5668, y: 0.5668, z: 0.5668}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1018283668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1046664986
 MonoBehaviour:
@@ -2620,15 +2606,15 @@ RectTransform:
   m_GameObject: {fileID: 1682629481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5668, y: 0.5668, z: 0.5668}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1018283668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1682629483
 MonoBehaviour:
@@ -2643,7 +2629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.89838195, b: 0.5990566, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2923,7 +2909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7686f9c85b7f54345939c62bf43a738c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GamePlayScene: InventoryItemTest
+  GamePlayScene: Gameplay
 --- !u!114 &2058633982
 MonoBehaviour:
   m_ObjectHideFlags: 0
