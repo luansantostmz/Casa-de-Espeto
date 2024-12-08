@@ -40,8 +40,11 @@ public class UIOrder : MonoBehaviour
         if (_orderData.IsFailed || _orderData.IsCompleted)
             return;
 
-        _orderData.RemainingTime -= Time.fixedDeltaTime;
-        _remainingTimeText.text = $"{(int)_orderData.RemainingTime}s";
+        if (_orderData.RemainingTime > 0)
+        {
+            _orderData.RemainingTime -= Time.fixedDeltaTime;
+            _remainingTimeText.text = $"{(int)_orderData.RemainingTime}s";
+        }
 
         if (_orderData.RemainingTime < 0)
         {
