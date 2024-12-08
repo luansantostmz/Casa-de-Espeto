@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
 	private Vector3 originalPosition;
 	private Transform originalParent;
@@ -36,6 +36,8 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
+		CursorManager.OnCursorToHandDragging?.Invoke();
+
 		OnDragStart?.Invoke();
 		GetComponent<ScaleDoTween>().PlayTween();
 		originalPosition = transform.position;
@@ -62,7 +64,9 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
 	public void OnEndDrag(PointerEventData eventData)
 	{
-		if (_onDropClip)
+        CursorManager.OnCursorToIdle?.Invoke();
+
+        if (_onDropClip)
 			AudioManager.Instance.PlaySFX(_onDropClip);
         
 		if (eventData.pointerEnter != null)
@@ -116,4 +120,14 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 		transform.SetParent(originalParent, true);
 		transform.position = originalPosition;
 	}
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        CursorManager.OnCursorToHand?.Invoke();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        CursorManager.OnCursorToIdle?.Invoke();
+    }
 }
