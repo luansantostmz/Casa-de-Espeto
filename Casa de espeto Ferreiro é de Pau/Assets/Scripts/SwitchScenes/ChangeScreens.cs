@@ -51,6 +51,8 @@ public class ChangeScreens : MonoBehaviour
 
 		MoverParaForaDaCamera();
 		animator.SetBool("IsOpen", true);
+
+		RestartPosAnvil();
 	}
 
 	public void RestartPosForge() 
