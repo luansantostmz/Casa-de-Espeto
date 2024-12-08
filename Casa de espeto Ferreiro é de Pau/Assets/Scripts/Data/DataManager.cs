@@ -48,6 +48,9 @@ public class DataManager : MonoBehaviour
 
     private void OnOrderComplete(OrderData order)
     {
+        if (GameManager.Instance.IsGameOver)
+            return;
+
         var items = new List<ItemData>();
         foreach (var item in order.Items)
         {
@@ -67,6 +70,9 @@ public class DataManager : MonoBehaviour
 
     private void OnOrderFail(OrderData order)
     {
+        if (GameManager.Instance.IsGameOver)
+            return;
+
         var items = new List<ItemData>();
         foreach (var item in order.Items)
         {
