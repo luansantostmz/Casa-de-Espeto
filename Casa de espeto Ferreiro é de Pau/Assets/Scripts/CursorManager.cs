@@ -17,13 +17,14 @@ public class CursorManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            OnCursorToIdle?.Invoke();
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Opcional: Mantém o objeto entre cenas, se necessário
+            DontDestroyOnLoad(gameObject); // Mantém o objeto entre cenas, se necessário
+        }
+        else
+        {
+            Destroy(gameObject);
             return;
         }
-
-        Destroy(gameObject);
     }
 
     private void OnEnable()
@@ -31,6 +32,9 @@ public class CursorManager : MonoBehaviour
         OnCursorToIdle += OnIdle;
         OnCursorToHand += OnHand;
         OnCursorToHandDragging += OnHandDragging;
+
+        // Chama o cursor padrão após garantir que o evento esteja registrado
+        OnCursorToIdle?.Invoke();
     }
 
     private void OnDisable()
