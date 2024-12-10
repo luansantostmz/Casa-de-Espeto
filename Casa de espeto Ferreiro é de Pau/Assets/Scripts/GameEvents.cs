@@ -52,4 +52,10 @@ public class GameEvents
 
         public static Action<QualitySettings> OnHammer;
     }
+    public class Audio 
+    {
+        public static Action<float> OnMasterChanged;
+        public static Action<float> OnMusicChanged;
+        public static Action<float> OnSFXChanged;
+    }
 }

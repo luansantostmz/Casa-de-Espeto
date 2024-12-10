@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,7 +12,17 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] List<float> _pitchValues = new List<float>();
 
-    private void Awake()
+	[SerializeField] private AudioMixer audioMixer;
+
+    public  float CacheMasterVolume {get; private set;}
+    public  float CacheMusicVolume {get; private set;}
+    public  float CacheSFXVolume {get; private set;}
+
+    const string MasterVolumeKey = "MasterVolume";
+    const string MusicVolumeKey = "MusicVolume";
+    const string SfxVolumeKey = "SoundFXVolume";
+
+	private void Awake()
     {
         // Implementação do padrão Singleton
         if (Instance == null)
@@ -24,11 +35,17 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Reproduz um efeito sonoro (SFX) uma única vez.
-    /// </summary>
-    /// <param name="clip">O áudio a ser reproduzido.</param>
-    public void PlaySFX(AudioClip clip)
+	private void Start()
+	{
+		LoadVolume();
+	}
+
+
+	/// <summary>
+	/// Reproduz um efeito sonoro (SFX) uma única vez.
+	/// </summary>
+	/// <param name="clip">O áudio a ser reproduzido.</param>
+	public void PlaySFX(AudioClip clip)
     {
         if (clip == null)
         {
@@ -72,21 +89,45 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Ajusta o volume do SFX.
-    /// </summary>
-    /// <param name="volume">Valor entre 0 e 1.</param>
-    public void SetSFXVolume(float volume)
-    {
-        sfxSource.volume = Mathf.Clamp01(volume);
-    }
+	public void SetMasterVolume(float level)
+	{
+		audioMixer.SetFloat(MasterVolumeKey, Mathf.Log10(level) * 20f);
 
-    /// <summary>
-    /// Ajusta o volume da música.
-    /// </summary>
-    /// <param name="volume">Valor entre 0 e 1.</param>
-    public void SetMusicVolume(float volume)
-    {
-        musicSource.volume = Mathf.Clamp01(volume);
-    }
+		PlayerPrefs.SetFloat(MasterVolumeKey, level);
+		PlayerPrefs.Save();
+	}
+
+	public void SetMusicVolume(float level)
+	{
+		audioMixer.SetFloat(MusicVolumeKey, Mathf.Log10(level) * 20f);
+
+		PlayerPrefs.SetFloat(MusicVolumeKey, level);
+		PlayerPrefs.Save();
+	}
+
+	public void SetSoundFXVolume(float level)
+	{
+		audioMixer.SetFloat(SfxVolumeKey, Mathf.Log10(level) * 20f);
+
+		PlayerPrefs.SetFloat(SfxVolumeKey, level);
+		PlayerPrefs.Save();
+	}
+
+	public void LoadVolume()
+	{
+		//Master
+		CacheMasterVolume = PlayerPrefs.GetFloat(MasterVolumeKey, .5f);
+		audioMixer.SetFloat(MasterVolumeKey, Mathf.Log10(CacheMasterVolume) * 20f);
+        GameEvents.Audio.OnMasterChanged?.Invoke(CacheMasterVolume);
+
+		//Music
+		CacheMusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, .5f);
+		audioMixer.SetFloat(MusicVolumeKey, Mathf.Log10(CacheMusicVolume) * 20f);
+		GameEvents.Audio.OnMasterChanged?.Invoke(CacheMusicVolume);
+
+		//SFX
+		CacheSFXVolume = PlayerPrefs.GetFloat(SfxVolumeKey, .5f);
+		audioMixer.SetFloat(SfxVolumeKey, Mathf.Log10(CacheSFXVolume) * 20f);
+		GameEvents.Audio.OnMasterChanged?.Invoke(CacheSFXVolume);
+	}
 }
