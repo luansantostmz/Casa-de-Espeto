@@ -11,9 +11,6 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
 	public DropZone CurrentDropZone;
 
-    public bool useSlotId;
-	public int objectID; // ID do objeto arrastável
-
     public Action<DropZone> OnDrop;
 	public Action OnDragStart;
 
@@ -75,29 +72,15 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 
             if (dropZone != null && !dropZone.IsBlocked)
 			{
-				if (!useSlotId || (dropZone.zoneID == objectID && useSlotId)) // Verifica correspondência de IDs
-				{
-					// Soltar na zona correta
-					transform.SetParent(dropZone.Container ? dropZone.Container : dropZone.transform, true);
-					transform.localPosition = Vector3.zero; // Fixa na posição da zona
-					dropZone.OnCorrectDrop();
-					OnDrop?.Invoke(dropZone);
-					GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, dropZone);
-					CurrentDropZone = dropZone;
-                }
-                else
-				{
-					// Soltar na zona errada
-					Debug.Log($"Objeto {objectID} foi solto na zona errada: {dropZone.zoneID}");
-					dropZone.OnWrongDrop();
-					ResetPosition();
-					OnDrop?.Invoke(null);
-					GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
-                }
+				transform.SetParent(dropZone.Container ? dropZone.Container : dropZone.transform, true);
+				transform.localPosition = Vector3.zero;
+				dropZone.OnDropHere(GetComponent<CardItem>());
+				OnDrop?.Invoke(dropZone);
+				GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, dropZone);
+				CurrentDropZone = dropZone;
             }
 			else
 			{
-				// Soltar em algo que não é uma zona de drop
 				ResetPosition();
 				OnDrop?.Invoke(null);
 				GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
@@ -105,7 +88,6 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
         }
 		else
 		{
-			// Não soltou sobre nada
 			ResetPosition();
 			GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
         }

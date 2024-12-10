@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     public static void ResetProgression()
     {
         OrderService.OrderCount = 0;
-        InventoryService.Items.Clear();
+        //InventoryService.Items.Clear();
         Debug.Log("Game progression has been deleted");
     }
 

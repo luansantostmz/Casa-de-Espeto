@@ -5,54 +5,54 @@ using System.Linq;
 public class OrderData
 {
     public int OrderId;
-    public List<InventoryItem> Items = new List<InventoryItem>();
+    public List<OrderItem> Items = new List<OrderItem>();
     public int DeliveryTime;
     public float RemainingTime;
     public int Reward;
 
-    public List<InventoryItem> DeliveredItems = new List<InventoryItem>();
+    public List<OrderItem> DeliveredItems = new List<OrderItem>();
 
     public bool IsCompleted;
     public bool IsFailed;
 
-    public List<InventoryItem> GetItemsInStock()
-    {
-        var organizedList = new List<InventoryItem>(Items);
-        organizedList.OrderByDescending(item => item.Quality.Points).ToList();
+    //public List<InventoryItem> GetItemsInStock()
+    //{
+    //    var organizedList = new List<InventoryItem>(Items);
+    //    organizedList.OrderByDescending(item => item.Quality.Points).ToList();
 
-        List<InventoryItem> inStock = new List<InventoryItem>();
+    //    List<InventoryItem> inStock = new List<InventoryItem>();
 
-        foreach (var orderItem in organizedList)
-        {
-            foreach (InventoryItem inventoryItem in InventoryService.Items)
-            {
-                if (inventoryItem.Settings == orderItem.Settings && 
-                    (inventoryItem.Quality.Points >= orderItem.Quality.Points) &&
-                    !inStock.Contains(inventoryItem))
-                {
-                    inStock.Add(inventoryItem);
-                    break;
-                }
-            }
-        }
+    //    foreach (var orderItem in organizedList)
+    //    {
+    //        foreach (InventoryItem inventoryItem in InventoryService.Items)
+    //        {
+    //            if (inventoryItem.Settings == orderItem.Settings && 
+    //                (inventoryItem.Quality.Points >= orderItem.Quality.Points) &&
+    //                !inStock.Contains(inventoryItem))
+    //            {
+    //                inStock.Add(inventoryItem);
+    //                break;
+    //            }
+    //        }
+    //    }
 
-        return inStock;
-    }
+    //    return inStock;
+    //}
 
-    public bool HaveAllItems()
-    {
-        return GetItemsInStock().Count >= Items.Count;
-    }
+    //public bool HaveAllItems()
+    //{
+    //    return GetItemsInStock().Count >= Items.Count;
+    //}
 
-    public void DestroyItems()
-    {
-        DeliveredItems = GetItemsInStock();
+    //public void DestroyItems()
+    //{
+    //    DeliveredItems = GetItemsInStock();
 
-        foreach (var item in DeliveredItems)
-        {
-            GameEvents.Inventory.OnItemDestroyed?.Invoke(item);
-        }
-    }
+    //    foreach (var item in DeliveredItems)
+    //    {
+    //        GameEvents.Inventory.OnItemDestroyed?.Invoke(item);
+    //    }
+    //}
 
     public void Complete()
     {
@@ -63,10 +63,10 @@ public class OrderData
         GameManager.Instance.GainReputation();
         EconomyService.AddGold(Reward);
 
-        foreach (var item in GetItemsInStock())
-        {
-            InventoryService.RemoveItem(item);
-        }
+        //foreach (var item in GetItemsInStock())
+        //{
+        //    InventoryService.RemoveItem(item);
+        //}
 
         GameEvents.Order.OnOrderComplete?.Invoke(this);
     }
@@ -78,5 +78,22 @@ public class OrderData
         IsFailed = true;
         GameManager.Instance.LoseReputation();
         GameEvents.Order.OnOrderFail?.Invoke(this);
+    }
+}
+
+public class OrderItem
+{
+    public ItemSettings Item;
+    public QualitySettings Quality;
+
+    public OrderItem()
+    {
+
+    }
+
+    public OrderItem(ItemSettings item, QualitySettings quality)
+    {
+        Item = item;
+        Quality = quality;
     }
 }

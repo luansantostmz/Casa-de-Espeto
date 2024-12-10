@@ -6,7 +6,7 @@ public class UIForgeSlot : MonoBehaviour
     [SerializeField] ForgeBar _forgeBar;
     [SerializeField] DropZone _dropZone;
 
-    public UICardItem Item { get; private set; }
+    public CardItem Item { get; private set; }
 
     QualitySettings _lastQuality;
 
@@ -21,7 +21,7 @@ public class UIForgeSlot : MonoBehaviour
             return;
      
         var quality = _forgeBar.GetCurrentQuality();
-        Item.Item.Quality = quality;
+        Item.Quality = quality;
 
         if (quality == null)
         {
@@ -31,8 +31,8 @@ public class UIForgeSlot : MonoBehaviour
             return;
         }
 
-        if (quality != _forgeBar.forgeSettings.valueRanges[0].quality && Item.Item.Settings.MeltedItem)
-            Item.Item.Settings = Item.Item.Settings.MeltedItem;
+        if (quality != _forgeBar.forgeSettings.valueRanges[0].quality && Item.Item.MeltedItem)
+            Item.Item = Item.Item.MeltedItem;
 
         if (_lastQuality != quality)
         {
@@ -41,18 +41,18 @@ public class UIForgeSlot : MonoBehaviour
         }
     }
 
-    public void SetItem(UICardItem item)
+    public void SetItem(CardItem item)
     {
-        _lastQuality = item.Item.Quality;
+        _lastQuality = item.Quality;
         GetComponentInChildren<DropZone>(true).IsBlocked = true;
 
-        var itemSettings = item.Item.Settings;
+        var itemSettings = item.Item;
 
         Item = item;
         _forgeBar.forgeSettings = itemSettings.ForgeSettings;
         _forgeBar.StartBar();
 
-        InventoryService.RemoveItem(item.Item);
+        InventoryService.RemoveItem(item);
     }
 
     public void RemoveItem()

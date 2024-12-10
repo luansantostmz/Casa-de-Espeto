@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class UIInventory : MonoBehaviour
 {
-    [SerializeField] private UICardItem _itemPrefab;
+    [SerializeField] private CardItem _itemPrefab;
     [SerializeField] private RectTransform _itemContainer;
     [SerializeField] DropZone _dropZone;
 
-    [SerializeField] private List<InventoryItem> _items = new List<InventoryItem>();
-    private List<UICardItem> _inventoryItems = new();
+    public List<CardItem> Items = new();
 
     private void Awake()
     {
@@ -17,7 +16,6 @@ public class UIInventory : MonoBehaviour
 
     private void Start()
     {
-        _items = InventoryService.Items;
         InitializeInventoryUI();
     }
 
@@ -30,108 +28,85 @@ public class UIInventory : MonoBehaviour
 
     private void InitializeInventoryUI()
     {
-        foreach (var item in InventoryService.Items)
-        {
-            AddItemToUI(item);
-        }
+        
     }
 
     private void RegisterEventListeners()
     {
-        GameEvents.Inventory.OnItemAdded += HandleItemAdded;
+        GameEvents.Inventory.OnNewItemAdded += HandleNewItemAdded;
         GameEvents.Inventory.OnItemRemoved += HandleItemRemoved;
-        GameEvents.Inventory.OnItemDestroyed += HandleItemDestroyed;
 
-        GameEvents.Inventory.OnCardItemAddedToInventory += HandleCardItemAdded;
-        GameEvents.Inventory.OnCardItemRemovedFromInventory += HandleCardItemRemoved;
+        _dropZone.OnDroppedHere += OnDropHere;
+
+        //GameEvents.Inventory.OnItemDestroyed += HandleItemDestroyed;
+
+        //GameEvents.Inventory.OnCardItemAddedToInventory += HandleCardItemAdded;
+        //GameEvents.Inventory.OnCardItemRemovedFromInventory += HandleCardItemRemoved;
     }
 
     private void UnregisterEventListeners()
     {
-        GameEvents.Inventory.OnItemAdded -= HandleItemAdded;
+        GameEvents.Inventory.OnNewItemAdded -= HandleNewItemAdded;
         GameEvents.Inventory.OnItemRemoved -= HandleItemRemoved;
-        GameEvents.Inventory.OnItemDestroyed -= HandleItemDestroyed;
 
-        GameEvents.Inventory.OnCardItemAddedToInventory -= HandleCardItemAdded;
-        GameEvents.Inventory.OnCardItemRemovedFromInventory -= HandleCardItemRemoved;
+        _dropZone.OnDroppedHere -= OnDropHere;
+
+        //GameEvents.Inventory.OnItemDestroyed -= HandleItemDestroyed;
+
+        //GameEvents.Inventory.OnCardItemAddedToInventory -= HandleCardItemAdded;
+        //GameEvents.Inventory.OnCardItemRemovedFromInventory -= HandleCardItemRemoved;
     }
 
     #endregion
 
     #region Inventory Updates
 
-    private void HandleCardItemAdded(UICardItem item)
+    private void OnDropHere(DragAndDropObject dropObject)
     {
-        InventoryService.AddItem(item.Item, false);
-
-        if (_inventoryItems.Contains(item))
-            return;
-
-        _inventoryItems.Add(item);
+        Items.Add(dropObject.GetComponent<CardItem>());
     }
 
-    private void HandleCardItemRemoved(UICardItem item)
+    private void HandleNewItemAdded(ItemSettings item, QualitySettings quality)
     {
-        InventoryService.RemoveItem(item.Item, false);
-        _inventoryItems.Remove(item);
+        var card = InventoryService.InstantiateCardItem(_itemPrefab, item, quality, _itemContainer);
+        Items.Add(card);
     }
 
-    private void HandleItemAdded(InventoryItem newItem)
-    {
-        _items = InventoryService.Items;
-        AddItemToUI(newItem);
-    }
+    //private void HandleItemAdded(CardItem newItem)
+    //{
+    //    //AddItemToUI(newItem);
+    //}
 
-    private void HandleItemRemoved(InventoryItem itemToRemove)
+    private void HandleItemRemoved(CardItem itemToRemove)
     {
-        _items = InventoryService.Items;
-
-        var uiItem = _inventoryItems.Find(i => i.Item == itemToRemove);
+        var uiItem = Items.Find(i => i.Item == itemToRemove);
 
         if (uiItem != null)
         {
-            _inventoryItems.Remove(uiItem);
+            Items.Remove(uiItem);
         }
     }
 
-    private void HandleItemDestroyed(InventoryItem itemToRemove)
-    {
-        var uiItem = _inventoryItems.Find(i => i.Item == itemToRemove);
+    //private void HandleItemDestroyed(InventoryItem itemToRemove)
+    //{
+    //    var uiItem = _inventoryItems.Find(i => i.Item == itemToRemove);
 
-        if (uiItem != null)
-        {
-            Destroy(uiItem.gameObject);
-        }
-        else
-        {
-            foreach(var ui in _inventoryItems)
-            {
-                if (ui.Item.Settings == itemToRemove.Settings && ui.Item.Quality == itemToRemove.Quality)
-                {
-                    Destroy(ui.gameObject);
-                    return;
-                }
-            }
-        }
-    }
-
-    private void AddItemToUI(InventoryItem item)
-    {
-        foreach(var ui in _inventoryItems)
-        {
-            if (ui.Item == item)
-                return;
-        }
-
-        var newItemUI = Instantiate(_itemPrefab, _itemContainer);
-        if (newItemUI.TryGetComponent(out DragAndDropObject dragUI))
-        {
-            dragUI.CurrentDropZone = _dropZone;
-        }
-        newItemUI.SetItem(item);
-        newItemUI.transform.SetAsFirstSibling();
-        _inventoryItems.Add(newItemUI);
-    }
+    //    if (uiItem != null)
+    //    {
+    //        Destroy(uiItem.gameObject);
+    //    }
+    //    else
+    //    {
+    //        foreach(var ui in _inventoryItems)
+    //        {
+    //            if (ui.Item.Settings == itemToRemove.Settings && ui.Item.Quality == itemToRemove.Quality)
+    //            {
+    //                Destroy(ui.gameObject);
+    //                return;
+    //            }
+    //        }
+    //    }
+    //}
 
     #endregion
 }

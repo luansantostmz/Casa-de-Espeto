@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UIInventoryDraggableItem : MonoBehaviour
 {
-    public UICardItem InventoryItem;
+    public CardItem InventoryItem;
     private DragAndDropObject DragNDrop;
 
     private DropZone LastDropZone;
@@ -11,7 +11,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
     private void Awake()
     {
         DragNDrop = GetComponent<DragAndDropObject>();
-        InventoryItem = GetComponent<UICardItem>();
+        InventoryItem = GetComponent<CardItem>();
 
         DragNDrop.OnDrop += OnDrop;
     }
@@ -45,12 +45,12 @@ public class UIInventoryDraggableItem : MonoBehaviour
 
     private void HandleForgeSlotDrop(UIForgeSlot forgeSlot, DropZone dropZone)
     {
-        if (InventoryItem.Item.Settings.MeltedItem == null || dropZone.IsBlocked)
+        if (InventoryItem.Item.MeltedItem == null || dropZone.IsBlocked)
             return;
 
         forgeSlot.SetItem(InventoryItem);
         DragNDrop.useSlotId = true;
-        InventoryService.RemoveItem(InventoryItem.Item);
+        //InventoryService.RemoveItem(InventoryItem.Item);
     }
 
     private void HandleAnvilDrop(UIAnvil anvil)
@@ -63,7 +63,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
     {
         if (LastDropZone.DropZoneOwner.TryGetComponent(out UIForgeSlot forgeSlot))
         {
-            InventoryService.AddItem(InventoryItem.Item, false);
+            InventoryService.AddItem(InventoryItem.Item, InventoryItem.Quality);
             forgeSlot.RemoveItem();
             DragNDrop.useSlotId = false;
         }

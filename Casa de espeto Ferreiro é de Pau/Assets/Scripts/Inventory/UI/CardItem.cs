@@ -3,27 +3,29 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICardItem : MonoBehaviour
+public class CardItem : MonoBehaviour
 {
+    public ItemSettings Item { get; set; }
+    public QualitySettings Quality { get; set; }
+
     [SerializeField] TMP_Text _name;
     [SerializeField] Image _sprite;
 
     [SerializeField] List<QualityObject> _qualityObjects = new List<QualityObject>();
 
-    public InventoryItem Item { get; private set; }
-
-    public void SetItem(InventoryItem inventoryItem)
+    public void SetItem(ItemSettings item, QualitySettings quality)
     {
-        Item = inventoryItem;
+        Item = item;
+        Quality = quality;
         UpdateVisual();
     }
 
     public void UpdateVisual()
     {
-        _name.text = Item.Settings.ItemName;
-        _sprite.sprite = Item.Settings.Sprite;
+        _name.text = Item.ItemName;
+        _sprite.sprite = Item.Sprite;
 
-        _qualityObjects.ForEach(qualityObject => qualityObject.GameObject.SetActive(qualityObject.Quality == Item.Quality));
+        _qualityObjects.ForEach(qualityObject => qualityObject.GameObject.SetActive(qualityObject.Quality == Quality));
 
         GetComponent<ScaleDoTween>().PlayTween();
     }

@@ -9,14 +9,14 @@ public class UIOrderItem : MonoBehaviour
     [SerializeField] Image _icon;
     [SerializeField] List<QualityObject> _qualityObjects = new List<QualityObject>();
 
-    InventoryItem _item;
+    OrderItem _item;
 
-    public void Initialize(InventoryItem item)
+    public void Initialize(OrderItem item)
     {
         _item = item;
 
-        _itemName.text = item.Settings.ItemName;
-        _icon.sprite = item.Settings.Sprite;
+        _itemName.text = item.Item.ItemName;
+        _icon.sprite = item.Item.Sprite;
         _qualityObjects.ForEach(qualityObject => qualityObject.GameObject.SetActive(qualityObject.Quality == item.Quality));
     }
 }

@@ -13,7 +13,7 @@ public class GameInitializer : MonoBehaviour
         {
             for (int i = 0; i < item.Quantity; i++)
             {
-                InventoryService.AddItem(new InventoryItem(item.Item, QualityProvider.Instance.GetFirstQuality()));
+                InventoryService.AddItem(item.Item, QualityProvider.Instance.GetFirstQuality());
             }
         }
     }

@@ -1,33 +1,30 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryService
 {
-    public static List<InventoryItem> Items { get; private set; } = new List<InventoryItem>();
-
-    public static void AddItem(InventoryItem newItem, bool callAction = true)
+    public static void AddItem(ItemSettings item, QualitySettings quality)
     {
-        if (Items.Contains(newItem)) 
-            return;
-
-        Debug.Log("Adding new item to inventory:" + newItem.Settings);
-
-        Items.Add(newItem);
-
-        if (callAction)
-            GameEvents.Inventory.OnItemAdded?.Invoke(newItem);
+        Debug.Log("Adding new item to inventory:" + item.ItemName);
+        GameEvents.Inventory.OnNewItemAdded?.Invoke(item, quality);
     }
 
-    public static void RemoveItem(InventoryItem item, bool callAction = true)
+    public static void MoveItemToInventory(CardItem item)
     {
-        if (!Items.Contains(item))
-            return;
+        Debug.Log("Moving item to inventory:" + item.Item.ItemName);
+        //GameEvents.Inventory.OnItemMovedToInventory?.Invoke(item);
+    }
 
-        Debug.Log("Removing item from inventory:" + item.Settings);
+    public static void RemoveItem(CardItem item)
+    {
+        Debug.Log("Removing item from inventory:" + item.Item);
+        GameEvents.Inventory.OnItemRemoved?.Invoke(item);
+    }
 
-        Items.Remove(item);
+    public static CardItem InstantiateCardItem(CardItem itemPrefab, ItemSettings item, QualitySettings quality, RectTransform container)
+    {
+        var newItemUI = GameObject.Instantiate(itemPrefab, container);
+        newItemUI.SetItem(item, quality);
 
-        if (callAction) 
-            GameEvents.Inventory.OnItemRemoved?.Invoke(item);
+        return newItemUI;
     }
 }

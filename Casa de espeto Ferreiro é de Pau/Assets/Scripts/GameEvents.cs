@@ -11,12 +11,12 @@ public class GameEvents
 
     public class Inventory
     {
-        public static Action<InventoryItem> OnItemAdded;
-        public static Action<InventoryItem> OnItemRemoved;
-        public static Action<InventoryItem> OnItemDestroyed;
+        public static Action<ItemSettings, QualitySettings> OnNewItemAdded;
+        //public static Action<CardItem> OnItemMovedToInventory;
+        public static Action<CardItem> OnItemRemoved;
 
-        public static Action<UICardItem> OnCardItemAddedToInventory;
-        public static Action<UICardItem> OnCardItemRemovedFromInventory;
+        public static Action<CardItem> OnCardItemAddedToInventory;
+        public static Action<CardItem> OnCardItemRemovedFromInventory;
     }
 
     public class Economy
@@ -41,13 +41,13 @@ public class GameEvents
 
     public class Forge
     {
-        public static Action<UICardItem> OnItemAddedToForge;
+        public static Action<CardItem> OnItemAddedToForge;
     }
 
     public class Anvil
     {
-        public static Action<UICardItem> OnItemAddedToAnvil;
-        public static Action<UICardItem> OnItemRemovedFromAnvil;
+        public static Action<CardItem> OnItemAddedToAnvil;
+        public static Action<CardItem> OnItemRemovedFromAnvil;
         public static Action<ItemSettings> OnRecipeItemClicked;
 
         public static Action<QualitySettings> OnHammer;

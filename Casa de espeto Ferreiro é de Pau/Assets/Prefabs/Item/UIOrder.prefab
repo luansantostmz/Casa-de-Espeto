@@ -1299,21 +1299,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _orderData:
     OrderId: 0
-    Items: []
     DeliveryTime: 0
     RemainingTime: 0
     Reward: 0
-    DeliveredItems: []
     IsCompleted: 0
     IsFailed: 0
-  _itemPrefab: {fileID: 5831381045600805950, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
+  _itemPrefab: {fileID: 8091022971628451290, guid: 634533d9777ea24449b50fda6032fd28, type: 3}
   _orderIdText: {fileID: 5330182586674526986}
   _rewardText: {fileID: 1243217459007814984}
   _remainingTimeText: {fileID: 1991600960121608912}
   _container: {fileID: 1588353023468171784}
   _deliveredObject: {fileID: 4605760836717729716}
   _failObject: {fileID: 7524390285190407474}
-  _completeButton: {fileID: 4251729107262926343}
 --- !u!1 &5293655216220347724
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class UIOrder : MonoBehaviour
 {
     [SerializeField] OrderData _orderData;
 
-    [SerializeField] UICardItem _itemPrefab;
+    [SerializeField] CardItem _itemPrefab;
     [SerializeField] TMP_Text _orderIdText;
     [SerializeField] TMP_Text _rewardText;
     [SerializeField] TMP_Text _remainingTimeText;
@@ -16,28 +16,28 @@ public class UIOrder : MonoBehaviour
 
     [SerializeField] GameObject _deliveredObject;
     [SerializeField] GameObject _failObject;
-    [SerializeField] Button _completeButton;
+    //[SerializeField] Button _completeButton;
 
-    List<UICardItem> _itemsUI = new List<UICardItem>();
+    List<CardItem> _itemsUI = new List<CardItem>();
 
     private void Awake()
     {
-        GameEvents.Inventory.OnItemAdded += UpdateVisual;
-        GameEvents.Inventory.OnItemRemoved += UpdateVisual;
-        GameEvents.Forge.OnItemAddedToForge += UpdateVisual;
-        GameEvents.Anvil.OnItemRemovedFromAnvil += UpdateVisual;
-        GameEvents.Anvil.OnItemAddedToAnvil += UpdateVisual;
-        _completeButton.onClick.AddListener(Complete);
+        //GameEvents.Inventory.OnNewItemAdded += UpdateVisual;
+        //GameEvents.Inventory.OnItemRemoved += UpdateVisual;
+        //GameEvents.Forge.OnItemAddedToForge += UpdateVisual;
+        //GameEvents.Anvil.OnItemRemovedFromAnvil += UpdateVisual;
+        //GameEvents.Anvil.OnItemAddedToAnvil += UpdateVisual;
+        //_completeButton.onClick.AddListener(Complete);
     }
 
     private void OnDestroy()
     {
-        GameEvents.Inventory.OnItemAdded -= UpdateVisual;
-        GameEvents.Inventory.OnItemRemoved -= UpdateVisual;
-        GameEvents.Forge.OnItemAddedToForge -= UpdateVisual;
-        GameEvents.Anvil.OnItemRemovedFromAnvil -= UpdateVisual;
-        GameEvents.Anvil.OnItemAddedToAnvil -= UpdateVisual;
-        _completeButton.onClick.RemoveListener(Complete); 
+        //GameEvents.Inventory.OnNewItemAdded -= UpdateVisual;
+        //GameEvents.Inventory.OnItemRemoved -= UpdateVisual;
+        //GameEvents.Forge.OnItemAddedToForge -= UpdateVisual;
+        //GameEvents.Anvil.OnItemRemovedFromAnvil -= UpdateVisual;
+        //GameEvents.Anvil.OnItemAddedToAnvil -= UpdateVisual;
+        //_completeButton.onClick.RemoveListener(Complete); 
     }
 
     private void FixedUpdate()
@@ -60,7 +60,7 @@ public class UIOrder : MonoBehaviour
     IEnumerator Deliver()
     {
         _deliveredObject.SetActive(true);
-        _orderData.DestroyItems();
+        //_orderData.DestroyItems();
         yield return new WaitForSeconds(2f);
         _orderData.Complete();
         Destroy(gameObject);
@@ -74,17 +74,17 @@ public class UIOrder : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void UpdateVisual(InventoryItem item)
-    {
-        bool haveAllItems = _orderData.HaveAllItems();
-        _completeButton.interactable = haveAllItems;
-    }
+    //private void UpdateVisual(InventoryItem item)
+    //{
+    //    bool haveAllItems = _orderData.HaveAllItems();
+    //    _completeButton.interactable = haveAllItems;
+    //}
 
-    private void UpdateVisual(UICardItem item)
-    {
-        bool haveAllItems = _orderData.HaveAllItems();
-        _completeButton.interactable = haveAllItems;
-    }
+    //private void UpdateVisual(CardItem item)
+    //{
+    //    bool haveAllItems = _orderData.HaveAllItems();
+    //    _completeButton.interactable = haveAllItems;
+    //}
 
     private void Complete()
     {
@@ -101,10 +101,10 @@ public class UIOrder : MonoBehaviour
         foreach (var item in orderData.Items)
         {
             var ui = Instantiate(_itemPrefab, _container);
-            ui.SetItem(item);
+            ui.SetItem(item.Item, item.Quality);
             _itemsUI.Add(ui);
         }
 
-        _completeButton.interactable = _orderData.HaveAllItems();
+        //_completeButton.interactable = _orderData.HaveAllItems();
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UIAnvilInventoryItem : MonoBehaviour
 {
-    UICardItem _uiInventory;
+    CardItem _uiInventory;
     DragAndDropObject _dragNDrop;
 
     DropZone _currentDropZone;
@@ -10,7 +10,7 @@ public class UIAnvilInventoryItem : MonoBehaviour
     private void Awake()
     {
         _dragNDrop = GetComponent<DragAndDropObject>();
-        _uiInventory = GetComponent<UICardItem>();
+        _uiInventory = GetComponent<CardItem>();
 
         _dragNDrop.OnDrop += OnDrop;
     }

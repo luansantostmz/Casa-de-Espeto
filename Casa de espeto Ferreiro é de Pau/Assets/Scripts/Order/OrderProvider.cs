@@ -56,7 +56,7 @@ public class OrderProvider : MonoBehaviour
         var settings = GetCurrentOrderSettings();
 
         int itemQuantity = Random.Range(settings.MinItemQuantity, settings.MaxItemQuantity + 1);
-        List<InventoryItem> items = new List<InventoryItem>();
+        List<OrderItem> items = new List<OrderItem>();
 
         if (settings.CanRepeatItem)
         {
@@ -65,7 +65,7 @@ public class OrderProvider : MonoBehaviour
 
             for (int i = 0; i < itemQuantity; i++)
             {
-                items.Add(new InventoryItem(
+                items.Add(new OrderItem(
                     poolItems[Random.Range(0, poolItems.Count)], 
                     settings.Qualities[Random.Range(0, settings.Qualities.Count)]));
             }
@@ -77,7 +77,7 @@ public class OrderProvider : MonoBehaviour
 
             for (int i = 0; i < itemQuantity; i++)
             {
-                items.Add(new InventoryItem(
+                items.Add(new OrderItem(
                     poolItems.Dequeue(),
                     settings.Qualities[Random.Range(0, settings.Qualities.Count)]));
             }
@@ -88,7 +88,7 @@ public class OrderProvider : MonoBehaviour
         int reward = 0;
         foreach (var item in items)
         {
-            reward += Mathf.CeilToInt(item.Settings.BasePrice * item.Quality.PriceModifier);
+            reward += Mathf.CeilToInt(item.Item.BasePrice * item.Quality.PriceModifier);
         }
 
         return new OrderData()

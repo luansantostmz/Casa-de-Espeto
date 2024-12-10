@@ -1,12 +1,20 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DropZone : MonoBehaviour
 {
-	public int zoneID; 
 	public bool IsBlocked;
     public GameObject DropZoneOwner;
 	public RectTransform Container;
+
+    public int Capacity;
+
+    public List<DragAndDropObject> Items = new List<DragAndDropObject>();
+
+    public Action<CardItem> OnDroppedHere;
+    public Action<CardItem> OnMovedOut;
 
     private void Awake()
     {
@@ -41,14 +49,14 @@ public class DropZone : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void OnCorrectDrop()
+    public void OnDropHere(CardItem cardItem)
 	{
+        OnDroppedHere?.Invoke(cardItem);
+    }
 
-	}
-
-	public void OnWrongDrop()
-	{
-
-	}
+    public void OnRemove(CardItem cardItem)
+    {
+        OnMovedOut?.Invoke(cardItem);
+    }
 }
 

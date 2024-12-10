@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class UIRecipeItem : BaseButton
 {
@@ -8,6 +5,6 @@ public class UIRecipeItem : BaseButton
     {
         base.OnClick();
 
-        GameEvents.Anvil.OnRecipeItemClicked?.Invoke(GetComponent<UICardItem>().Item.Settings);
+        GameEvents.Anvil.OnRecipeItemClicked?.Invoke(GetComponent<CardItem>().Item);
     }
 }

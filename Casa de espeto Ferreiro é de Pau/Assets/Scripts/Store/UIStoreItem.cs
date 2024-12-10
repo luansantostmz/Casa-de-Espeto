@@ -44,7 +44,7 @@ public class UIStoreItem : MonoBehaviour
     private void PurchaseItem()
     {
         EconomyService.SubtractGold(_item.BasePrice);
-        InventoryService.AddItem(new InventoryItem(_item, QualityProvider.Instance.GetFirstQuality()));
+        InventoryService.AddItem(_item, QualityProvider.Instance.GetFirstQuality());
         GetComponent<ScaleDoTween>().PlayTween();
     }
 }
