@@ -9,7 +9,6 @@ public class GameInitializer : MonoBehaviour
         GameManager.Instance.SetReputation(_initialSettings.Reputation);
         EconomyService.AddGold(_initialSettings.Gold);
         
-        InventoryService.Items.Clear();
         foreach (var item in _initialSettings.Items)
         {
             for (int i = 0; i < item.Quantity; i++)

@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
         return;
     }
 
+    private void OnDestroy()
+    {
+        ResetProgression();
+    }
+
     public void SetReputation(int value)
     {
         CurrentReputation = value;
@@ -49,10 +54,23 @@ public class GameManager : MonoBehaviour
 
         if (CurrentReputation <= 0)
         {
-            IsGameOver = true;
-            GameOverUI.Activate();
-            GameEvents.OnGameOver?.Invoke();
+            GameOver();
         }
+    }
+
+    private void GameOver()
+    {
+
+        IsGameOver = true;
+        GameOverUI.Activate();
+        GameEvents.OnGameOver?.Invoke();
+    }
+
+    public static void ResetProgression()
+    {
+        OrderService.OrderCount = 0;
+        InventoryService.Items.Clear();
+        Debug.Log("Game progression has been deleted");
     }
 
     public float GetReputationFill()

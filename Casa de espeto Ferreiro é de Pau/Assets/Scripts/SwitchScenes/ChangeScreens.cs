@@ -58,7 +58,6 @@ public class ChangeScreens : MonoBehaviour
 	public void RestartPosForge() 
 	{
 		MoverParaForaDaCamera();
-		Debug.Log("ficou a forja");
 		for (int i = 0; i < posItensForge.Length; i++)
 		{
 			if (posItensForge[i] != null)
@@ -71,7 +70,6 @@ public class ChangeScreens : MonoBehaviour
 	{
 		MoverParaForaDaCamera();
 
-		Debug.Log("Ficou a bigorna");
 		for (int i = 0; i < posItensAnvil.Length; i++)
 		{
 			if (posItensAnvil[i] != null)
@@ -84,7 +82,6 @@ public class ChangeScreens : MonoBehaviour
 	{
 		MoverParaForaDaCamera();
 
-		Debug.Log("Ficou a Store");
 		for (int i = 0; i < posItensStore.Length; i++)
 		{
 			if (posItensStore[i] != null)
@@ -95,8 +92,6 @@ public class ChangeScreens : MonoBehaviour
 	}
 	public void MoverParaForaDaCamera()
 	{
-		Debug.Log("Moveu todos para fora");
-
 		Camera cameraPrincipal = Camera.main; // Obtém a câmera principal
 		if (cameraPrincipal == null) return; // Verifica se a câmera existe
 
