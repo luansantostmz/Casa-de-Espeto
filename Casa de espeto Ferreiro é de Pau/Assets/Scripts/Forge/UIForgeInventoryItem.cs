@@ -34,14 +34,14 @@ public class UIForgeInventoryItem : MonoBehaviour
             slot.SetItem(InventoryItem);
             ForgeSlot = slot;
             DragNDrop.useSlotId = true;
-            InventoryService.RemoveItem(item);
+            OldInventoryService.RemoveItem(item);
         }
         else if (dropZone.DropZoneOwner.TryGetComponent(out UIInventory inventory))
         {
             if (!ForgeSlot)
                 return;
 
-            InventoryService.AddItem(item, false);
+            OldInventoryService.AddItem(item, false);
             ForgeSlot.RemoveItem();
             DragNDrop.useSlotId = false;
         }

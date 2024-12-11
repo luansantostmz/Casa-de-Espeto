@@ -12,14 +12,14 @@ public class DropZone : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        GameEvents.DragAndDrop.OnAnyDragStart += OnAnyDragStart;
-        GameEvents.DragAndDrop.OnAnyDragEnd += OnAnyDragEnd;
+        GameEvents.DragAndDrop.OnDragStart += OnAnyDragStart;
+        GameEvents.DragAndDrop.OnDragEnd += OnAnyDragEnd;
     }
 
     private void OnDestroy()
     {
-        GameEvents.DragAndDrop.OnAnyDragStart -= OnAnyDragStart;
-        GameEvents.DragAndDrop.OnAnyDragEnd -= OnAnyDragEnd;
+        GameEvents.DragAndDrop.OnDragStart -= OnAnyDragStart;
+        GameEvents.DragAndDrop.OnDragEnd -= OnAnyDragEnd;
     }
 
     private void OnAnyDragStart(DragAndDropObject dragObject)

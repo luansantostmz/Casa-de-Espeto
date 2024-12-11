@@ -24,7 +24,7 @@ public class OrderData
 
         foreach (var orderItem in organizedList)
         {
-            foreach (InventoryItem inventoryItem in InventoryService.Items)
+            foreach (InventoryItem inventoryItem in OldInventoryService.Items)
             {
                 if (inventoryItem.Settings == orderItem.Settings && 
                     (inventoryItem.Quality.Points >= orderItem.Quality.Points) &&
@@ -65,7 +65,7 @@ public class OrderData
 
         foreach (var item in GetItemsInStock())
         {
-            InventoryService.RemoveItem(item);
+            OldInventoryService.RemoveItem(item);
         }
 
         GameEvents.Order.OnOrderComplete?.Invoke(this);

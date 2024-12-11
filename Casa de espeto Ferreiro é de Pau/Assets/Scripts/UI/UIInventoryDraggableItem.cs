@@ -50,7 +50,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
 
         forgeSlot.SetItem(InventoryItem);
         DragNDrop.useSlotId = true;
-        InventoryService.RemoveItem(InventoryItem.Item);
+        OldInventoryService.RemoveItem(InventoryItem.Item);
     }
 
     private void HandleAnvilDrop(UIAnvil anvil)
@@ -63,7 +63,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
     {
         if (LastDropZone.DropZoneOwner.TryGetComponent(out UIForgeSlot forgeSlot))
         {
-            InventoryService.AddItem(InventoryItem.Item, false);
+            OldInventoryService.AddItem(InventoryItem.Item, false);
             forgeSlot.RemoveItem();
             DragNDrop.useSlotId = false;
         }

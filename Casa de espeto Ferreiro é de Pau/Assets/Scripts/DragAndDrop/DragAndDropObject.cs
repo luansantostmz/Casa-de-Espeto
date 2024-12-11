@@ -48,7 +48,7 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 		// Eleva o objeto na hierarquia para evitar sobreposição visual
 		transform.SetParent(mainParent.root, true);
 
-		GameEvents.DragAndDrop.OnAnyDragStart?.Invoke(this);
+		GameEvents.DragAndDrop.OnDragStart?.Invoke(this);
 
 		if (_onDragClip)
 			AudioManager.Instance.PlaySFX(_onDragClip);
@@ -82,7 +82,7 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 					transform.localPosition = Vector3.zero; // Fixa na posição da zona
 					dropZone.OnCorrectDrop();
 					OnDrop?.Invoke(dropZone);
-					GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, dropZone);
+					GameEvents.DragAndDrop.OnDragEnd?.Invoke(this, dropZone);
 					CurrentDropZone = dropZone;
                 }
                 else
@@ -92,7 +92,7 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 					dropZone.OnWrongDrop();
 					ResetPosition();
 					OnDrop?.Invoke(null);
-					GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
+					GameEvents.DragAndDrop.OnDragEnd?.Invoke(this, null);
                 }
             }
 			else
@@ -100,14 +100,14 @@ public class DragAndDropObject : MonoBehaviour, IBeginDragHandler, IDragHandler,
 				// Soltar em algo que não é uma zona de drop
 				ResetPosition();
 				OnDrop?.Invoke(null);
-				GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
+				GameEvents.DragAndDrop.OnDragEnd?.Invoke(this, null);
             }
         }
 		else
 		{
 			// Não soltou sobre nada
 			ResetPosition();
-			GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
+			GameEvents.DragAndDrop.OnDragEnd?.Invoke(this, null);
         }
 
         GetComponent<Image>().raycastTarget = true;

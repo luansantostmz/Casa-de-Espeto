@@ -21,7 +21,7 @@ public class UIForge : MonoBehaviour
         {
             if (slot.Item == null)
             {
-                InventoryService.RemoveItem(item.Item);
+                OldInventoryService.RemoveItem(item.Item);
                 slot.SetItem(item);
                 return;
             }

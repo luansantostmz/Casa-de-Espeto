@@ -17,7 +17,7 @@ public class UIInventory : MonoBehaviour
 
     private void Start()
     {
-        _items = InventoryService.Items;
+        _items = OldInventoryService.Items;
         InitializeInventoryUI();
     }
 
@@ -30,7 +30,7 @@ public class UIInventory : MonoBehaviour
 
     private void InitializeInventoryUI()
     {
-        foreach (var item in InventoryService.Items)
+        foreach (var item in OldInventoryService.Items)
         {
             AddItemToUI(item);
         }
@@ -62,7 +62,7 @@ public class UIInventory : MonoBehaviour
 
     private void HandleCardItemAdded(UICardItem item)
     {
-        InventoryService.AddItem(item.Item, false);
+        OldInventoryService.AddItem(item.Item, false);
 
         if (_inventoryItems.Contains(item))
             return;
@@ -72,19 +72,19 @@ public class UIInventory : MonoBehaviour
 
     private void HandleCardItemRemoved(UICardItem item)
     {
-        InventoryService.RemoveItem(item.Item, false);
+        OldInventoryService.RemoveItem(item.Item, false);
         _inventoryItems.Remove(item);
     }
 
     private void HandleItemAdded(InventoryItem newItem)
     {
-        _items = InventoryService.Items;
+        _items = OldInventoryService.Items;
         AddItemToUI(newItem);
     }
 
     private void HandleItemRemoved(InventoryItem itemToRemove)
     {
-        _items = InventoryService.Items;
+        _items = OldInventoryService.Items;
 
         var uiItem = _inventoryItems.Find(i => i.Item == itemToRemove);
 

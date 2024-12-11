@@ -76,7 +76,7 @@ public class UIAnvil : MonoBehaviour
 
         if (_hammerCount >= _lastToCraftItem.HammerCount)
         { 
-            InventoryService.AddItem(_toCraftItemUI.Item);
+            OldInventoryService.AddItem(_toCraftItemUI.Item);
             _hammerCount = 0;
             _qualityPoints = 0;
             _dropZone.IsBlocked = false;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryService
+public class OldInventoryService
 {
     public static List<InventoryItem> Items { get; private set; } = new List<InventoryItem>();
 

@@ -52,7 +52,7 @@ public class UIForgeSlot : MonoBehaviour
         _forgeBar.forgeSettings = itemSettings.ForgeSettings;
         _forgeBar.StartBar();
 
-        InventoryService.RemoveItem(item.Item);
+        OldInventoryService.RemoveItem(item.Item);
     }
 
     public void RemoveItem()
