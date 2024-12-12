@@ -1,55 +1,82 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class UIItem : MonoBehaviour
 {
-    [SerializeField] private TMP_Text _name;
-    [SerializeField] private Image _image;
-    [SerializeField] private TMP_Text _quality;
-    [SerializeField] private TMP_Text _amount;
+    public ItemSettings Item;
+    public QualitySettings Quality;
+    public int Quantity;
 
-    [field: SerializeField] public InventoryItem InventoryItem { get; private set; }
-    public Inventory Inventory => _dragHandler.CurrentDropHandler.ItemContainer.Inventory;
+    [Header("UI")]
+    [SerializeField] bool _hideBgOnDrag;
+    [SerializeField] TMP_Text _nameText;
+    [SerializeField] Image _imageImage;
+    [SerializeField] TMP_Text _qualityText;
+    [SerializeField] TMP_Text _amountText;
+    [SerializeField] GameObject _background;
 
+    public ScaleDoTween TweenScale;
     UIDragHandler _dragHandler;
+    ItemContainer CurrentItemContainer => _dragHandler.CurrentDropHandler.ItemContainer;
 
     private void Awake()
     {
+        TweenScale = GetComponent<ScaleDoTween>();
         _dragHandler = GetComponent<UIDragHandler>();
+
+        _dragHandler.OnDragStart += HideBackground;
+        _dragHandler.OnDragEnd += ShowBackground;
     }
 
-    public void Setup(InventoryItem inventoryItem)
+    private void OnDestroy()
     {
-        InventoryItem = inventoryItem;
-
-        // Atualiza os campos visuais
-        if (_name) _name.text = InventoryItem.Settings.ItemName;
-        if (_image) _image.sprite = InventoryItem.Settings.Sprite;
-        if (_quality) _quality.text = InventoryItem.Quality.QualityName;
-        if (_amount) _amount.text = InventoryItem.Quantity.ToString();
+        _dragHandler.OnDragStart -= HideBackground;
+        _dragHandler.OnDragEnd -= ShowBackground;
     }
 
-    public void UpdateText()
+    public bool IsIdentical(UIItem other)
     {
-        _amount.text = InventoryItem.Quantity.ToString();
+        return Item == other.Item && Quality == other.Quality;
     }
 
-    public void AdjustQuantity(int amount)
+    public void Setup(ItemSettings item, QualitySettings quality, int quantity)
     {
-        InventoryItem.Quantity += amount;
-        UpdateText();
+        Item = item;
+        Quality = quality;
+        Quantity = quantity;
+
+        UpdateVisual();
     }
 
-    public void SetQuantity(int amount)
+    public void UpdateVisual()
     {
-        InventoryItem.Quantity = amount;
-        UpdateText();
+        if (_nameText) _nameText.text = Item.ItemName;
+        if (_imageImage) _imageImage.sprite = Item.Sprite;
+        if (_qualityText) _qualityText.text = Quality.QualityName;
+        if (_amountText) _amountText.text = Quantity > 1 ? Quantity.ToString() : "";
     }
 
-    public void TransferTo(ItemContainer container)
+    public void AdjustQuantity(int value)
     {
-        Inventory.RemoveItem(InventoryItem.Settings, InventoryItem.Quality, InventoryItem.Quantity);
-        container.Inventory.AddItem(InventoryItem.Settings, InventoryItem.Quality, InventoryItem.Quantity);
+        Quantity += value;
+        UpdateVisual();
+    }
+
+    public void SetQuantity(int value)
+    {
+        Quantity = value;
+        UpdateVisual();
+    }
+
+    public void ShowBackground()
+    {
+        _background.SetActive(true);
+    }
+
+    public void HideBackground()
+    {
+        _background.SetActive(false);
     }
 }

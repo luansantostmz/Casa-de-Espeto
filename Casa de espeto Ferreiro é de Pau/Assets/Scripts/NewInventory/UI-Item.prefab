@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3233736114704817669}
   - component: {fileID: 403562319759526850}
   m_Layer: 5
-  m_Name: Amount
+  m_Name: Quantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: 1427895312906334485}
   - component: {fileID: -3794959307661899993}
   - component: {fileID: 3892343693276066890}
+  - component: {fileID: 412785930950167156}
   m_Layer: 5
   m_Name: UI-Item
   m_TagString: Untagged
@@ -340,10 +341,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc7512f5695630c4f932617d6501ad4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 0}
-  _image: {fileID: 7466478523346950026}
-  _quality: {fileID: 0}
-  _amount: {fileID: 403562319759526850}
+  Item: {fileID: 0}
+  Quality: {fileID: 0}
+  Quantity: 0
+  _hideBgOnDrag: 0
+  _nameText: {fileID: 0}
+  _imageImage: {fileID: 7466478523346950026}
+  _qualityText: {fileID: 0}
+  _amountText: {fileID: 403562319759526850}
+  _background: {fileID: 1944457707094749327}
+  TweenScale: {fileID: 0}
 --- !u!225 &6842434759605841286
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -406,7 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab67e8a3a982c643a82a42a3e0421b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startScale: {x: 2, y: 2, z: 2}
+  _startScale: {x: 1.5, y: 1.5, z: 1.5}
   _endScale: {x: 1, y: 1, z: 1}
   _duration: 0.1
   _easeType: 7
@@ -425,8 +432,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ab8880658c73646ae3024335ce21da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentItemContainer: {fileID: 0}
-  useSlotId: 0
-  objectID: 0
+  CurrentDropHandler: {fileID: 0}
   _onDragClip: {fileID: 0}
   _onDropClip: {fileID: 0}
+--- !u!114 &412785930950167156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219569867133533838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22076caeb99f93f4c90c6fa1735fa9bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enter: 3
+  Exit: 1
+  BeginDrag: 2
+  Drag: 2
+  EndDrag: 1

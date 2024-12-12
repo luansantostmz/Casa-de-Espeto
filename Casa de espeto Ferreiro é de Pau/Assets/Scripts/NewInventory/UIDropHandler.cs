@@ -40,15 +40,10 @@ public class UIDropHandler : MonoBehaviour
     {
         GameManager.Instance.StartCoroutine(DeactivateAfter(.1f));
         
-        if (dropHandler != this)
-            return;
-
         //var droppedItem = dragHandler.GetComponent<UIItem>().InventoryItem;
         //var addResult = ItemContainer.Inventory.AddItem(droppedItem.Settings, droppedItem.Quality, droppedItem.Quantity);
         //dragHandler.CurrentDropHandler.ItemContainer.TryRemoveItem(droppedItem);
         //Destroy(dragHandler.gameObject);
-
-        dragHandler.GetComponent<UIItem>().TransferTo(ItemContainer);
     }
 
     IEnumerator DeactivateAfter(float seconds)

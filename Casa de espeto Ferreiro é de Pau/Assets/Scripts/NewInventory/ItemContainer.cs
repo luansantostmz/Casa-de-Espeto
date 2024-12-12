@@ -1,10 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemContainer : MonoBehaviour
 {
-    public Inventory Inventory;
-
     public List<InventoryItem> InitialItems = new List<InventoryItem>();
     public UIItem UIItemPrefab; // Referência ao prefab do UIItem
     public Transform Container; // Transform onde os UIItems serão instanciados (por exemplo, um painel)
@@ -13,96 +12,77 @@ public class ItemContainer : MonoBehaviour
 
     public List<UIItem> UIItems = new List<UIItem>();
 
+    public Action<UIItem> OnItemAdded;
+    public Action<UIItem> OnItemRemoved;
+
     private void Awake()
     {
-        Inventory = new Inventory();
-
-        Inventory.OnItemAdded += OnItemAdded;
-        Inventory.OnItemRemoved += OnItemRemoved;
-
         foreach (InventoryItem item in InitialItems)
         {
             // Adiciona o item ao inventário
-            Inventory.AddItem(item.Settings, item.Quality, item.Quantity);
+            InstantiateUIItem(item.Settings, item.Quality, item.Quantity);
         }
     }
 
-    private void OnDestroy()
+    public void AddItem(UIItem uiItem)
     {
-        Inventory.OnItemAdded -= OnItemAdded;
-        Inventory.OnItemRemoved -= OnItemRemoved;
-    }
-
-    private void OnItemAdded(InventoryItem item)
-    {
-        foreach (var uiItem in UIItems)
+        foreach (var ui in UIItems)
         {
-            if (uiItem.InventoryItem.IsIdentical(item))
+            if (ui.IsIdentical(uiItem))
             {
-                uiItem.UpdateText();
+                ui.Quantity += uiItem.Quantity;
+                Destroy(uiItem.gameObject);
+                ui.UpdateVisual();
+                ui.TweenScale.PlayTween();
                 return;
             }
         }
 
-        InstantiateUIItem(item);
+        UIItems.Add(uiItem);
+        uiItem.ShowBackground();
+        uiItem.TweenScale.PlayTween();
     }
 
-    private void OnItemRemoved(InventoryItem item)
+    private void InstantiateUIItem(ItemSettings item, QualitySettings quality, int quantity)
     {
-        foreach (var uiItem in UIItems)
-        {
-            if (uiItem.InventoryItem.IsIdentical(item))
-            {
-                if (uiItem.InventoryItem.Quantity > 0)
-                    uiItem.UpdateText();
-                else
-                    Destroy(uiItem.gameObject);
-
-                return;
-            }
-        }
-    }
-
-    private void InstantiateUIItem(InventoryItem item)
-    {
-        // Instancia o UIItem a partir do prefab e define o pai no UI
         if (UIItemPrefab != null && Container != null)
         {
             UIItem uiItem = Instantiate(UIItemPrefab, Container);
 
-            if (uiItem != null)
-            {
-                // Aqui você pode configurar o UIItem com os dados do InventoryItem
-                uiItem.Setup(item); // Supondo que o UIItem tenha um método Setup que configura o item
-                uiItem.GetComponent<UIDragHandler>().CurrentDropHandler = DropHandler;
-            }
-
-            UIItems.Add(uiItem);
+            uiItem.Setup(item, quality, quantity); 
+            uiItem.GetComponent<UIDragHandler>().CurrentDropHandler = DropHandler;
+            
+            AddItem(uiItem);
+            return;
         }
+
+        Debug.LogError($"It was not possible to instantiate {item.ItemName}");
     }
 
-    public bool TryRemoveItem(InventoryItem item)
+    public void RemoveItem(UIItem uiItem)
     {
-        // Tenta remover o item do inventário
-        if (Inventory.RemoveItem(item.Settings, item.Quality, item.Quantity))
+        UIItems.Remove(uiItem);
+    }
+
+    public bool TryRemoveItem(ItemSettings item, QualitySettings quality, int quantity = 1)
+    {
+        // Verifica se algum UIItem correspondente existe
+        foreach (var uiItem in UIItems)
         {
-            // Verifica se algum UIItem correspondente existe
-            foreach (var uiItem in UIItems)
+            if (uiItem.Item == item && uiItem.Quality == quality)
             {
-                if (uiItem.InventoryItem.Settings == item.Settings && uiItem.InventoryItem.Quality == item.Quality)
+                // Ajusta a quantidade ou remove o UIItem
+                uiItem.AdjustQuantity(-quantity);
+                uiItem.UpdateVisual();
+
+                // Se a quantidade do UIItem for 0, remove o UIItem
+                if (uiItem.Quantity <= 0)
                 {
-                    // Ajusta a quantidade ou remove o UIItem
-                    uiItem.AdjustQuantity(-item.Quantity);
-
-                    // Se a quantidade do UIItem for 0, remove o UIItem
-                    if (uiItem.InventoryItem.Quantity <= 0)
-                    {
-                        UIItems.Remove(uiItem);
-                        Destroy(uiItem.gameObject); // Remove o objeto da UI
-                    }
-
-                    return true;
+                    UIItems.Remove(uiItem);
+                    Destroy(uiItem.gameObject); // Remove o objeto da UI
                 }
+
+                return true;
             }
         }
 

@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b59c8b033a3414495163d054a2547f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _idle: {fileID: 2800000, guid: 62dd8739554a18f48a46e57db1db65df, type: 3}
-  _hand: {fileID: 2800000, guid: 62dd8739554a18f48a46e57db1db65df, type: 3}
-  _handDragging: {fileID: 2800000, guid: 70e9608c33f797443974607649c36c05, type: 3}
+  _idleCursor: {fileID: 2800000, guid: 6e3dfccec4a066b4fbaa7f805b636444, type: 3}
+  _toDragCursor: {fileID: 2800000, guid: d648ab948171aba4280ad000463903c2, type: 3}
+  _DraggingCursor: {fileID: 2800000, guid: d098bcabeebd68441baa0f14089baa3e, type: 3}

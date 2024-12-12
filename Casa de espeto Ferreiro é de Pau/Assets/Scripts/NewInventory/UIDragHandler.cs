@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Vector3 originalPosition;
     private Transform originalParent;
@@ -13,6 +13,7 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public Action<UIDropHandler> OnDrop;
     public Action OnDragStart;
+    public Action OnDragEnd;
 
     public AudioClip _onDragClip;
     public AudioClip _onDropClip;
@@ -36,24 +37,20 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        CursorManager.OnCursorToHandDragging?.Invoke();
-
         OnDragStart?.Invoke();
         originalPosition = transform.position;
         originalParent = transform.parent;
 
-        if (_uiItem.InventoryItem.Quantity > 1)
+        CurrentDropHandler.ItemContainer.RemoveItem(_uiItem);
+        if (_uiItem.Quantity > 1)
         {
             UIItem clone = Instantiate(_uiItem, originalParent);
+            clone.ShowBackground();
             clone.transform.SetSiblingIndex(transform.GetSiblingIndex());
 
-            clone.Setup(_uiItem.InventoryItem.GetClone());
-            clone.AdjustQuantity(-1);
+            clone.Setup(_uiItem.Item, _uiItem.Quality, _uiItem.Quantity - 1);
 
-            CurrentDropHandler.ItemContainer.Inventory.AddItem(
-                clone.InventoryItem.Settings,
-                clone.InventoryItem.Quality,
-                clone.InventoryItem.Quantity);
+            CurrentDropHandler.ItemContainer.AddItem(clone);
 
             _uiItem.SetQuantity(1);
         }
@@ -79,7 +76,7 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        CursorManager.OnCursorToIdle?.Invoke();
+        OnDragEnd?.Invoke();
 
         if (_onDropClip)
             AudioManager.Instance.PlaySFX(_onDropClip);
@@ -95,12 +92,14 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
                 transform.localPosition = Vector3.zero; // Fixa na posição do container
                 OnDrop?.Invoke(dropHandler);
                 dropHandler.OnDropHere?.Invoke(this);
+                dropHandler.ItemContainer.AddItem(_uiItem);
                 GameEvents.DragAndDrop.OnDragEnded?.Invoke(this, dropHandler);
                 CurrentDropHandler = dropHandler;
             }
             else
             {
                 // Soltar em algo que não é um item container
+                CurrentDropHandler.ItemContainer.AddItem(_uiItem);
                 ResetPosition();
                 OnDrop?.Invoke(null);
                 GameEvents.DragAndDrop.OnDragEnded?.Invoke(this, null);
@@ -109,6 +108,7 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         else
         {
             // Não soltou sobre nada
+            CurrentDropHandler.ItemContainer.AddItem(_uiItem);
             ResetPosition();
             GameEvents.DragAndDrop.OnDragEnded?.Invoke(this, null);
         }
@@ -121,15 +121,5 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         // Voltar à posição original
         transform.SetParent(originalParent, true);
         transform.position = originalPosition;
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        CursorManager.OnCursorToHand?.Invoke();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        CursorManager.OnCursorToIdle?.Invoke();
     }
 }
