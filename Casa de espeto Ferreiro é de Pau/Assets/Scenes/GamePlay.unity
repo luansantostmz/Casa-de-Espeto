@@ -1226,6 +1226,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6902376190672052377, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7024344838420920865, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1233,6 +1237,10 @@ PrefabInstance:
     - target: {fileID: 7691523772919644193, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7691523772919644193, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0005296487
       objectReference: {fileID: 0}
     - target: {fileID: 8140890877665244013, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1592,6 +1600,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1912282078941061878, guid: a22cb6d6c632c1447a556909cfae8733, type: 3}
+      propertyPath: _idleCursor
+      value: 
+      objectReference: {fileID: 2800000, guid: 6e3dfccec4a066b4fbaa7f805b636444, type: 3}
     - target: {fileID: 1993390393013481085, guid: a22cb6d6c632c1447a556909cfae8733, type: 3}
       propertyPath: m_Name
       value: --- GameplayManagers
@@ -1599,7 +1611,7 @@ PrefabInstance:
     - target: {fileID: 3553697193333466049, guid: a22cb6d6c632c1447a556909cfae8733, type: 3}
       propertyPath: GameplaySettings
       value: 
-      objectReference: {fileID: 11400000, guid: 9118bcc9364f2dd439dcd0e04f8aca4c, type: 2}
+      objectReference: {fileID: 11400000, guid: 81e06b6f04035ee4999771b3c355cfa2, type: 2}
     - target: {fileID: 3553697193333466049, guid: a22cb6d6c632c1447a556909cfae8733, type: 3}
       propertyPath: CurrentReputation
       value: 50
