@@ -1,4 +1,7 @@
-ID,EN,PT,ES,FR,JP,RU,a1
-Play,Egidio,Luan,Nevão,Prates,Naomi,Jose,a2
-How to Play,Bonito,Lindo,Cheiro,Gostoso,Sexy,TIK,a3
-Prates,cavalo,cachorro,camelo,cangaço,pelado,VODKA,a4
+ID,EN,PT,ES,FR,JP,RU
+Play,Play,Jogar,Jugar,Jouer,プレイ,Играть
+How to Play,How to Play,Como jogar,Cómo jugar,Comment jouer,遊び方,Как играть
+Statistics,Statistics,Estatísticas,Estadísticas,Statistiques,統計,Статистика
+Settings,Settings,Configurações,Configuración,Paramètres,設定,Настройки
+Credits,Credits,Créditos,Créditos,Crédits,クレジット,Кредиты
+Exit,Exit,Sair,Salir,Quitter,終了,Выйти

@@ -6,9 +6,11 @@ using TMPro;
 public class LanguageManager : MonoBehaviour
 {
 	public TextAsset csvFile;
-
+	public TMP_Text buttonText; // Texto do botão
 	private Dictionary<string, Dictionary<string, string>> translations = new Dictionary<string, Dictionary<string, string>>();
+	private List<string> availableLanguages = new List<string>(); // Lista de idiomas disponíveis
 	private string currentLanguage = "PT"; // Idioma padrão
+	private int currentLanguageIndex = 0; // Índice do idioma atual
 
 	void Start()
 	{
@@ -28,11 +30,10 @@ public class LanguageManager : MonoBehaviour
 		var lines = csvContent.Split('\n');
 		string[] headers = lines[0].Split(',');
 
-		// Exibir os idiomas disponíveis no Console (debug)
-		Debug.Log("Idiomas disponíveis:");
+		// Adicionar idiomas disponíveis à lista
 		for (int i = 1; i < headers.Length; i++)
 		{
-			Debug.Log(headers[i]);  // Exibe os idiomas no Console
+			availableLanguages.Add(headers[i].Trim());
 		}
 
 		// Carregar as traduções
@@ -49,25 +50,17 @@ public class LanguageManager : MonoBehaviour
 
 			for (int j = 1; j < headers.Length; j++)
 			{
-				translations[id][headers[j]] = values[j].Trim(); // Adiciona a tradução
+				translations[id][headers[j].Trim()] = values[j].Trim(); // Adiciona a tradução
 			}
 		}
 
-		// Exibir as traduções de cada idioma no Console (debug)
-		Debug.Log("Traduções carregadas:");
-		foreach (var translation in translations)
+		// Atualiza o texto do botão com o idioma inicial
+		if (buttonText != null)
 		{
-			string id = translation.Key;
-			string translationsForID = $"ID: {id}";
-			foreach (var language in translation.Value)
-			{
-				translationsForID += $" | {language.Key}: {language.Value}";
-			}
-			Debug.Log(translationsForID);  // Exibe o ID e suas traduções no Console
+			buttonText.text = currentLanguage;
 		}
 	}
 
-	// Altera o idioma
 	public void SetLanguage(string language)
 	{
 		currentLanguage = language;
@@ -84,9 +77,20 @@ public class LanguageManager : MonoBehaviour
 		}
 	}
 
-	// Função chamada pelo botão para mudar de idioma
-	public void ChangeLanguage(string language)
+	public void ChangeLanguage()
 	{
-		SetLanguage(language);
+		// Alterna para o próximo idioma
+		currentLanguageIndex = (currentLanguageIndex + 1) % availableLanguages.Count;
+		string nextLanguage = availableLanguages[currentLanguageIndex];
+
+		// Define o próximo idioma
+		SetLanguage(nextLanguage);
+
+		// Atualiza o texto do botão
+		if (buttonText != null)
+		{
+			buttonText.text = nextLanguage;
+		}
+		Debug.Log(nextLanguage);
 	}
 }
