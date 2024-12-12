@@ -7,4 +7,5 @@ public class QualitySettings : ScriptableObject
     public int Points;
     public float PriceModifier;
     public Color Color;
+    public bool IsSpecial;
 }

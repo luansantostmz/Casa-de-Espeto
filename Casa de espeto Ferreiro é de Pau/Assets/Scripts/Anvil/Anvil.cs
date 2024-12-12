@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIAnvil : MonoBehaviour
+public class Anvil : ItemContainer
 {
+    [Header("Anvil Settings")]
     [SerializeField] UIRecipes _recipes;
-    [SerializeField] int _maxItems;
     [SerializeField] GameObject _hammerVFX;
 
     [SerializeField] TMP_Text _hammerCountText;
 
-    [SerializeField] UICardItem _toCraftItemUI;
+    [SerializeField] UIItem _toCraftItemUI;
     [SerializeField] PingPongSlider _bar;
-
-    List<UICardItem> _items =  new List<UICardItem>();
-    DropZone _dropZone;
 
     ItemSettings _lastToCraftItem;
 
@@ -24,29 +21,24 @@ public class UIAnvil : MonoBehaviour
 
     private void Awake()
     {
-        _dropZone = GetComponentInChildren<DropZone>(true);
         _bar.gameObject.SetActive(false);
         _hammerCountText.gameObject.SetActive(false);
 
-        GameEvents.Anvil.OnItemAddedToAnvil += AddItem;
-        GameEvents.Anvil.OnItemRemovedFromAnvil += RemoveItem;
         GameEvents.Anvil.OnHammer += OnHammer;
-
     }
 
     private void OnDestroy()
     {
-        GameEvents.Anvil.OnItemAddedToAnvil -= AddItem;
-        GameEvents.Anvil.OnItemRemovedFromAnvil -= RemoveItem;
         GameEvents.Anvil.OnHammer -= OnHammer;
     }
 
     private void OnHammer(QualitySettings quality)
     {
-        _dropZone.IsBlocked = true;
+        IsBlocked = true;
         _qualityPoints += quality.Points;
         _qualityPoints = _qualityPoints / 2;
         _hammerCount++;
+        _toCraftItemUI.GetComponent<ScaleDoTween>().PlayTween();
         UpdateToCraftItem(true);
         _bar.RestartBar();
         _hammerVFX.gameObject.SetActive(true);
@@ -64,22 +56,22 @@ public class UIAnvil : MonoBehaviour
         _bar.gameObject.SetActive(true);
         _hammerVFX.gameObject.SetActive(false);
 
-        if (_items.Count > 0)
+        if (UIItems.Count > 0)
         {
-            foreach (var item in _items)
+            foreach (var item in UIItems)
             {
                 Destroy(item.gameObject);
             }
 
-            _items.Clear();
+            UIItems.Clear();
         }
 
         if (_hammerCount >= _lastToCraftItem.HammerCount)
         { 
-            OldInventoryService.AddItem(_toCraftItemUI.Item);
+            ItemContainerManager.Instance.Inventory.InstantiateNewItem(_toCraftItemUI.Item, _toCraftItemUI.Quality, _toCraftItemUI.Quantity);
             _hammerCount = 0;
             _qualityPoints = 0;
-            _dropZone.IsBlocked = false;
+            IsBlocked = false;
             _hammerCountText.gameObject.SetActive(false);
             UpdateToCraftItem();
             _lastToCraftItem = null;
@@ -91,7 +83,7 @@ public class UIAnvil : MonoBehaviour
         if (_hammerCount > 0)
         {
             var quality = QualityProvider.Instance.GetQualityByPoints(_qualityPoints);
-            _toCraftItemUI.SetItem(new InventoryItem(_lastToCraftItem, quality));
+            _toCraftItemUI.Setup(_lastToCraftItem, quality, 1);
             _toCraftItemUI.gameObject.SetActive(true);
 
             return;
@@ -112,22 +104,22 @@ public class UIAnvil : MonoBehaviour
             if (_qualityPoints == 0)
             {
                 int ignoreCount = 0;
-                foreach (var ingredient in _items)
+                foreach (var ingredient in UIItems)
                 {
-                    if (ingredient.Item.Settings.IgnoreQualityOnAnvil)
+                    if (ingredient.Item.IgnoreQualityOnAnvil)
                     {
                         ignoreCount++;
                         continue;
                     }
 
-                    _qualityPoints += ingredient.Item.Quality.Points;
+                    _qualityPoints += ingredient.Quality.Points;
                 }
 
-                _qualityPoints = _qualityPoints / (_items.Count - ignoreCount);
+                _qualityPoints = _qualityPoints / (UIItems.Count - ignoreCount);
             }
 
             var quality = QualityProvider.Instance.GetQualityByPoints(_qualityPoints);
-            _toCraftItemUI.SetItem(new InventoryItem(toCraftItem, quality));
+            _toCraftItemUI.Setup(toCraftItem, quality, 1);
             _toCraftItemUI.gameObject.SetActive(true);
         }
         else
@@ -141,9 +133,12 @@ public class UIAnvil : MonoBehaviour
     {
         List<ItemSettings> items = new List<ItemSettings>();
 
-        foreach (var item in _items)
+        foreach (var item in UIItems)
         {
-            items.Add(item.Item.Settings);
+            for (int i = 0; i < item.Quantity; i++)
+            {
+                items.Add(item.Item);
+            }
         }
 
         foreach (var toCraftItem in _recipes.Items)
@@ -195,29 +190,21 @@ public class UIAnvil : MonoBehaviour
         return itemCounts;
     }
 
-
-    public void AddItem(UICardItem item)
+    public override void RemoveItem(UIItem uiItem)
     {
-        if (_items.Contains(item)) 
-            return;
+        base.RemoveItem(uiItem);
 
-        _items.Add(item);
-
-        if (_items.Count >= _maxItems)
-            _dropZone.IsBlocked = true;
-
-        UpdateToCraftItem();
-    }
-
-    public void RemoveItem(UICardItem item)
-    {
-        _items.Remove(item);
-
-        _dropZone.IsBlocked = false;
+        IsBlocked = false;
         UpdateToCraftItem();
         _lastToCraftItem = null;
         _qualityPoints = 0;
         _hammerCount = 0;
         _hammerCountText.gameObject.SetActive(false);
+    }
+
+    public override void AddItem(UIItem uiItem)
+    {
+        base.AddItem(uiItem);
+        UpdateToCraftItem();
     }
 }

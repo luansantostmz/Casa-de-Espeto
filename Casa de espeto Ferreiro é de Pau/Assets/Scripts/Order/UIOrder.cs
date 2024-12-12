@@ -8,7 +8,7 @@ public class UIOrder : MonoBehaviour
 {
     [SerializeField] OrderData _orderData;
 
-    [SerializeField] UICardItem _itemPrefab;
+    [SerializeField] UIItem _itemPrefab;
     [SerializeField] TMP_Text _orderIdText;
     [SerializeField] TMP_Text _rewardText;
     [SerializeField] TMP_Text _remainingTimeText;
@@ -18,7 +18,7 @@ public class UIOrder : MonoBehaviour
     [SerializeField] GameObject _failObject;
     [SerializeField] Button _completeButton;
 
-    List<UICardItem> _itemsUI = new List<UICardItem>();
+    List<UIItem> _itemsUI = new List<UIItem>();
 
     private void Awake()
     {
@@ -101,7 +101,7 @@ public class UIOrder : MonoBehaviour
         foreach (var item in orderData.Items)
         {
             var ui = Instantiate(_itemPrefab, _container);
-            ui.SetItem(item);
+            ui.Setup(item.Settings, item.Quality, item.Quantity);
             _itemsUI.Add(ui);
         }
 

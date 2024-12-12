@@ -25,7 +25,7 @@ public class UIAnvilInventoryItem : MonoBehaviour
         if (!dropZone)
             return;
 
-        if (dropZone.DropZoneOwner.TryGetComponent(out UIAnvil anvil))
+        if (dropZone.DropZoneOwner.TryGetComponent(out Anvil anvil))
         {
             GameEvents.Inventory.OnCardItemRemovedFromInventory?.Invoke(_uiInventory);
             GameEvents.Anvil.OnItemAddedToAnvil?.Invoke(_uiInventory);

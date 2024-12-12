@@ -16,3 +16,4 @@ MonoBehaviour:
   Points: 8
   PriceModifier: 1.5
   Color: {r: 0.5751985, g: 0.2681736, b: 0.9169811, a: 1}
+  IsSpecial: 1

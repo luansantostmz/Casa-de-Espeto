@@ -32,7 +32,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
         {
             HandleForgeSlotDrop(forgeSlot, dropZone);
         }
-        else if (dropZone.DropZoneOwner.TryGetComponent(out UIAnvil anvil))
+        else if (dropZone.DropZoneOwner.TryGetComponent(out Anvil anvil))
         {
             HandleAnvilDrop(anvil);
         }
@@ -53,7 +53,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
         OldInventoryService.RemoveItem(InventoryItem.Item);
     }
 
-    private void HandleAnvilDrop(UIAnvil anvil)
+    private void HandleAnvilDrop(Anvil anvil)
     {
         GameEvents.Inventory.OnCardItemRemovedFromInventory?.Invoke(InventoryItem);
         GameEvents.Anvil.OnItemAddedToAnvil?.Invoke(InventoryItem);
@@ -67,7 +67,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
             forgeSlot.RemoveItem();
             DragNDrop.useSlotId = false;
         }
-        else if (LastDropZone.DropZoneOwner.TryGetComponent(out UIAnvil anvil))
+        else if (LastDropZone.DropZoneOwner.TryGetComponent(out Anvil anvil))
         {
             GameEvents.Inventory.OnCardItemAddedToInventory?.Invoke(InventoryItem);
             GameEvents.Anvil.OnItemRemovedFromAnvil?.Invoke(InventoryItem);

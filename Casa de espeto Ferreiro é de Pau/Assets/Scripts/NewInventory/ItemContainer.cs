@@ -20,11 +20,27 @@ public class ItemContainer : MonoBehaviour
         foreach (InventoryItem item in InitialItems)
         {
             // Adiciona o item ao inventário
-            InstantiateUIItem(item.Settings, item.Quality, item.Quantity);
+            InstantiateNewItem(item.Settings, item.Quality, item.Quantity);
         }
     }
 
-    public void AddItem(UIItem uiItem)
+    public void InstantiateNewItem(ItemSettings item, QualitySettings quality, int quantity)
+    {
+        if (UIItemPrefab != null && Container != null)
+        {
+            UIItem uiItem = Instantiate(UIItemPrefab, Container);
+
+            uiItem.Setup(item, quality, quantity);
+            uiItem.GetComponent<UIDragHandler>().CurrentDropHandler = DropHandler;
+
+            AddItem(uiItem);
+            return;
+        }
+
+        Debug.LogError($"It was not possible to instantiate {item.ItemName}");
+    }
+
+    public virtual void AddItem(UIItem uiItem)
     {
         foreach (var ui in UIItems)
         {
@@ -34,6 +50,7 @@ public class ItemContainer : MonoBehaviour
                 Destroy(uiItem.gameObject);
                 ui.UpdateVisual();
                 ui.TweenScale.PlayTween();
+                OnItemAdded?.Invoke(ui);
                 return;
             }
         }
@@ -41,30 +58,15 @@ public class ItemContainer : MonoBehaviour
         UIItems.Add(uiItem);
         uiItem.ShowBackground();
         uiItem.TweenScale.PlayTween();
+        OnItemAdded?.Invoke(uiItem);
     }
 
-    private void InstantiateUIItem(ItemSettings item, QualitySettings quality, int quantity)
-    {
-        if (UIItemPrefab != null && Container != null)
-        {
-            UIItem uiItem = Instantiate(UIItemPrefab, Container);
-
-            uiItem.Setup(item, quality, quantity); 
-            uiItem.GetComponent<UIDragHandler>().CurrentDropHandler = DropHandler;
-            
-            AddItem(uiItem);
-            return;
-        }
-
-        Debug.LogError($"It was not possible to instantiate {item.ItemName}");
-    }
-
-    public void RemoveItem(UIItem uiItem)
+    public virtual void RemoveItem(UIItem uiItem)
     {
         UIItems.Remove(uiItem);
     }
 
-    public bool TryRemoveItem(ItemSettings item, QualitySettings quality, int quantity = 1)
+    public virtual bool TryRemoveItem(ItemSettings item, QualitySettings quality, int quantity = 1)
     {
         // Verifica se algum UIItem correspondente existe
         foreach (var uiItem in UIItems)

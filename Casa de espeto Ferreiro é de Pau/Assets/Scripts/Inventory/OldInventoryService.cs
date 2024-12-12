@@ -10,8 +10,6 @@ public class OldInventoryService
         if (Items.Contains(newItem)) 
             return;
 
-        Debug.Log("Adding new item to inventory:" + newItem.Settings);
-
         Items.Add(newItem);
 
         if (callAction)

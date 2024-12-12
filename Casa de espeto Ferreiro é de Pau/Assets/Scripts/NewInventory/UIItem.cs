@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class UIItem : MonoBehaviour
 {
@@ -16,6 +15,8 @@ public class UIItem : MonoBehaviour
     [SerializeField] TMP_Text _qualityText;
     [SerializeField] TMP_Text _amountText;
     [SerializeField] GameObject _background;
+    [SerializeField] Image _qualityBackground;
+    [SerializeField] GameObject _qualityVFX;
 
     public ScaleDoTween TweenScale;
     UIDragHandler _dragHandler;
@@ -56,6 +57,8 @@ public class UIItem : MonoBehaviour
         if (_imageImage) _imageImage.sprite = Item.Sprite;
         if (_qualityText) _qualityText.text = Quality.QualityName;
         if (_amountText) _amountText.text = Quantity > 1 ? Quantity.ToString() : "";
+        _qualityBackground.color = Quality.Color;
+        _qualityVFX.SetActive(Quality.IsSpecial);
     }
 
     public void AdjustQuantity(int value)
