@@ -3,5 +3,9 @@ using UnityEngine;
 public class UIStateObject : MonoBehaviour
 {
 	public UIState State;
-	public UIState ReverseState;
+
+	public virtual void Activate(bool activate)
+	{
+		gameObject.SetActive(activate);
+	}
 }

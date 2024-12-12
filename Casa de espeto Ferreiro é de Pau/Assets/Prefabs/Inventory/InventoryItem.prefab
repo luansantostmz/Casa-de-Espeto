@@ -78,11 +78,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab67e8a3a982c643a82a42a3e0421b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayOnEnable: 1
   _startScale: {x: 1.25, y: 1.25, z: 1.25}
   _endScale: {x: 1, y: 1, z: 1}
   _duration: 0.15
   _easeType: 7
-  _triggerOnEnable: 1
   _loop: 0
   _loopType: 0
 --- !u!222 &4316455567108489907

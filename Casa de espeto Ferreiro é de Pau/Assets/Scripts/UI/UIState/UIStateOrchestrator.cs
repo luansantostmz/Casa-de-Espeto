@@ -11,18 +11,15 @@ public class UIStateOrchestrator
 
 		foreach (var obj in GameObject.FindObjectsOfType<UIStateObject>(true))
         {
-            if (obj.ReverseState == state)
-				obj.gameObject.SetActive(false);
-
 			if (obj.State == state)
             {
-                obj.gameObject.SetActive(true);
+                obj.Activate(state);
             }
             else if (state.Group != null) 
             {
                 if (state.Group.States.Contains(obj.State))
                 {
-                    obj.gameObject.SetActive(false);
+                    obj.Activate(false);
                 }
             }
         }
@@ -36,12 +33,28 @@ public class UIStateOrchestrator
 		{
 			if (obj.State == state)
 			{
-				obj.gameObject.SetActive(false);
-			}
-			else if (obj.ReverseState == state)
-			{
-				obj.gameObject.SetActive(true);
-			}
+                obj.Activate(false);
+            }
 		}
 	}
+
+    public static void ActiveState(UIState state, string param)
+    {
+        ActiveStates.Add(state);
+
+        foreach (var obj in GameObject.FindObjectsOfType<UIStateObject>(true))
+        {
+            if (obj.State == state)
+            {
+                obj.Activate(true);
+            }
+            else if (state.Group != null)
+            {
+                if (state.Group.States.Contains(obj.State))
+                {
+                    obj.Activate(false);
+                }
+            }
+        }
+    }
 }
