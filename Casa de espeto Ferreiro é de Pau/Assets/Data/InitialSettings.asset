@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c0972fe662478e4f9e4b483d067cd48, type: 3}
   m_Name: InitialSettings
   m_EditorClassIdentifier: 
-  Reputation: 80
-  Gold: 200
-  Items:
+  InitialReputation: 30
+  InitialGold: 250
+  InitialItems:
   - Item: {fileID: 11400000, guid: d55c04b49662c5f489be7faee5974a11, type: 2}
     Quality: {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
     Quantity: 1
@@ -39,3 +39,6 @@ MonoBehaviour:
   - Item: {fileID: 11400000, guid: 0bac17d6d98d6ac44812c6153c60959b, type: 2}
     Quality: {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
     Quantity: 6
+  MaxReputation: 100
+  ReputationToWinOnDeliver: 5
+  ReputationToLoseOnFail: 20

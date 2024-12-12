@@ -37,7 +37,7 @@ public class UIStoreItem : ItemDisplay
     private void PurchaseItem()
     {
         EconomyService.SubtractGold(Item.BasePrice);
-        GameEvents.Store.OnPurchaseItem?.Invoke(Item, Quality);
+        GameEvents.Inventory.OnAddItem?.Invoke(Item, Quality, 1);
         GetComponent<ScaleDoTween>().PlayTween();
     }
 }

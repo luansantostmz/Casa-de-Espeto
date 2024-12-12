@@ -69,8 +69,12 @@ public class Anvil : ItemContainer
         }
 
         if (_hammerCount >= _lastToCraftItem.HammerCount)
-        { 
-            ItemContainerManager.Instance.Inventory.InstantiateNewItem(_toCraftItemUI.Item, _toCraftItemUI.Quality, _toCraftItemUI.Quantity);
+        {
+            GameEvents.Inventory.OnAddItem?.Invoke(
+                _toCraftItemUI.Item, 
+                _toCraftItemUI.Quality, 
+                _toCraftItemUI.Quantity);
+
             _hammerCount = 0;
             _qualityPoints = 0;
             DropHandler.IsBlocked = false;

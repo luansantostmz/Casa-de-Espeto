@@ -429,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b039801385b9e8940ab9a4adebf5f7ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialItems: []
   UIItemPrefab: {fileID: 2110913869114617363, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
   Container: {fileID: 8323879561751868621}
   DropHandler: {fileID: 1831453603391053660}
@@ -808,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9109254858791083780, guid: 7aa3af1cd33fb29439cb7d367124da3e, type: 3}
       propertyPath: m_SortingOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

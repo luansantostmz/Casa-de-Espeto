@@ -1240,7 +1240,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &3848300538764333164
 MonoBehaviour:
@@ -1295,7 +1295,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: {fileID: 11400000, guid: cad763fd430723645b2534d90762f7b7, type: 2}
-  ReverseState: {fileID: 0}
 --- !u!1 &4452398686844887129
 GameObject:
   m_ObjectHideFlags: 0

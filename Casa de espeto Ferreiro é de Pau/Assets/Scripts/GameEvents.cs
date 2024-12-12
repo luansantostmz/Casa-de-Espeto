@@ -16,9 +16,9 @@ public class GameEvents
         public static Action OnGoldSubtracted;
     }
 
-    public class Store
+    public class Inventory
     {
-        public static Action<ItemSettings, QualitySettings> OnPurchaseItem;
+        public static Action<ItemSettings, QualitySettings, int> OnAddItem;
     }
 
     public class Order
