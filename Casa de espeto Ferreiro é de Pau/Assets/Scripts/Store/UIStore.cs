@@ -19,7 +19,7 @@ public class UIStore : MonoBehaviour
         foreach (var item in _itemsToSell)
         {
             var ui = Instantiate(_storeItemPrefab, _container);
-            ui.Initialize(item);
+            ui.UpdateVisual(item, QualityProvider.Instance.GetFirstQuality());
             _uiItems.Add(ui);
         }
     }

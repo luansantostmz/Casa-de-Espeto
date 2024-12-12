@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIRecipes : MonoBehaviour
 {
-    [SerializeField] UICardItem _itemPrefab;
+    [SerializeField] ItemDisplay _itemPrefab;
     [SerializeField] RectTransform _recipesContainer;
     [SerializeField] List<ItemSettings> _items = new List<ItemSettings>();
 
@@ -15,7 +15,7 @@ public class UIRecipes : MonoBehaviour
 
     public List<ItemSettings> Items => _items;
 
-    List<UICardItem> _uiItems = new List<UICardItem>();
+    List<ItemDisplay> _uiItems = new List<ItemDisplay>();
     List<UIRecipeIngredient> _uiIngredients = new List<UIRecipeIngredient>();
 
     private void Awake()
@@ -33,11 +33,11 @@ public class UIRecipes : MonoBehaviour
         foreach (var item in _items)
         {
             var newItemUI = Instantiate(_itemPrefab, _recipesContainer);
-            newItemUI.SetItem(new InventoryItem(item, QualityProvider.Instance.GetFirstQuality()));
+            newItemUI.UpdateVisual(item, QualityProvider.Instance.GetFirstQuality());
             _uiItems.Add(newItemUI);
         }
 
-        GameEvents.Anvil.OnRecipeItemClicked?.Invoke(_uiItems[0].Item.Settings);
+        GameEvents.Anvil.OnRecipeItemClicked?.Invoke(_uiItems[0].Item);
     }
 
     private void ShowRecipe(ItemSettings itemSettings)

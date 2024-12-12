@@ -15,6 +15,7 @@ public class UIForgeSlot : ItemContainer
     }
 
     QualitySettings _lastQuality;
+    ItemSettings _itemOnDropped;
 
     protected override void Awake()
     {
@@ -22,12 +23,14 @@ public class UIForgeSlot : ItemContainer
         _forgeBar.StopBar();
     }
 
-
     private void Update()
     {
         if (ToForgeItem == null)
             return;
-     
+
+        if (!_itemOnDropped || !_itemOnDropped.ForgeSettings)
+            return;
+
         var quality = _forgeBar.GetCurrentQuality();
         ToForgeItem.Quality = quality;
 
@@ -57,6 +60,8 @@ public class UIForgeSlot : ItemContainer
 
         _forgeBar.forgeSettings = itemSettings.ForgeSettings;
 
+        _itemOnDropped = item.Item;
+
         if (item.Item.ForgeSettings) 
             _forgeBar.StartBar();
     }
@@ -72,5 +77,6 @@ public class UIForgeSlot : ItemContainer
         base.RemoveItem(item);
         DropHandler.IsBlocked = false;
         _forgeBar.StopBar();
+        _itemOnDropped = null;
     }
 }

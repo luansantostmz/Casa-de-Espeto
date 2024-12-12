@@ -43,12 +43,12 @@ public class QualityProvider : MonoBehaviour
         return closest;
     }
 
-    public QualitySettings GetQualityByIngredients(List<UICardItem> ingredients)
+    public QualitySettings GetQualityByIngredients(List<UIItem> ingredients)
     {
         int sum = 0;
         foreach(var ingredient in ingredients)
         {
-            sum += ingredient.Item.Quality.Points;
+            sum += ingredient.Quality.Points;
         }
 
         int average = sum / Qualities.Count;

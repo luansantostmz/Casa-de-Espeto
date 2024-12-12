@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7215949816997911284}
   - component: {fileID: 5305140227036901162}
   m_Layer: 5
-  m_Name: Button
+  m_Name: PurchaseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,11 +419,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184e1769316deb44eb56dc7284609fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 3239195810465523219}
-  _price: {fileID: 593778844526883529}
-  _sprite: {fileID: 1104561962573733884}
-  _purchaseButton: {fileID: 7215949816997911284}
-  _item: {fileID: 0}
+  Item: {fileID: 0}
+  Quality: {fileID: 0}
+  Quantity: 0
+  _nameText: {fileID: 3239195810465523219}
+  _imageImage: {fileID: 5974004846106993926}
+  _qualityText: {fileID: 0}
+  _amountText: {fileID: 0}
+  _background: {fileID: 0}
+  _qualityBackground: {fileID: 0}
+  _qualityVFX: {fileID: 0}
+  PriceText: {fileID: 593778844526883529}
+  PurchaseButton: {fileID: 7215949816997911284}
 --- !u!114 &7366294605675596986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,11 +443,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab67e8a3a982c643a82a42a3e0421b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayOnEnable: 0
   _startScale: {x: 1.25, y: 1.25, z: 1.25}
   _endScale: {x: 1, y: 1, z: 1}
   _duration: 0.15
   _easeType: 7
-  _triggerOnEnable: 1
   _loop: 0
   _loopType: 0
 --- !u!1 &4193578227181278223

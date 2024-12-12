@@ -1110,6 +1110,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI-Anvil
       objectReference: {fileID: 0}
+    - target: {fileID: 4666645608665269040, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
+      propertyPath: _itemPrefab
+      value: 
+      objectReference: {fileID: 684485789358125242, guid: 04a3d20a3f9bf394b98c3a13049bcff0, type: 3}
     - target: {fileID: 6160653307961351481, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1117,6 +1121,10 @@ PrefabInstance:
     - target: {fileID: 6160653307961351481, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031800767337994262, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
+      propertyPath: m_CellSize.y
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7097266100963691718, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
       propertyPath: m_Pivot.x
@@ -1246,7 +1254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1916970919951903382, guid: d0baa764d5ea5c2498064cc4df1a1ef8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.016671285
+      value: -0.00038682926
       objectReference: {fileID: 0}
     - target: {fileID: 2575095306281041184, guid: d0baa764d5ea5c2498064cc4df1a1ef8, type: 3}
       propertyPath: m_Name
@@ -1348,6 +1356,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1056408908}
+    - target: {fileID: 8754085190007431695, guid: d0baa764d5ea5c2498064cc4df1a1ef8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754085190007431695, guid: d0baa764d5ea5c2498064cc4df1a1ef8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754085190007431695, guid: d0baa764d5ea5c2498064cc4df1a1ef8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

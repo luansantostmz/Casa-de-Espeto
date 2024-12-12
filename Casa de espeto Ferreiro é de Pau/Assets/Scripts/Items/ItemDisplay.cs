@@ -17,7 +17,7 @@ public class ItemDisplay : MonoBehaviour
     public Image _qualityBackground;
     public GameObject _qualityVFX;
 
-    public void UpdateVisual(ItemSettings item, QualitySettings quality, int quantity)
+    public virtual void UpdateVisual(ItemSettings item, QualitySettings quality, int quantity = 1)
     {
         Item = item;
         Quality = quality;

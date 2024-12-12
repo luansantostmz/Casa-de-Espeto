@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TweenObject : MonoBehaviour
 {
-    public bool PlayOnEnable;
+    public bool PlayOnEnable = true;
 
     protected virtual void OnEnable()
     {
