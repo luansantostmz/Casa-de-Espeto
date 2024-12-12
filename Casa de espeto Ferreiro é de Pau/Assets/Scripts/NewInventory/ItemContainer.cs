@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemContainer : MonoBehaviour
 {
-    public List<InventoryItem> InitialItems = new List<InventoryItem>();
+    public InitialItemSettings InitialItems;
     public UIItem UIItemPrefab; // Referência ao prefab do UIItem
     public Transform Container; // Transform onde os UIItems serão instanciados (por exemplo, um painel)
     public UIDropHandler DropHandler;
@@ -18,10 +18,13 @@ public class ItemContainer : MonoBehaviour
     {
         DropHandler.Initialize(this);
 
-        foreach (InventoryItem item in InitialItems)
+        if (!InitialItems)
+            return;
+
+        foreach (InitialItemData item in InitialItems.Items)
         {
             // Adiciona o item ao inventário
-            InstantiateNewItem(item.Settings, item.Quality, item.Quantity);
+            InstantiateNewItem(item.Item, item.Quality, item.Quantity);
         }
     }
 

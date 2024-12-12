@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class ChangeScreens : MonoBehaviour
 {
-	public Animator animator;
-
-	[Header("Forge")]
     [SerializeField] private Transform[] posItensForge;
 	private Vector3[] initialPositionItensForge;
 
-	[Header("Anvil")]
     [SerializeField] private Transform[] posItensAnvil;
 	private Vector3[] initialPositionItensAnvil;
 
-	[Header("Store")]
 	[SerializeField] private Transform[] posItensStore;
 	private Vector3[] initialPositionItensStore;
 
@@ -50,7 +45,6 @@ public class ChangeScreens : MonoBehaviour
 		}
 
 		MoverParaForaDaCamera();
-		animator.SetBool("IsOpen", true);
 
 		RestartPosAnvil();
 	}
@@ -122,10 +116,4 @@ public class ChangeScreens : MonoBehaviour
 			}
 		}
 	}
-
-	public void ToggleAnimationOrders()
-	{
-		animator.SetBool("IsOpen", !animator.GetBool("IsOpen"));		
-	}
-
 }

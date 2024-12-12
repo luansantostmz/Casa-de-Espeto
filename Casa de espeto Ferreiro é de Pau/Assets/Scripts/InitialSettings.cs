@@ -8,11 +8,3 @@ public class InitialSettings : ScriptableObject
     public int Gold;
     public List<InitialItemData> Items = new List<InitialItemData>();
 }
-
-[System.Serializable]
-public class InitialItemData
-{
-    public ItemSettings Item;
-    public QualitySettings Quality;
-    public int Quantity;
-}

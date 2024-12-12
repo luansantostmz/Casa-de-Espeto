@@ -19,8 +19,10 @@ public class Anvil : ItemContainer
     public int _hammerCount;
     public int _qualityPoints;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         _bar.gameObject.SetActive(false);
         _hammerCountText.gameObject.SetActive(false);
 
