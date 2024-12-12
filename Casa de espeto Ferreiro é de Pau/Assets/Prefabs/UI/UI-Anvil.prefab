@@ -1535,7 +1535,7 @@ MonoBehaviour:
   _recipes: {fileID: 4666645608665269040}
   _hammerVFX: {fileID: 6113130927576692772}
   _hammerCountText: {fileID: 928471683032535147}
-  _toCraftItemUI: {fileID: 2130662546554445169}
+  _toCraftItemUI: {fileID: 1670752326248810339}
   _bar: {fileID: 3488801431558496929}
   _hammerCount: 0
   _qualityPoints: 0
@@ -2201,6 +2201,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7970521602321988893}
     m_Modifications:
+    - target: {fileID: -7496964142404127743, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
+      propertyPath: _amountText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: -3794959307661899993, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
       propertyPath: _duration
       value: 0.25
@@ -2360,20 +2364,21 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3892343693276066890, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
     - {fileID: 412785930950167156, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
+    - {fileID: 2110913869114617363, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
     m_RemovedGameObjects:
     - {fileID: 945541216899851552, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
---- !u!114 &2130662546554445169 stripped
+--- !u!114 &1670752326248810339 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2110913869114617363, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
+  m_CorrespondingSourceObject: {fileID: -7496964142404127743, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
   m_PrefabInstance: {fileID: 61602023490909026}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc7512f5695630c4f932617d6501ad4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c47971c2950e944fa77f0e67b26f242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &7286319835426949298 stripped

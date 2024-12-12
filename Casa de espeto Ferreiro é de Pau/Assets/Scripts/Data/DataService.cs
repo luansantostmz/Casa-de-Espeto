@@ -77,5 +77,4 @@ public class SavedOrderData
 public class ItemData
 {
     public string ItemName;
-    public string ItemQuality;
 }

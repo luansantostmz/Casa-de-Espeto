@@ -7,16 +7,17 @@ public class ItemContainer : MonoBehaviour
     public List<InventoryItem> InitialItems = new List<InventoryItem>();
     public UIItem UIItemPrefab; // Referência ao prefab do UIItem
     public Transform Container; // Transform onde os UIItems serão instanciados (por exemplo, um painel)
-    public bool IsBlocked;
     public UIDropHandler DropHandler;
 
-    public List<UIItem> UIItems = new List<UIItem>();
+    public List<UIItem> Items = new List<UIItem>();
 
     public Action<UIItem> OnItemAdded;
     public Action<UIItem> OnItemRemoved;
 
-    private void Awake()
+    protected virtual void Awake()
     {
+        DropHandler.Initialize(this);
+
         foreach (InventoryItem item in InitialItems)
         {
             // Adiciona o item ao inventário
@@ -42,20 +43,19 @@ public class ItemContainer : MonoBehaviour
 
     public virtual void AddItem(UIItem uiItem)
     {
-        foreach (var ui in UIItems)
+        foreach (var ui in Items)
         {
             if (ui.IsIdentical(uiItem))
             {
                 ui.Quantity += uiItem.Quantity;
                 Destroy(uiItem.gameObject);
                 ui.UpdateVisual();
-                ui.TweenScale.PlayTween();
                 OnItemAdded?.Invoke(ui);
                 return;
             }
         }
 
-        UIItems.Add(uiItem);
+        Items.Add(uiItem);
         uiItem.ShowBackground();
         uiItem.TweenScale.PlayTween();
         OnItemAdded?.Invoke(uiItem);
@@ -63,13 +63,13 @@ public class ItemContainer : MonoBehaviour
 
     public virtual void RemoveItem(UIItem uiItem)
     {
-        UIItems.Remove(uiItem);
+        Items.Remove(uiItem);
     }
 
     public virtual bool TryRemoveItem(ItemSettings item, QualitySettings quality, int quantity = 1)
     {
         // Verifica se algum UIItem correspondente existe
-        foreach (var uiItem in UIItems)
+        foreach (var uiItem in Items)
         {
             if (uiItem.Item == item && uiItem.Quality == quality)
             {
@@ -80,7 +80,7 @@ public class ItemContainer : MonoBehaviour
                 // Se a quantidade do UIItem for 0, remove o UIItem
                 if (uiItem.Quantity <= 0)
                 {
-                    UIItems.Remove(uiItem);
+                    Items.Remove(uiItem);
                     Destroy(uiItem.gameObject); // Remove o objeto da UI
                 }
 

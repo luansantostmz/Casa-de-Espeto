@@ -83,6 +83,9 @@ public class ForgeBar : MonoBehaviour
         isRunning = false;  // Para o movimento
 
 		// Verifica em qual faixa o valor do slider parou
+		if (!forgeSettings)
+			return;
+
 		foreach (var range in forgeSettings.valueRanges)
 		{
 			if (timeElapsed >= range.minValue && timeElapsed <= range.maxValue)
@@ -95,6 +98,9 @@ public class ForgeBar : MonoBehaviour
 
 	public QualitySettings GetCurrentQuality()
 	{
+		if (!forgeSettings)
+			return null;
+
         foreach (var range in forgeSettings.valueRanges)
         {
             if (timeElapsed >= range.minValue && timeElapsed <= range.maxValue)

@@ -5,78 +5,38 @@ using System.Linq;
 public class OrderData
 {
     public int OrderId;
-    public List<InventoryItem> Items = new List<InventoryItem>();
+    public List<ItemSettings> Items = new List<ItemSettings>();
     public int DeliveryTime;
     public float RemainingTime;
     public int Reward;
 
     public List<InventoryItem> DeliveredItems = new List<InventoryItem>();
 
-    public bool IsCompleted;
-    public bool IsFailed;
-
-    public List<InventoryItem> GetItemsInStock()
-    {
-        var organizedList = new List<InventoryItem>(Items);
-        organizedList.OrderByDescending(item => item.Quality.Points).ToList();
-
-        List<InventoryItem> inStock = new List<InventoryItem>();
-
-        foreach (var orderItem in organizedList)
-        {
-            foreach (InventoryItem inventoryItem in OldInventoryService.Items)
-            {
-                if (inventoryItem.Settings == orderItem.Settings && 
-                    (inventoryItem.Quality.Points >= orderItem.Quality.Points) &&
-                    !inStock.Contains(inventoryItem))
-                {
-                    inStock.Add(inventoryItem);
-                    break;
-                }
-            }
-        }
-
-        return inStock;
-    }
-
-    public bool HaveAllItems()
-    {
-        return GetItemsInStock().Count >= Items.Count;
-    }
-
-    public void DestroyItems()
-    {
-        DeliveredItems = GetItemsInStock();
-
-        foreach (var item in DeliveredItems)
-        {
-            GameEvents.Inventory.OnItemDestroyed?.Invoke(item);
-        }
-    }
+    public OrderState OrderState;
 
     public void Complete()
     {
-        if (IsFailed || IsCompleted) return;
+        if (OrderState != OrderState.WaitingReward) return;
 
-        IsCompleted = true;
+        OrderState = OrderState.Completed;
 
         GameManager.Instance.GainReputation();
         EconomyService.AddGold(Reward);
-
-        foreach (var item in GetItemsInStock())
-        {
-            OldInventoryService.RemoveItem(item);
-        }
 
         GameEvents.Order.OnOrderComplete?.Invoke(this);
     }
 
     public void Fail()
     {
-        if (IsFailed || IsCompleted) return;
+        if (OrderState == OrderState.Failed || OrderState == OrderState.Completed) return;
 
-        IsFailed = true;
+        OrderState = OrderState.Failed;
         GameManager.Instance.LoseReputation();
         GameEvents.Order.OnOrderFail?.Invoke(this);
     }
+}
+
+public enum OrderState
+{
+    Uncomplete, WaitingReward, Completed, Failed
 }

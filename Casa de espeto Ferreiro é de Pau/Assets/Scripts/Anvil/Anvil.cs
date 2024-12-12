@@ -11,7 +11,7 @@ public class Anvil : ItemContainer
 
     [SerializeField] TMP_Text _hammerCountText;
 
-    [SerializeField] UIItem _toCraftItemUI;
+    [SerializeField] ItemDisplay _toCraftItemUI;
     [SerializeField] PingPongSlider _bar;
 
     ItemSettings _lastToCraftItem;
@@ -34,7 +34,7 @@ public class Anvil : ItemContainer
 
     private void OnHammer(QualitySettings quality)
     {
-        IsBlocked = true;
+        DropHandler.IsBlocked = true;
         _qualityPoints += quality.Points;
         _qualityPoints = _qualityPoints / 2;
         _hammerCount++;
@@ -56,14 +56,14 @@ public class Anvil : ItemContainer
         _bar.gameObject.SetActive(true);
         _hammerVFX.gameObject.SetActive(false);
 
-        if (UIItems.Count > 0)
+        if (Items.Count > 0)
         {
-            foreach (var item in UIItems)
+            foreach (var item in Items)
             {
                 Destroy(item.gameObject);
             }
 
-            UIItems.Clear();
+            Items.Clear();
         }
 
         if (_hammerCount >= _lastToCraftItem.HammerCount)
@@ -71,7 +71,7 @@ public class Anvil : ItemContainer
             ItemContainerManager.Instance.Inventory.InstantiateNewItem(_toCraftItemUI.Item, _toCraftItemUI.Quality, _toCraftItemUI.Quantity);
             _hammerCount = 0;
             _qualityPoints = 0;
-            IsBlocked = false;
+            DropHandler.IsBlocked = false;
             _hammerCountText.gameObject.SetActive(false);
             UpdateToCraftItem();
             _lastToCraftItem = null;
@@ -83,7 +83,7 @@ public class Anvil : ItemContainer
         if (_hammerCount > 0)
         {
             var quality = QualityProvider.Instance.GetQualityByPoints(_qualityPoints);
-            _toCraftItemUI.Setup(_lastToCraftItem, quality, 1);
+            _toCraftItemUI.UpdateVisual(_lastToCraftItem, quality, 1);
             _toCraftItemUI.gameObject.SetActive(true);
 
             return;
@@ -104,7 +104,7 @@ public class Anvil : ItemContainer
             if (_qualityPoints == 0)
             {
                 int ignoreCount = 0;
-                foreach (var ingredient in UIItems)
+                foreach (var ingredient in Items)
                 {
                     if (ingredient.Item.IgnoreQualityOnAnvil)
                     {
@@ -115,11 +115,11 @@ public class Anvil : ItemContainer
                     _qualityPoints += ingredient.Quality.Points;
                 }
 
-                _qualityPoints = _qualityPoints / (UIItems.Count - ignoreCount);
+                _qualityPoints = _qualityPoints / (Items.Count - ignoreCount);
             }
 
             var quality = QualityProvider.Instance.GetQualityByPoints(_qualityPoints);
-            _toCraftItemUI.Setup(toCraftItem, quality, 1);
+            _toCraftItemUI.UpdateVisual(toCraftItem, quality, 1);
             _toCraftItemUI.gameObject.SetActive(true);
         }
         else
@@ -133,7 +133,7 @@ public class Anvil : ItemContainer
     {
         List<ItemSettings> items = new List<ItemSettings>();
 
-        foreach (var item in UIItems)
+        foreach (var item in Items)
         {
             for (int i = 0; i < item.Quantity; i++)
             {
@@ -194,7 +194,7 @@ public class Anvil : ItemContainer
     {
         base.RemoveItem(uiItem);
 
-        IsBlocked = false;
+        DropHandler.IsBlocked = false;
         UpdateToCraftItem();
         _lastToCraftItem = null;
         _qualityPoints = 0;

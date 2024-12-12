@@ -4,11 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIOrder : MonoBehaviour
+public class UIOrder : ItemContainer
 {
+    [Header("Order")]
     [SerializeField] OrderData _orderData;
 
-    [SerializeField] UIItem _itemPrefab;
+    [SerializeField] OrderItemDisplay _itemPrefab;
     [SerializeField] TMP_Text _orderIdText;
     [SerializeField] TMP_Text _rewardText;
     [SerializeField] TMP_Text _remainingTimeText;
@@ -16,33 +17,24 @@ public class UIOrder : MonoBehaviour
 
     [SerializeField] GameObject _deliveredObject;
     [SerializeField] GameObject _failObject;
-    [SerializeField] Button _completeButton;
 
-    List<UIItem> _itemsUI = new List<UIItem>();
+    List<OrderItemDisplay> _itemsToDeliver = new List<OrderItemDisplay>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        GameEvents.Inventory.OnItemAdded += UpdateVisual;
-        GameEvents.Inventory.OnItemRemoved += UpdateVisual;
-        GameEvents.Forge.OnItemAddedToForge += UpdateVisual;
-        GameEvents.Anvil.OnItemRemovedFromAnvil += UpdateVisual;
-        GameEvents.Anvil.OnItemAddedToAnvil += UpdateVisual;
-        _completeButton.onClick.AddListener(Complete);
+        base.Awake();
+
+        GameEvents.DragAndDrop.OnAnyDragStart += ControlDropHandler;
     }
 
     private void OnDestroy()
     {
-        GameEvents.Inventory.OnItemAdded -= UpdateVisual;
-        GameEvents.Inventory.OnItemRemoved -= UpdateVisual;
-        GameEvents.Forge.OnItemAddedToForge -= UpdateVisual;
-        GameEvents.Anvil.OnItemRemovedFromAnvil -= UpdateVisual;
-        GameEvents.Anvil.OnItemAddedToAnvil -= UpdateVisual;
-        _completeButton.onClick.RemoveListener(Complete); 
+        GameEvents.DragAndDrop.OnAnyDragStart -= ControlDropHandler;
     }
 
     private void FixedUpdate()
     {
-        if (_orderData.IsFailed || _orderData.IsCompleted)
+        if (_orderData.OrderState != OrderState.Uncomplete)
             return;
 
         if (_orderData.RemainingTime > 0)
@@ -57,10 +49,35 @@ public class UIOrder : MonoBehaviour
         }
     }
 
+    private void ControlDropHandler(UIDragHandler dragHandler)
+    {
+        if (_orderData.OrderState != OrderState.Uncomplete)
+            return;
+
+        var uiItem = dragHandler.GetComponent<UIItem>();
+
+        bool activate = false;
+        foreach (var item in _itemsToDeliver)
+        {
+            if (item.IsCompleted)
+                continue;
+
+            if (item.Item != uiItem.Item)
+                continue;
+
+            activate = true;
+            break;
+        }
+
+        DropHandler.IsBlocked = !activate;
+    }
+
     IEnumerator Deliver()
     {
+        DropHandler.IsBlocked = true;
         _deliveredObject.SetActive(true);
-        _orderData.DestroyItems();
+        _orderData.OrderState = OrderState.WaitingReward;
+        GetComponent<ScaleDoTween>().PlayTween();
         yield return new WaitForSeconds(2f);
         _orderData.Complete();
         Destroy(gameObject);
@@ -74,23 +91,6 @@ public class UIOrder : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void UpdateVisual(InventoryItem item)
-    {
-        bool haveAllItems = _orderData.HaveAllItems();
-        _completeButton.interactable = haveAllItems;
-    }
-
-    private void UpdateVisual(UICardItem item)
-    {
-        bool haveAllItems = _orderData.HaveAllItems();
-        _completeButton.interactable = haveAllItems;
-    }
-
-    private void Complete()
-    {
-        StartCoroutine(Deliver());
-    }
-
     public void Initialize(OrderData orderData)
     {
         _orderData = orderData;
@@ -101,10 +101,37 @@ public class UIOrder : MonoBehaviour
         foreach (var item in orderData.Items)
         {
             var ui = Instantiate(_itemPrefab, _container);
-            ui.Setup(item.Settings, item.Quality, item.Quantity);
-            _itemsUI.Add(ui);
+            ui.UpdateVisual(item, QualityProvider.Instance.GetFirstQuality(), 1);
+            _itemsToDeliver.Add(ui);
+        }
+    }
+
+    public override void AddItem(UIItem uiItem)
+    {
+        base.AddItem(uiItem);
+
+        bool orderCompleted = true;
+        bool delivered = false;
+        foreach (var item in _itemsToDeliver)
+        {
+            if (item.IsCompleted)
+                continue;
+
+            if (item.Item == uiItem.Item && !delivered)
+            {
+                item.SetComplete();
+                RemoveItem(uiItem);
+                Destroy(uiItem);
+                delivered = true;
+            }
+
+            if (!item.IsCompleted)
+                orderCompleted = false;
         }
 
-        _completeButton.interactable = _orderData.HaveAllItems();
+        if (!orderCompleted)
+            return;
+
+        StartCoroutine(Deliver());
     }
 }

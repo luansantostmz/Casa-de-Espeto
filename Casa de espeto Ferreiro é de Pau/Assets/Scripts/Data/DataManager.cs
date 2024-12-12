@@ -56,8 +56,7 @@ public class DataManager : MonoBehaviour
         {
             items.Add(new ItemData()
             {
-                ItemName = item.Settings.ItemName,
-                ItemQuality = item.Quality.QualityName
+                ItemName = item.ItemName,
             });
         }
 
@@ -79,8 +78,7 @@ public class DataManager : MonoBehaviour
         {
             items.Add(new ItemData()
             {
-                ItemName = item.Settings.ItemName,
-                ItemQuality = item.Quality.QualityName
+                ItemName = item.ItemName,
             });
         }
 

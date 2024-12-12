@@ -35,8 +35,8 @@ public class GameEvents
 
     public class DragAndDrop
     {
-        public static Action<UIDragHandler> OnDragStarted;
-        public static Action<UIDragHandler, UIDropHandler> OnDragEnded;
+        public static Action<UIDragHandler> OnAnyDragStart;
+        public static Action<UIDragHandler, UIDropHandler> OnAnyDragEnd;
 
         public static Action<DragAndDropObject> OnDragStart;
         public static Action<DragAndDropObject, DropZone> OnDragEnd;

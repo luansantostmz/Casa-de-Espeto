@@ -60,7 +60,7 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         // Eleva o objeto na hierarquia para evitar sobreposição visual
         transform.SetParent(DragManager.Instance.DragTransform, true);
 
-        GameEvents.DragAndDrop.OnDragStarted?.Invoke(this);
+        GameEvents.DragAndDrop.OnAnyDragStart?.Invoke(this);
 
         if (_onDragClip)
             AudioManager.Instance.PlaySFX(_onDragClip);
@@ -76,6 +76,7 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        _image.raycastTarget = true;
         OnDragEnd?.Invoke();
 
         if (_onDropClip)
@@ -88,32 +89,28 @@ public class UIDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (dropHandler != null && !dropHandler.IsBlocked)
             {
                 // Soltar no container correto
-                transform.SetParent(dropHandler.Container ? dropHandler.Container : dropHandler.transform, true);
+                transform.SetParent(dropHandler.ItemContainer.Container ? dropHandler.ItemContainer.Container : dropHandler.transform, true);
                 transform.localPosition = Vector3.zero; // Fixa na posição do container
                 OnDrop?.Invoke(dropHandler);
                 dropHandler.OnDropHere?.Invoke(this);
                 dropHandler.ItemContainer.AddItem(_uiItem);
-                GameEvents.DragAndDrop.OnDragEnded?.Invoke(this, dropHandler);
+                GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, dropHandler);
                 CurrentDropHandler = dropHandler;
+                return;
             }
-            else
-            {
-                // Soltar em algo que não é um item container
-                CurrentDropHandler.ItemContainer.AddItem(_uiItem);
-                ResetPosition();
-                OnDrop?.Invoke(null);
-                GameEvents.DragAndDrop.OnDragEnded?.Invoke(this, null);
-            }
-        }
-        else
-        {
-            // Não soltou sobre nada
+            
+            // Soltar em algo que não é um item container
             CurrentDropHandler.ItemContainer.AddItem(_uiItem);
             ResetPosition();
-            GameEvents.DragAndDrop.OnDragEnded?.Invoke(this, null);
+            OnDrop?.Invoke(null);
+            GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
+            return;
         }
 
-        _image.raycastTarget = true;
+        // Não soltou sobre nada
+        CurrentDropHandler.ItemContainer.AddItem(_uiItem);
+        ResetPosition();
+        GameEvents.DragAndDrop.OnAnyDragEnd?.Invoke(this, null);
     }
 
     private void ResetPosition()

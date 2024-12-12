@@ -31,7 +31,7 @@ public class UIForgeInventoryItem : MonoBehaviour
             if (item.Settings.MeltedItem == null)
                 return;
 
-            slot.SetItem(InventoryItem);
+            //slot.SetItem(InventoryItem);
             ForgeSlot = slot;
             DragNDrop.useSlotId = true;
             OldInventoryService.RemoveItem(item);
@@ -42,7 +42,7 @@ public class UIForgeInventoryItem : MonoBehaviour
                 return;
 
             OldInventoryService.AddItem(item, false);
-            ForgeSlot.RemoveItem();
+            //ForgeSlot.RemoveItem();
             DragNDrop.useSlotId = false;
         }
     }

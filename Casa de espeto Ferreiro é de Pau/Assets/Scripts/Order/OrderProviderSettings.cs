@@ -21,5 +21,4 @@ public class OrderProviderInterval
     public List<ItemSettings> Items = new List<ItemSettings>();
     public int MinItemQuantity;
     public int MaxItemQuantity;
-    public List<QualitySettings> Qualities = new List<QualitySettings>();
 }

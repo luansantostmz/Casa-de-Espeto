@@ -48,7 +48,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
         if (InventoryItem.Item.Settings.MeltedItem == null || dropZone.IsBlocked)
             return;
 
-        forgeSlot.SetItem(InventoryItem);
+        //forgeSlot.SetItem(InventoryItem);
         DragNDrop.useSlotId = true;
         OldInventoryService.RemoveItem(InventoryItem.Item);
     }
@@ -64,7 +64,7 @@ public class UIInventoryDraggableItem : MonoBehaviour
         if (LastDropZone.DropZoneOwner.TryGetComponent(out UIForgeSlot forgeSlot))
         {
             OldInventoryService.AddItem(InventoryItem.Item, false);
-            forgeSlot.RemoveItem();
+            //forgeSlot.RemoveItem();
             DragNDrop.useSlotId = false;
         }
         else if (LastDropZone.DropZoneOwner.TryGetComponent(out Anvil anvil))

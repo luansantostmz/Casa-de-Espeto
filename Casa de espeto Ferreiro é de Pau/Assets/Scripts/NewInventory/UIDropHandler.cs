@@ -5,8 +5,7 @@ using UnityEngine;
 public class UIDropHandler : MonoBehaviour
 {
     public bool IsBlocked;
-    public ItemContainer ItemContainer;
-    public RectTransform Container;
+    public ItemContainer ItemContainer { get; private set; }
 
     public Action<UIDragHandler> OnDropHere;
 
@@ -14,16 +13,21 @@ public class UIDropHandler : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        GameEvents.DragAndDrop.OnDragStarted += OnAnyDragStart;
-        GameEvents.DragAndDrop.OnDragEnded += OnAnyDragEnd;
+        GameEvents.DragAndDrop.OnAnyDragStart += OnAnyDragStart;
+        GameEvents.DragAndDrop.OnAnyDragEnd += OnAnyDragEnd;
 
         OnDropHere += AddItem;
     }
 
+    public void Initialize(ItemContainer itemContainer)
+    {
+        ItemContainer = itemContainer;
+    }
+
     private void OnDestroy()
     {
-        GameEvents.DragAndDrop.OnDragStarted -= OnAnyDragStart;
-        GameEvents.DragAndDrop.OnDragEnded -= OnAnyDragEnd;
+        GameEvents.DragAndDrop.OnAnyDragStart -= OnAnyDragStart;
+        GameEvents.DragAndDrop.OnAnyDragEnd -= OnAnyDragEnd;
 
         OnDropHere -= AddItem;
     }
@@ -39,11 +43,6 @@ public class UIDropHandler : MonoBehaviour
     private void OnAnyDragEnd(UIDragHandler dragHandler, UIDropHandler dropHandler)
     {
         GameManager.Instance.StartCoroutine(DeactivateAfter(.1f));
-        
-        //var droppedItem = dragHandler.GetComponent<UIItem>().InventoryItem;
-        //var addResult = ItemContainer.Inventory.AddItem(droppedItem.Settings, droppedItem.Quality, droppedItem.Quantity);
-        //dragHandler.CurrentDropHandler.ItemContainer.TryRemoveItem(droppedItem);
-        //Destroy(dragHandler.gameObject);
     }
 
     IEnumerator DeactivateAfter(float seconds)

@@ -6,8 +6,8 @@ using DG.Tweening.Plugins.Options;
 public class ScaleDoTween : MonoBehaviour
 {
     [Header("Tween Settings")]
-    [SerializeField] private Vector3 _startScale = Vector3.one; // Escala inicial
-    [SerializeField] private Vector3 _endScale = Vector3.one * 2; // Escala final
+    [SerializeField] private Vector3 _startScale = Vector3.one * 2; // Escala inicial
+    [SerializeField] private Vector3 _endScale = Vector3.one; // Escala final
     [SerializeField] private float _duration = 1f; // Duração do tween em segundos
     [SerializeField] private Ease _easeType = Ease.InOutQuad; // Tipo de easing
     [SerializeField] private bool _triggerOnEnable = true; // Define se o tween será acionado no OnEnable

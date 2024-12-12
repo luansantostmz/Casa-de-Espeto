@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UIItem : MonoBehaviour
 {
@@ -10,20 +8,16 @@ public class UIItem : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] bool _hideBgOnDrag;
-    [SerializeField] TMP_Text _nameText;
-    [SerializeField] Image _imageImage;
-    [SerializeField] TMP_Text _qualityText;
-    [SerializeField] TMP_Text _amountText;
-    [SerializeField] GameObject _background;
-    [SerializeField] Image _qualityBackground;
-    [SerializeField] GameObject _qualityVFX;
-
-    public ScaleDoTween TweenScale;
+    
+    ItemDisplay _itemDisplay;
+    [HideInInspector] public ScaleDoTween TweenScale;
     UIDragHandler _dragHandler;
+
     ItemContainer CurrentItemContainer => _dragHandler.CurrentDropHandler.ItemContainer;
 
     private void Awake()
     {
+        _itemDisplay = GetComponent<ItemDisplay>();
         TweenScale = GetComponent<ScaleDoTween>();
         _dragHandler = GetComponent<UIDragHandler>();
 
@@ -53,12 +47,8 @@ public class UIItem : MonoBehaviour
 
     public void UpdateVisual()
     {
-        if (_nameText) _nameText.text = Item.ItemName;
-        if (_imageImage) _imageImage.sprite = Item.Sprite;
-        if (_qualityText) _qualityText.text = Quality.QualityName;
-        if (_amountText) _amountText.text = Quantity > 1 ? Quantity.ToString() : "";
-        _qualityBackground.color = Quality.Color;
-        _qualityVFX.SetActive(Quality.IsSpecial);
+        _itemDisplay.UpdateVisual(Item, Quality, Quantity);
+        TweenScale.PlayTween();
     }
 
     public void AdjustQuantity(int value)
@@ -75,11 +65,11 @@ public class UIItem : MonoBehaviour
 
     public void ShowBackground()
     {
-        _background.SetActive(true);
+        _itemDisplay.ShowBackground();
     }
 
     public void HideBackground()
     {
-        _background.SetActive(false);
+        _itemDisplay.HideBackground();
     }
 }

@@ -1,63 +1,76 @@
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 
-public class UIForgeSlot : MonoBehaviour
+public class UIForgeSlot : ItemContainer
 {
+    [Header("Forge")]
     [SerializeField] ForgeBar _forgeBar;
-    [SerializeField] DropZone _dropZone;
-
-    public UICardItem Item { get; private set; }
+    public UIItem ToForgeItem
+    {
+        get
+        {
+            if (Items.Any()) return Items[0];
+            return null;
+        }
+    }
 
     QualitySettings _lastQuality;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _forgeBar.StopBar();
     }
 
+
     private void Update()
     {
-        if (Item == null)
+        if (ToForgeItem == null)
             return;
      
         var quality = _forgeBar.GetCurrentQuality();
-        Item.Item.Quality = quality;
+        ToForgeItem.Quality = quality;
 
-        if (quality == null)
+        //if (quality == null)
+        //{
+        //    Destroy(ToForgeItem.gameObject);
+        //    RemoveItem(ToForgeItem);
+        //    return;
+        //}
+
+        if (quality != _forgeBar.forgeSettings.valueRanges[0].quality && ToForgeItem.Item.MeltedItem)
+            ToForgeItem.Item = ToForgeItem.Item.MeltedItem;
+
+        if (quality && _lastQuality != quality)
         {
-            Destroy(Item.gameObject);
-            RemoveItem();
-            Item = null;
-            return;
-        }
-
-        if (quality != _forgeBar.forgeSettings.valueRanges[0].quality && Item.Item.Settings.MeltedItem)
-            Item.Item.Settings = Item.Item.Settings.MeltedItem;
-
-        if (_lastQuality != quality)
-        {
-            Item.UpdateVisual();
+            ToForgeItem.UpdateVisual();
             _lastQuality = quality;
         }
     }
 
-    public void SetItem(UICardItem item)
+    public void SetItem(UIItem item)
     {
-        _lastQuality = item.Item.Quality;
-        GetComponentInChildren<DropZone>(true).IsBlocked = true;
+        DropHandler.IsBlocked = true;
+        _lastQuality = item.Quality;
 
-        var itemSettings = item.Item.Settings;
+        var itemSettings = item.Item;
 
-        Item = item;
         _forgeBar.forgeSettings = itemSettings.ForgeSettings;
-        _forgeBar.StartBar();
 
-        OldInventoryService.RemoveItem(item.Item);
+        if (item.Item.ForgeSettings) 
+            _forgeBar.StartBar();
     }
 
-    public void RemoveItem()
+    public override void AddItem(UIItem uiItem)
     {
-        _dropZone.IsBlocked = false;
+        base.AddItem(uiItem);
+        SetItem(uiItem);
+    }
+
+    public override void RemoveItem(UIItem item)
+    {
+        base.RemoveItem(item);
+        DropHandler.IsBlocked = false;
         _forgeBar.StopBar();
     }
 }
