@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using TMPro;
 using UnityEditor;
@@ -15,7 +16,7 @@ public class LocalizationService : MonoBehaviour
 	private static string currentLanguage = "pt"; // Idioma padrão
 
 	// Armazena os idiomas disponíveis
-	private static List<string> supportedLanguages = new List<string> { "pt", "en", "es" };
+	private static List<string> supportedLanguages = new List<string>();
 
 	// Método para baixar e salvar o CSV do idioma selecionado
 	[MenuItem("Tools/Baixar CSV e Salvar", priority = 1)]
@@ -65,15 +66,29 @@ public class LocalizationService : MonoBehaviour
 		string[] lines = File.ReadAllLines(savePath);
 		Debug.Log($"Carregando {lines.Length} linhas do arquivo CSV...");
 
-		foreach (var line in lines)
+		// Separate the first line into a list of column names
+		supportedLanguages = lines[0].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+		supportedLanguages.RemoveAt(0);
+		Debug.Log($"Colunas identificadas: {string.Join(", ", supportedLanguages)}");
+
+		for (int i = 1; i < lines.Length; i++)
 		{
+			string line = lines[i];
 			if (string.IsNullOrWhiteSpace(line)) continue; // Ignora linhas vazias
 
 			string[] parts = line.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-			if (parts.Length >= 2)
+			if (parts.Length == supportedLanguages.Count)
 			{
-				string key = parts[0].Trim();
-				string value = parts[1].Trim();
+				// Create a dictionary for this row, mapping column names to values
+				Dictionary<string, string> rowData = new Dictionary<string, string>();
+				for (int j = 0; j < supportedLanguages.Count; j++)
+				{
+					rowData[supportedLanguages[j]] = parts[j].Trim();
+				}
+
+				// Use the first column as the key for localizationData
+				string key = rowData[supportedLanguages[0]];
+				string value = rowData[supportedLanguages[1]]; // Assuming the second column is the value
 
 				if (!localizationData.ContainsKey(key))
 				{
