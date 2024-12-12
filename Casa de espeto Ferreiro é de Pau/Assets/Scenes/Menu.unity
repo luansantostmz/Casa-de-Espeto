@@ -620,7 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b609b346195ed024bae7018886ae2ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localizationKey: Prates
+  localizationKey: Luan
 --- !u!1 &451026601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910229a5136b5714889ef5c714ea2133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  language: es
+  language: Japones
 --- !u!114 &1287822257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2673,7 +2673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b609b346195ed024bae7018886ae2ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localizationKey: Luan
+  localizationKey: Play
 --- !u!1 &1862167739
 GameObject:
   m_ObjectHideFlags: 0

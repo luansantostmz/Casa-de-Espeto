@@ -3,32 +3,28 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using TMPro;
 using UnityEditor;
 using UnityEngine;
 
 public class LocalizationService : MonoBehaviour
 {
 	private const string csvUrlBase = "https://docs.google.com/spreadsheets/d/1kdne-qY0r5m3on7c05eRZwZ9ZJZX2AcNECntPOeWcLM/export?format=csv";
-	private const string savePathBase = "Assets/CSVFiles/arquivo_{0}.csv"; // Caminho onde o arquivo será salvo no projeto, com o idioma incluído.
+	private const string savePathBase = "Assets/Localization/localization.csv"; // Caminho onde o arquivo será salvo no projeto, com o idioma incluído.
 
-	private static Dictionary<string, string> localizationData = new Dictionary<string, string>();
-	private static string currentLanguage = "pt"; // Idioma padrão
+	private static Dictionary<string, Dictionary<string, string>> localizationData = new ();
+	private static string currentLanguage; // Idioma padrão
 
 	// Armazena os idiomas disponíveis
 	private static List<string> supportedLanguages = new List<string>();
 
-	// Método para baixar e salvar o CSV do idioma selecionado
-	[MenuItem("Tools/Baixar CSV e Salvar", priority = 1)]
-	public static void DownloadAndSaveCSV()
+    // Método para baixar e salvar o CSV do idioma selecionado
+    [MenuItem("Tools/Update Localization", priority = 1)]
+	public static void UpdateLocalization()
 	{
 		try
 		{
-			string savePath = string.Format(savePathBase, currentLanguage); // Altera o caminho com base no idioma
-			string csvUrl = string.Format(csvUrlBase, currentLanguage); // Altera a URL com base no idioma
-
 			// Cria a pasta caso não exista
-			string directory = Path.GetDirectoryName(savePath);
+			string directory = Path.GetDirectoryName(savePathBase);
 			if (!Directory.Exists(directory))
 			{
 				Directory.CreateDirectory(directory);
@@ -37,8 +33,8 @@ public class LocalizationService : MonoBehaviour
 
 			using (WebClient client = new WebClient())
 			{
-				client.DownloadFile(csvUrl, savePath);
-				Debug.Log($"Arquivo CSV ({currentLanguage}) baixado e salvo em: {savePath}");
+				client.DownloadFile(csvUrlBase, savePathBase);
+				Debug.Log($"Arquivo CSV ({currentLanguage}) baixado e salvo em: {savePathBase}");
 			}
 
 			// Força o Unity a reconhecer o novo arquivo
@@ -54,8 +50,7 @@ public class LocalizationService : MonoBehaviour
 	[RuntimeInitializeOnLoadMethod]
 	public static void Initialize()
 	{
-		string savePath = string.Format(savePathBase, currentLanguage);
-		if (!File.Exists(savePath))
+		if (!File.Exists(savePathBase))
 		{
 			Debug.LogError("Arquivo CSV não encontrado. Certifique-se de baixá-lo antes de inicializar.");
 			return;
@@ -63,62 +58,47 @@ public class LocalizationService : MonoBehaviour
 
 		localizationData.Clear();
 
-		string[] lines = File.ReadAllLines(savePath);
+		string[] lines = File.ReadAllLines(savePathBase);
 		Debug.Log($"Carregando {lines.Length} linhas do arquivo CSV...");
 
 		// Separate the first line into a list of column names
 		supportedLanguages = lines[0].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 		supportedLanguages.RemoveAt(0);
-		Debug.Log($"Colunas identificadas: {string.Join(", ", supportedLanguages)}");
 
+        localizationData = new ();
+		
+		// Populate languages on dictionary
+        foreach (var language in supportedLanguages)
+		{
+			localizationData.Add(language, new Dictionary<string, string>());
+		}
+
+		// Populate translations on dictionary
 		for (int i = 1; i < lines.Length; i++)
 		{
 			string line = lines[i];
-			if (string.IsNullOrWhiteSpace(line)) continue; // Ignora linhas vazias
+			if (string.IsNullOrWhiteSpace(line)) 
+				continue; 
 
 			string[] parts = line.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-			if (parts.Length == supportedLanguages.Count)
+			
+			// Create a dictionary for this row, mapping column names to values
+			for (int j = 0; j < supportedLanguages.Count; j++)
 			{
-				// Create a dictionary for this row, mapping column names to values
-				Dictionary<string, string> rowData = new Dictionary<string, string>();
-				for (int j = 0; j < supportedLanguages.Count; j++)
-				{
-					rowData[supportedLanguages[j]] = parts[j].Trim();
-				}
+				localizationData[supportedLanguages[j]].Add(parts[0], parts[i]);
+            }
+        }
 
-				// Use the first column as the key for localizationData
-				string key = rowData[supportedLanguages[0]];
-				string value = rowData[supportedLanguages[1]]; // Assuming the second column is the value
-
-				if (!localizationData.ContainsKey(key))
-				{
-					localizationData[key] = value;
-					Debug.Log($"Carregado: [{key}] = [{value}]");
-				}
-				else
-				{
-					Debug.LogWarning($"Chave duplicada encontrada: {key}");
-				}
-			}
-			else
-			{
-				Debug.LogWarning($"Linha inválida no CSV: {line}");
-			}
-		}
-
-		Debug.Log("Localização inicializada com sucesso.");
+		ChangeLanguage(supportedLanguages[0]);
 	}
 
 	// Método para localizar uma chave
 	public static string Localize(string key)
 	{
-		if (localizationData.TryGetValue(key, out string value))
-		{
-			return value;
-		}
+		if (!localizationData.ContainsKey(currentLanguage) || !string.IsNullOrEmpty(localizationData[currentLanguage][key]))
+			return $"*{key}*";
 
-		Debug.LogWarning($"Chave de localização não encontrada: {key}");
-		return key; // Retorna a chave original se não for encontrada.
+		return localizationData[currentLanguage][key]; 
 	}
 
 	public static Action OnChangedLanguage;	
@@ -128,7 +108,6 @@ public class LocalizationService : MonoBehaviour
 		if (supportedLanguages.Contains(language))
 		{
 			currentLanguage = language;
-			Initialize(); // Recarrega as traduções do novo idioma
 			Debug.Log($"Idioma alterado para: {language}");
 			OnChangedLanguage?.Invoke();
 		}
