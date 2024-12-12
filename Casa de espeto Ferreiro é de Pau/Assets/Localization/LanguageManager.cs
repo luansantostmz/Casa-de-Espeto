@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(TMP_Text))]
 public class LanguageManager : MonoBehaviour
 {
 	public TextAsset csvFile;
 	public TMP_Text buttonText; // Texto do botão
+	public Image languageImage; // Imagem que muda de acordo com o idioma
+	public Sprite[] languageSprites; // Array de Sprites (imagens) para os idiomas
 	private Dictionary<string, Dictionary<string, string>> translations = new Dictionary<string, Dictionary<string, string>>();
 	private List<string> availableLanguages = new List<string>(); // Lista de idiomas disponíveis
 	private string currentLanguage = "PT"; // Idioma padrão
@@ -14,6 +17,13 @@ public class LanguageManager : MonoBehaviour
 
 	void Start()
 	{
+		// Verificar se o idioma está salvo no PlayerPrefs
+		if (PlayerPrefs.HasKey("Language"))
+		{
+			currentLanguage = PlayerPrefs.GetString("Language");
+			currentLanguageIndex = PlayerPrefs.GetInt("LanguageIndex", 0); // Recuperar o índice da imagem
+		}
+
 		if (csvFile != null)
 		{
 			LoadTranslations(csvFile.text);
@@ -75,6 +85,19 @@ public class LanguageManager : MonoBehaviour
 				translatableText.UpdateText(translatedText);
 			}
 		}
+
+		// Salva o idioma e o índice no PlayerPrefs
+		PlayerPrefs.SetString("Language", currentLanguage);
+		PlayerPrefs.SetInt("LanguageIndex", currentLanguageIndex);
+
+		// Atualiza o texto do botão
+		if (buttonText != null)
+		{
+			buttonText.text = currentLanguage;
+		}
+
+		// Atualiza a imagem de acordo com o idioma selecionado
+		UpdateLanguageImage();
 	}
 
 	public void ChangeLanguage()
@@ -86,11 +109,14 @@ public class LanguageManager : MonoBehaviour
 		// Define o próximo idioma
 		SetLanguage(nextLanguage);
 
-		// Atualiza o texto do botão
-		if (buttonText != null)
-		{
-			buttonText.text = nextLanguage;
-		}
 		Debug.Log(nextLanguage);
+	}
+
+	private void UpdateLanguageImage()
+	{
+		if (languageImage != null && languageSprites.Length > currentLanguageIndex)
+		{
+			languageImage.sprite = languageSprites[currentLanguageIndex]; // Atualiza a imagem com base no índice do idioma
+		}
 	}
 }
