@@ -32,6 +32,9 @@ public class UIForgeSlot : ItemContainer
             return;
 
         var quality = _forgeBar.GetCurrentQuality();
+        if (!quality)
+            quality = QualityProvider.Instance.GetFirstQuality();
+
         ToForgeItem.Quality = quality;
 
         //if (quality == null)
