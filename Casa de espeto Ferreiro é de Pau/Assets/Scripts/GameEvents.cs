@@ -3,6 +3,7 @@ using System;
 public class GameEvents
 {
     public static Action OnGameOver;
+    public static Action<AchievementSettings> OnTryGetAchievement;
 
     public class Reputation
     {

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35f7a403b7b38f4c90b04f8ee135c51, type: 3}
+  m_Name: FirstCopper
+  m_EditorClassIdentifier: 
+  Key: firstCopper
+  Title: Shining Beginnings
+  Description: "You\u2019ve forged your first copper bar. The journey to greatness
+    begins!"
+  Icon: {fileID: 21300000, guid: dd1dbe453387ef24397786c1d71f5c5c, type: 3}
+  AuxObject: {fileID: 11400000, guid: 28526a3c676ed814aa3c4c6969411570, type: 2}

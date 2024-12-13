@@ -92,6 +92,8 @@ public class Anvil : ItemContainer
                 _toCraftItemUI.Quality, 
                 _toCraftItemUI.Quantity);
 
+            AchievementsManager.Instance.OnFirstCraft.TryAchieve();
+
             _hammerCount = 0;
             _qualityPoints = 0;
             DropHandler.IsBlocked = false;

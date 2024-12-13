@@ -17,7 +17,7 @@ public class UIStateButton : MonoBehaviour, IPointerDownHandler
 			_activeOnClick.Activate();
 
 		if (_deactiveOnClick != null)
-			_deactiveOnClick.Deactive();
+			_deactiveOnClick.Deactivate();
 	}
 
 	public void SetEnable(bool disable)

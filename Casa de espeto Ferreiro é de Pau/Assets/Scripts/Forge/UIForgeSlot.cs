@@ -77,6 +77,12 @@ public class UIForgeSlot : ItemContainer
         base.RemoveItem(item);
         DropHandler.IsBlocked = false;
         _forgeBar.StopBar();
+
+        if (AchievementsManager.Instance.OnFirstCopperForge.CompareAuxObject(item.Item) && _itemOnDropped != item.Item)
+            AchievementsManager.Instance.OnFirstCopperForge.TryAchieve();
+        if (AchievementsManager.Instance.OnFirstIronForged.CompareAuxObject(item.Item) && _itemOnDropped != item.Item)
+            AchievementsManager.Instance.OnFirstIronForged.TryAchieve();
+
         _itemOnDropped = null;
     }
 }

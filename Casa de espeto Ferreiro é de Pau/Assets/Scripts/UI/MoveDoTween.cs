@@ -18,6 +18,9 @@ public class MoveDOTween : TweenObject
     public override void PlayTween()
     {
         base.PlayTween();
+
+        transform.position = initialPosition;
+
         if (targetPosition != null)
         {
             transform.DOMove(targetPosition.position, duration)

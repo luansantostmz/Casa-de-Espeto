@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35f7a403b7b38f4c90b04f8ee135c51, type: 3}
+  m_Name: FirstIron
+  m_EditorClassIdentifier: 
+  Key: firstIron
+  Title: Iron Will
+  Description: "You\u2019ve forged your first iron bar. Strength is in your hands!"
+  Icon: {fileID: 21300000, guid: eb1c03f7708015243ab46ad383f7d749, type: 3}
+  AuxObject: {fileID: 11400000, guid: ef8b032daed19db40a56bb6d3dd71b8a, type: 2}

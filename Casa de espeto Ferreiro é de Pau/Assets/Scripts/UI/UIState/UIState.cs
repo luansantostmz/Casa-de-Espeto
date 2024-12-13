@@ -10,7 +10,7 @@ public class UIState : ScriptableObject
         UIStateOrchestrator.ActiveState(this);
     }
 
-    public void Deactive()
+    public void Deactivate()
     {
 		UIStateOrchestrator.DeactiveState(this);
 	}
