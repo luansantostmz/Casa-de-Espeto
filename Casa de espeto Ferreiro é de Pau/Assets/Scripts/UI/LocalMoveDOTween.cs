@@ -1,12 +1,14 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class LocalMoveDOTween : TweenObject
 {
     public Vector3 initialLocalPosition;
     public Vector3 targetLocalPosition; 
     public float duration = 1f; 
-    public Ease easeType = Ease.Linear; 
+    public Ease easeType = Ease.Linear;
+    public bool PlayReverseOnComplete = true;
 
     public override void PlayTween()
     {
@@ -14,22 +16,24 @@ public class LocalMoveDOTween : TweenObject
 
         transform.localPosition = initialLocalPosition;
 
-        if (targetLocalPosition != null)
-        {
-            transform.DOLocalMove(targetLocalPosition, duration)
-                     .SetEase(easeType)
-                     .OnComplete(() => Debug.Log("Movimento concluído!"));
-        }
-        else
-        {
-            Debug.LogWarning("Nenhuma posição alvo foi definida.");
-        }
+        transform.DOLocalMove(targetLocalPosition, duration)
+                    .SetEase(easeType);
     }
 
-    public void ResetPosition()
+    public override void PlayReverse()
+    {
+        base.PlayReverse();
+
+        transform.localPosition = targetLocalPosition;
+        
+        transform.DOLocalMove(initialLocalPosition, duration)
+                    .SetEase(easeType)
+                    .OnComplete(() => gameObject.SetActive(false));
+    }
+
+    public void ResetPosition(Action onComplete = null)
     {
         transform.DOMove(initialLocalPosition, duration)
-                 .SetEase(easeType)
-                 .OnComplete(() => Debug.Log("Objeto voltou à posição inicial!"));
+                 .SetEase(easeType);
     }
 }

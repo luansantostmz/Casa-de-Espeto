@@ -59,6 +59,7 @@ public class AchievementsManager : MonoBehaviour
             yield return new WaitForSeconds(ShowTime);
 
             UIAchievement.Hide();
+
             AchievementsQueue.Dequeue();
             yield return new WaitForSeconds(WaitForNextAchievementTime);
         }
