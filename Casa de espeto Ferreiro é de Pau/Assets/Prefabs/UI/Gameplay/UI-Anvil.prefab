@@ -1768,6 +1768,7 @@ MonoBehaviour:
   UIItemPrefab: {fileID: 2110913869114617363, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
   Container: {fileID: 4358896640266229566}
   DropHandler: {fileID: 9103974901677249318}
+  OnAddItemSfx: {fileID: 8300000, guid: 129dff4ff3abf164d80c7252f96bcff3, type: 3}
   Items: []
   _recipes: {fileID: 4544323125302603709}
   _hammerVFX: {fileID: 3625500539386457561}

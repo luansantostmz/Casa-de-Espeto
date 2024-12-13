@@ -51,6 +51,7 @@ MonoBehaviour:
   UIItemPrefab: {fileID: 2110913869114617363, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
   Container: {fileID: 5983298527277375267}
   DropHandler: {fileID: 284624398734775847}
+  OnAddItemSfx: {fileID: 8300000, guid: d4ed0eae3725fdb4c9952d2a4e10d44f, type: 3}
   Items: []
 --- !u!1 &1627914851392755214
 GameObject:

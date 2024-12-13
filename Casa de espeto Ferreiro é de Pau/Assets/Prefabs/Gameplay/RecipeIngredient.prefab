@@ -336,10 +336,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayOnEnable: 1
-  _startScale: {x: 1.5, y: 1.5, z: 1.5}
+  _startScale: {x: 1.15, y: 1.15, z: 1.15}
   _endScale: {x: 1, y: 1, z: 1}
   _duration: 0.15
-  _easeType: 7
+  _easeType: 24
   _loop: 0
   _loopType: 0
 --- !u!1 &5302835698184889816

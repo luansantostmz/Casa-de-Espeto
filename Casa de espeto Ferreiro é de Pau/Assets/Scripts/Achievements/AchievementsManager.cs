@@ -51,6 +51,8 @@ public class AchievementsManager : MonoBehaviour
 
     private IEnumerator ProcessAchievementsQueue()
     {
+        yield break;
+
         while (AchievementsQueue.Count > 0)
         {
             AchievementSettings achievement = AchievementsQueue.Peek();

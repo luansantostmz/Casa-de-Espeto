@@ -28,17 +28,11 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-			DontDestroyOnLoad(gameObject);
             return;
-		}       
-            Destroy(gameObject);              
+		}    
+        
+        Destroy(gameObject);              
     }
-
-	private void Start()
-	{
-		LoadVolume();
-	}
-
 
 	/// <summary>
 	/// Reproduz um efeito sonoro (SFX) uma única vez.
@@ -91,6 +85,7 @@ public class AudioManager : MonoBehaviour
 	public void SetMasterVolume(float level)
 	{
 		audioMixer.SetFloat(MasterVolumeKey, Mathf.Log10(level) * 20f);
+        CacheMasterVolume = level;
 
 		PlayerPrefs.SetFloat(MasterVolumeKey, level);
 		PlayerPrefs.Save();
@@ -99,16 +94,18 @@ public class AudioManager : MonoBehaviour
 	public void SetMusicVolume(float level)
 	{
 		audioMixer.SetFloat(MusicVolumeKey, Mathf.Log10(level) * 20f);
+        CacheMusicVolume = level;
 
-		PlayerPrefs.SetFloat(MusicVolumeKey, level);
+        PlayerPrefs.SetFloat(MusicVolumeKey, level);
 		PlayerPrefs.Save();
 	}
 
 	public void SetSoundFXVolume(float level)
 	{
 		audioMixer.SetFloat(SfxVolumeKey, Mathf.Log10(level) * 20f);
+        CacheSFXVolume = level;
 
-		PlayerPrefs.SetFloat(SfxVolumeKey, level);
+        PlayerPrefs.SetFloat(SfxVolumeKey, level);
 		PlayerPrefs.Save();
 	}
 

@@ -432,6 +432,7 @@ MonoBehaviour:
   UIItemPrefab: {fileID: 2110913869114617363, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
   Container: {fileID: 8323879561751868621}
   DropHandler: {fileID: 1831453603391053660}
+  OnAddItemSfx: {fileID: 8300000, guid: 129dff4ff3abf164d80c7252f96bcff3, type: 3}
   Items: []
   _forgeBar: {fileID: 2344526440354493690}
 --- !u!1 &6799996133434734205

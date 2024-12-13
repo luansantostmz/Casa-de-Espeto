@@ -7,6 +7,7 @@ public class ItemContainer : MonoBehaviour
     public UIItem UIItemPrefab; // Referência ao prefab do UIItem
     public Transform Container; // Transform onde os UIItems serão instanciados (por exemplo, um painel)
     public UIDropHandler DropHandler;
+    public AudioClip OnAddItemSfx;
 
     public List<UIItem> Items = new List<UIItem>();
 
@@ -41,6 +42,8 @@ public class ItemContainer : MonoBehaviour
 
     public virtual void AddItem(UIItem uiItem)
     {
+        AudioManager.Instance.PlaySFX(OnAddItemSfx);
+
         foreach (var ui in Items)
         {
             if (ui.IsIdentical(uiItem))

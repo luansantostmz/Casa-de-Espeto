@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 338, y: 223.047}
+  m_AnchoredPosition: {x: 264.68774, y: 223.047}
   m_SizeDelta: {x: 470.1693, y: 224.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3468206228216342080
@@ -174,8 +174,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -329, y: 45}
-  m_SizeDelta: {x: 827.147, y: 763.8976}
+  m_AnchoredPosition: {x: -319, y: 45}
+  m_SizeDelta: {x: 618.009, y: 763.8976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2983468649961259464
 CanvasRenderer:
@@ -205,12 +205,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<color=yellow>Engineer\r</color=yellow>\nMateus Tremo\xE7o (Hemet#3588)\nLuan
-    Santos (LuanSantos#5841)\n\n<color=yellow>Game Designer\r</color=blue>\nLucas
-    Neves (Neves#1157)\n\n<color=yellow>UI Artist , Leather Desiner Senior\r\r</color=red>\r\nMateus
-    Egidio (MasterurD#8004)\n\n<color=yellow>2D Artist\r\r\r\r</color=#ffcbdb>\nNaomi
-    Tremo\xE7o (Naomi#8094)\r\n\n<color=yellow>Music Designer\r</color=>\nJ Rodrigo
-    (laffayet_#8165) "
+  m_text: "<color=yellow>Engineer\r</color=yellow>\nMateus Tremo\xE7o\nLuan Santos\n\n<color=yellow>Game
+    Designer\r</color=blue>\nLucas Neves\n\n<color=yellow>2D Artist\r\r\r\r</color=#ffcbdb>\nNaomi
+    Tremo\xE7o\nMateus Egidio\n\n<color=yellow>Music Designer\r</color=>\nJos\xE9
+    Rodrigo"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a72be25e901bda4ab960637ca337bfb, type: 2}
   m_sharedMaterial: {fileID: 7744556248985058892, guid: 6a72be25e901bda4ab960637ca337bfb, type: 2}
@@ -395,7 +393,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: {fileID: 11400000, guid: c4787daaeaceaa84ba3e9c4baa405e24, type: 2}
-  ReverseState: {fileID: 0}
 --- !u!1 &3142034679582351153
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,7 +427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 338, y: 17.046997}
+  m_AnchoredPosition: {x: 264.68774, y: 17.046997}
   m_SizeDelta: {x: 470.1693, y: 224.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &258276704634031455
@@ -677,7 +674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 369.54}
+  m_AnchoredPosition: {x: -73.312256, y: 369.54}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6221031866827910606
@@ -824,7 +821,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 338, y: -165.953}
+  m_AnchoredPosition: {x: 264.68774, y: -165.953}
   m_SizeDelta: {x: 470.1693, y: 161.7611}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1716617895379334435
@@ -960,7 +957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: 50.046997}
+  m_AnchoredPosition: {x: 1.6877441, y: 50.046997}
   m_SizeDelta: {x: 3, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3329627259758793656
