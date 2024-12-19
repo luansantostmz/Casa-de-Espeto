@@ -2,21 +2,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIStoreItem : MonoBehaviour
+public class UIStoreItem : ItemDisplay
 {
-    [SerializeField] TMP_Text _name;
-    [SerializeField] TMP_Text _price;
-    [SerializeField] Image _sprite;
-    [SerializeField] Button _purchaseButton;
-
-    [SerializeField] ItemSettings _item;
+    public TMP_Text PriceText;
+    public Button PurchaseButton;
 
     private void Awake()
     {
         GameEvents.Economy.OnGoldAdded += UpdateButton;
         GameEvents.Economy.OnGoldSubtracted += UpdateButton;
 
-        _purchaseButton.onClick.AddListener(PurchaseItem);
+        PurchaseButton.onClick.AddListener(PurchaseItem);
+    }
+
+    public override void UpdateVisual(ItemSettings item, QualitySettings quality, int quantity = 1)
+    {
+        base.UpdateVisual(item, quality, quantity);
+        PriceText.text = item.BasePrice.ToString();
     }
 
     private void OnDestroy()
@@ -24,27 +26,18 @@ public class UIStoreItem : MonoBehaviour
         GameEvents.Economy.OnGoldAdded -= UpdateButton;
         GameEvents.Economy.OnGoldSubtracted -= UpdateButton;
 
-        _purchaseButton.onClick.RemoveListener(PurchaseItem);
-    }
-
-    public void Initialize(ItemSettings item)
-    {
-        _item = item;
-
-        _name.text = _item.ItemName;
-        _price.text = _item.BasePrice.ToString();
-        _sprite.sprite = _item.Sprite;
+        PurchaseButton.onClick.RemoveListener(PurchaseItem);
     }
 
     public void UpdateButton()
     {
-        _purchaseButton.interactable = EconomyService.HaveEnoughGold(_item.BasePrice);
+        PurchaseButton.interactable = EconomyService.HaveEnoughGold(Item.BasePrice);
     }
 
     private void PurchaseItem()
     {
-        EconomyService.SubtractGold(_item.BasePrice);
-        OldInventoryService.AddItem(new InventoryItem(_item, QualityProvider.Instance.GetFirstQuality()));
+        EconomyService.SubtractGold(Item.BasePrice);
+        GameEvents.Inventory.OnAddItem?.Invoke(Item, Quality, 1);
         GetComponent<ScaleDoTween>().PlayTween();
     }
 }

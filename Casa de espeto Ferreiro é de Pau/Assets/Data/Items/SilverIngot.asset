@@ -17,7 +17,7 @@ MonoBehaviour:
   HammerCount: 3
   BasePrice: 400
   Sprite: {fileID: 21300000, guid: 35114cddef3fc0f469c35bf41e7f06be, type: 3}
-  MeltedItem: {fileID: 0}
-  ForgeSettings: {fileID: 0}
+  ForgeTime: 15
   AnvilSettings: {fileID: 0}
-  Ingredients: []
+  Ingredients:
+  - {fileID: 11400000, guid: dc0e3e00f89637f4bbeef699784c05a3, type: 2}

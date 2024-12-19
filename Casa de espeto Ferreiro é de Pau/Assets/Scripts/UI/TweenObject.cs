@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class TweenObject : MonoBehaviour
 {
-    public bool PlayOnEnable;
+    public bool PlayOnEnable = true;
 
     protected virtual void OnEnable()
     {
@@ -11,6 +12,11 @@ public class TweenObject : MonoBehaviour
     }
 
     public virtual void PlayTween()
+    {
+
+    }
+
+    public virtual void PlayReverse()
     {
 
     }

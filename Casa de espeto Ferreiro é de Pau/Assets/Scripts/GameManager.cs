@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int MaxReputation = 100;
-    public int CurrentReputation;
+    [Expandable, SerializeField] GameplaySettings GameplaySettings;
 
-    public int ReputationToWinOnDeliver = 5;
-    public int ReputationToLoseOnFail = 20;
+    public int CurrentReputation;
 
     public UIState GameOverUI;
     public bool IsGameOver;
@@ -27,6 +24,17 @@ public class GameManager : MonoBehaviour
         return;
     }
 
+    private void Start()
+    {
+        SetReputation(GameplaySettings.InitialReputation);
+        EconomyService.AddGold(GameplaySettings.InitialGold);
+
+        foreach (var item in GameplaySettings.InitialItems)
+        {
+            GameEvents.Inventory.OnAddItem?.Invoke(item.Item, item.Quality, item.Quantity);
+        }
+    }
+
     private void OnDestroy()
     {
         ResetProgression();
@@ -40,9 +48,7 @@ public class GameManager : MonoBehaviour
 
     public void GainReputation()
     {
-        CurrentReputation += ReputationToWinOnDeliver;
-        if (CurrentReputation > MaxReputation)
-            CurrentReputation = MaxReputation;
+        CurrentReputation = Mathf.Clamp(CurrentReputation + GameplaySettings.ReputationToWinOnDeliver, 0, GameplaySettings.MaxReputation);
         GameEvents.Reputation.OnReputationChanged?.Invoke();
     }
 
@@ -51,7 +57,7 @@ public class GameManager : MonoBehaviour
         if (IsGameOver)
             return;
 
-        CurrentReputation -= ReputationToLoseOnFail;
+        CurrentReputation = Mathf.Clamp(CurrentReputation - GameplaySettings.ReputationToLoseOnFail, 0, GameplaySettings.MaxReputation);
         GameEvents.Reputation.OnReputationChanged?.Invoke();
 
         if (CurrentReputation <= 0)
@@ -71,12 +77,11 @@ public class GameManager : MonoBehaviour
     public static void ResetProgression()
     {
         OrderService.OrderCount = 0;
-        OldInventoryService.Items.Clear();
         Debug.Log("Game progression has been deleted");
     }
 
     public float GetReputationFill()
     {
-        return (float)CurrentReputation / MaxReputation;
+        return (float)CurrentReputation / GameplaySettings.MaxReputation;
     }
 }

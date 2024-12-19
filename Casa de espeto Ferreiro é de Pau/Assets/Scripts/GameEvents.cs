@@ -3,20 +3,11 @@ using System;
 public class GameEvents
 {
     public static Action OnGameOver;
+    public static Action<AchievementSettings> OnTryGetAchievement;
 
     public class Reputation
     {
         public static Action OnReputationChanged;
-    }
-
-    public class Inventory
-    {
-        public static Action<InventoryItem> OnItemAdded;
-        public static Action<InventoryItem> OnItemRemoved;
-        public static Action<InventoryItem> OnItemDestroyed;
-
-        public static Action<UICardItem> OnCardItemAddedToInventory;
-        public static Action<UICardItem> OnCardItemRemovedFromInventory;
     }
 
     public class Economy
@@ -24,6 +15,11 @@ public class GameEvents
         public static Action OnGoldAdded;
         public static Action<int> OnEarnGold;
         public static Action OnGoldSubtracted;
+    }
+
+    public class Inventory
+    {
+        public static Action<ItemSettings, QualitySettings, int> OnAddItem;
     }
 
     public class Order
@@ -37,20 +33,10 @@ public class GameEvents
     {
         public static Action<UIDragHandler> OnAnyDragStart;
         public static Action<UIDragHandler, UIDropHandler> OnAnyDragEnd;
-
-        public static Action<DragAndDropObject> OnDragStart;
-        public static Action<DragAndDropObject, DropZone> OnDragEnd;
-    }
-
-    public class Forge
-    {
-        public static Action<UICardItem> OnItemAddedToForge;
     }
 
     public class Anvil
     {
-        public static Action<UICardItem> OnItemAddedToAnvil;
-        public static Action<UICardItem> OnItemRemovedFromAnvil;
         public static Action<ItemSettings> OnRecipeItemClicked;
 
         public static Action<QualitySettings> OnHammer;

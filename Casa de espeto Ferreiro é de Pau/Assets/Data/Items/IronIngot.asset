@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: IronIngot
   m_EditorClassIdentifier: 
   ItemName: Iron Ingot
+  IgnoreQualityOnAnvil: 0
+  HammerCount: 3
   BasePrice: 300
   Sprite: {fileID: 21300000, guid: eb1c03f7708015243ab46ad383f7d749, type: 3}
-  MeltedItem: {fileID: 0}
-  ForgeSettings: {fileID: 0}
+  ForgeTime: 15
+  AnvilSettings: {fileID: 0}
+  Ingredients:
+  - {fileID: 11400000, guid: dc59740ab7dd137408b223225f9fa7c8, type: 2}
