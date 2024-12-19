@@ -12,9 +12,8 @@ public class GameEvents
 
     public class Economy
     {
-        public static Action OnGoldAdded;
+        public static Action OnGoldChanged;
         public static Action<int> OnEarnGold;
-        public static Action OnGoldSubtracted;
     }
 
     public class Inventory

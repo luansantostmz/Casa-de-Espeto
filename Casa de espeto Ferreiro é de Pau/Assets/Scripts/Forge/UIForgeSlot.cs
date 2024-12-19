@@ -4,10 +4,10 @@ using UnityEngine;
 public class UIForgeSlot : ItemContainer
 {
     [Header("Forge")]
-    [SerializeField] Recipes _recipes;
     [SerializeField] UIFillClock _clock;
     [SerializeField] TMP_Text _text;
 
+    ForgeController _controller;
     ItemSettings _toForgeItem;
 
     protected override void Awake()
@@ -21,6 +21,11 @@ public class UIForgeSlot : ItemContainer
     {
         base.OnDestroy();
         _clock.OnComplete -= ForgeItem;
+    }
+
+    public void Initialize(ForgeController controller)
+    {
+        _controller = controller;
     }
 
     private void ForgeItem()
@@ -38,7 +43,7 @@ public class UIForgeSlot : ItemContainer
 
     private void CheckItem()
     {
-        _toForgeItem = _recipes.GetToCraftItem(Items);
+        _toForgeItem = _controller.Recipes.GetToCraftItem(Items);
 
         if (_toForgeItem)
         {
