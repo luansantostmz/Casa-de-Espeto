@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ItemContainer : MonoBehaviour
 {
-    public UIItem UIItemPrefab; // Referência ao prefab do UIItem
-    public Transform Container; // Transform onde os UIItems serão instanciados (por exemplo, um painel)
+    public UIItem UIItemPrefab;
+    public Transform Container;
+    public int Size;
+    public bool StackItems = true;
     public UIDropHandler DropHandler;
     public AudioClip OnAddItemSfx;
 
@@ -44,26 +46,38 @@ public class ItemContainer : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX(OnAddItemSfx);
 
-        foreach (var ui in Items)
+        if (StackItems)
         {
-            if (ui.IsIdentical(uiItem))
+            foreach (var ui in Items)
             {
-                ui.Quantity += uiItem.Quantity;
-                Destroy(uiItem.gameObject);
-                ui.UpdateVisual();
-                OnItemAdded?.Invoke(ui);
-                return;
+                if (ui.IsIdentical(uiItem))
+                {
+                    ui.Quantity += uiItem.Quantity;
+                    Destroy(uiItem.gameObject);
+                    ui.UpdateVisual();
+                    OnItemAdded?.Invoke(ui);
+
+                    if (GetItemCount() >= Size)
+                        DropHandler.IsBlocked = true;
+
+                    return;
+                }
             }
         }
 
         Items.Add(uiItem);
         uiItem.ShowBackground();
         uiItem.TweenScale.PlayTween();
+
+        if (GetItemCount() >= Size)
+            DropHandler.IsBlocked = true;
+
         OnItemAdded?.Invoke(uiItem);
     }
 
     public virtual void RemoveItem(UIItem uiItem)
     {
+        DropHandler.IsBlocked = false;
         Items.Remove(uiItem);
     }
 
@@ -90,5 +104,16 @@ public class ItemContainer : MonoBehaviour
         }
 
         return false; // Retorna falso se o item não foi encontrado ou não pôde ser removido
+    }
+
+    public int GetItemCount()
+    {
+        int count = 0;
+        foreach (var uiItem in Items)
+        {
+            count += uiItem.Quantity;
+        }
+
+        return count;
     }
 }

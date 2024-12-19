@@ -1,91 +1,68 @@
-using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class UIForgeSlot : ItemContainer
 {
     [Header("Forge")]
-    [SerializeField] ForgeBar _forgeBar;
-    public UIItem ToForgeItem
-    {
-        get
-        {
-            if (Items.Any()) return Items[0];
-            return null;
-        }
-    }
+    [SerializeField] Recipes _recipes;
+    [SerializeField] UIFillClock _clock;
+    [SerializeField] TMP_Text _text;
 
-    QualitySettings _lastQuality;
-    ItemSettings _itemOnDropped;
+    ItemSettings _toForgeItem;
 
     protected override void Awake()
     {
         base.Awake();
-        _forgeBar.StopBar();
+        _clock.StopTime();
+        _clock.OnComplete += ForgeItem;
     }
 
-    private void Update()
+    protected override void OnDestroy()
     {
-        if (ToForgeItem == null)
-            return;
+        base.OnDestroy();
+        _clock.OnComplete -= ForgeItem;
+    }
 
-        if (!_itemOnDropped || !_itemOnDropped.ForgeSettings)
-            return;
-
-        var quality = _forgeBar.GetCurrentQuality();
-        if (!quality)
-            quality = QualityProvider.Instance.GetFirstQuality();
-
-        ToForgeItem.Quality = quality;
-
-        //if (quality == null)
-        //{
-        //    Destroy(ToForgeItem.gameObject);
-        //    RemoveItem(ToForgeItem);
-        //    return;
-        //}
-
-        if (quality != _forgeBar.forgeSettings.valueRanges[0].quality && ToForgeItem.Item.MeltedItem)
-            ToForgeItem.Item = ToForgeItem.Item.MeltedItem;
-
-        if (quality && _lastQuality != quality)
+    private void ForgeItem()
+    {
+        foreach (var item in Items)
         {
-            ToForgeItem.UpdateVisual();
-            _lastQuality = quality;
+            Destroy(item.gameObject);
         }
+
+        Items.Clear();
+
+        InstantiateNewItem(_toForgeItem, QualityProvider.Instance.GetFirstQuality(), 1);
+        _clock.StopTime();
     }
 
-    public void SetItem(UIItem item)
+    private void CheckItem()
     {
-        DropHandler.IsBlocked = true;
-        _lastQuality = item.Quality;
+        _toForgeItem = _recipes.GetToCraftItem(Items);
 
-        var itemSettings = item.Item;
+        if (_toForgeItem)
+        {
+            _clock.StartTime(_toForgeItem.ForgeTime);
+            return;
+        }
 
-        _forgeBar.forgeSettings = itemSettings.ForgeSettings;
-
-        _itemOnDropped = item.Item;
-
-        if (item.Item.ForgeSettings) 
-            _forgeBar.StartBar();
+        _clock.StopTime();
     }
 
     public override void AddItem(UIItem uiItem)
     {
         base.AddItem(uiItem);
-        SetItem(uiItem);
+        CheckItem();
     }
 
     public override void RemoveItem(UIItem item)
     {
         base.RemoveItem(item);
-        DropHandler.IsBlocked = false;
-        _forgeBar.StopBar();
+        CheckItem();
 
-        if (AchievementsManager.Instance.OnFirstCopperForge.CompareAuxObject(item.Item) && _itemOnDropped != item.Item)
-            AchievementsManager.Instance.OnFirstCopperForge.TryAchieve();
-        if (AchievementsManager.Instance.OnFirstIronForged.CompareAuxObject(item.Item) && _itemOnDropped != item.Item)
-            AchievementsManager.Instance.OnFirstIronForged.TryAchieve();
-
-        _itemOnDropped = null;
+        //if (AchievementsManager.Instance.OnFirstCopperForge.CompareAuxObject(item.Item) && _itemOnDropped != item.Item)
+        //    AchievementsManager.Instance.OnFirstCopperForge.TryAchieve();
+        //if (AchievementsManager.Instance.OnFirstIronForged.CompareAuxObject(item.Item) && _itemOnDropped != item.Item)
+        //    AchievementsManager.Instance.OnFirstIronForged.TryAchieve();
     }
 }

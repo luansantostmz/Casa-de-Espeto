@@ -10,8 +10,7 @@ public class ItemSettings : ScriptableObject
     public int HammerCount = 3;
     public int BasePrice;
     public Sprite Sprite;
-    public ItemSettings MeltedItem;
-    public QTESettings ForgeSettings;
+    public float ForgeTime;
     public QTEAnvilSettings AnvilSettings;
     public List<ItemSettings> Ingredients = new List<ItemSettings>();
 }
