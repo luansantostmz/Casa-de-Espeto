@@ -43,4 +43,15 @@ MonoBehaviour:
   MaxReputation: 100
   ReputationToWinOnDeliver: 5
   ReputationToLoseOnFail: 20
-  ForgePrice: 500
+  NewForgePrice: 500
+  ForgeUpgradeSettings:
+  - LevelModifier: 1
+    UpgradePrice: 10
+  - LevelModifier: 0.9
+    UpgradePrice: 20
+  - LevelModifier: 0.8
+    UpgradePrice: 30
+  - LevelModifier: 0.7
+    UpgradePrice: 40
+  - LevelModifier: 0.6
+    UpgradePrice: 50

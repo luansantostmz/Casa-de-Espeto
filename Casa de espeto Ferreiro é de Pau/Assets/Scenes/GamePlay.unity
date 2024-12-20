@@ -1348,6 +1348,10 @@ PrefabInstance:
       propertyPath: StackItems
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 923593798317679446, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 272
+      objectReference: {fileID: 0}
     - target: {fileID: 1959035139891025077, guid: 0df198cbc86db2a44bf4254166a5944c, type: 3}
       propertyPath: m_Name
       value: UI-Anvil

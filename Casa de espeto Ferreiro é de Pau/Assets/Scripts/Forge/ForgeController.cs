@@ -10,7 +10,7 @@ public class ForgeController : MonoBehaviour
     public Button PurchaseForgeButton;
     public TMP_Text PriceText;
 
-    int PurchaseForgePrice => GameManager.Instance.GameplaySettings.ForgePrice;
+    int PurchaseForgePrice => GameManager.Instance.GameplaySettings.NewForgePrice;
 
     private void Awake()
     {
