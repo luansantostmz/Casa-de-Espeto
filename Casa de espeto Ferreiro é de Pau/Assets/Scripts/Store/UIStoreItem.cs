@@ -9,8 +9,7 @@ public class UIStoreItem : ItemDisplay
 
     private void Awake()
     {
-        GameEvents.Economy.OnGoldAdded += UpdateButton;
-        GameEvents.Economy.OnGoldSubtracted += UpdateButton;
+        GameEvents.Economy.OnGoldChanged += UpdateButton;
 
         PurchaseButton.onClick.AddListener(PurchaseItem);
     }
@@ -23,8 +22,7 @@ public class UIStoreItem : ItemDisplay
 
     private void OnDestroy()
     {
-        GameEvents.Economy.OnGoldAdded -= UpdateButton;
-        GameEvents.Economy.OnGoldSubtracted -= UpdateButton;
+        GameEvents.Economy.OnGoldChanged -= UpdateButton;
 
         PurchaseButton.onClick.RemoveListener(PurchaseItem);
     }

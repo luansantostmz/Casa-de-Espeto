@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [Expandable, SerializeField] GameplaySettings GameplaySettings;
+    [Expandable] public GameplaySettings GameplaySettings;
 
     public int CurrentReputation;
 
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     public static void ResetProgression()
     {
         OrderService.OrderCount = 0;
-        Debug.Log("Game progression has been deleted");
+        Debug.Log("Game progression has been reseted");
     }
 
     public float GetReputationFill()

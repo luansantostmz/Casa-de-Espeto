@@ -8,8 +8,7 @@ public class UIGoldText : MonoBehaviour
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
-        GameEvents.Economy.OnGoldAdded += UpdateValue;
-        GameEvents.Economy.OnGoldSubtracted += UpdateValue; 
+        GameEvents.Economy.OnGoldChanged += UpdateValue;
     }
 
     private void OnEnable()
@@ -19,8 +18,7 @@ public class UIGoldText : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEvents.Economy.OnGoldAdded -= UpdateValue;
-        GameEvents.Economy.OnGoldSubtracted -= UpdateValue;
+        GameEvents.Economy.OnGoldChanged -= UpdateValue;
     }
 
     private void UpdateValue()

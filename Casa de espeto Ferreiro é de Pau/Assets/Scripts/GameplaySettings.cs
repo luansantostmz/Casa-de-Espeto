@@ -7,10 +7,15 @@ public class GameplaySettings : ScriptableObject
     [Header("Initial Settings")]
     public int InitialReputation;
     public int InitialGold;
+    public int InitialForgeCount = 3;
     public List<InitialItemData> InitialItems = new List<InitialItemData>();
 
     [Header("Balancing")]
     public int MaxReputation = 100;
     public int ReputationToWinOnDeliver = 5;
     public int ReputationToLoseOnFail = 20;
+
+    [Header("Progression")]
+    public int NewForgePrice = 500;
+    public List<ForgeUpgradeData> ForgeUpgradeSettings = new List<ForgeUpgradeData>();
 }
