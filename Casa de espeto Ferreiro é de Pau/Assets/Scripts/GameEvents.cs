@@ -55,4 +55,11 @@ public class GameEvents
         public static Action OnCursorToDrag;
         public static Action OnCursorDragging;
     }
+	public class Input
+	{
+		public static Action OnRight;
+		public static Action OnLeft;
+		public static Action OnUp;
+		public static Action OnDown;
+	}
 }
