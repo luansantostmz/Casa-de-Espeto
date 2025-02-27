@@ -5,6 +5,12 @@ public class GameEvents
     public static Action OnGameOver;
     public static Action<AchievementSettings> OnTryGetAchievement;
 
+    public class Day
+    {
+        public static Action OnDayStart;
+        public static Action OnDayEnd;
+    }
+
     public class Reputation
     {
         public static Action OnReputationChanged;

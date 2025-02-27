@@ -1351,12 +1351,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIItemPrefab: {fileID: 2110913869114617363, guid: 41c3c97fd6c3ef248a2904fb398bb41a, type: 3}
   Container: {fileID: 4358896640266229566}
-  Size: 0
-  StackItems: 1
+  Size: 12
+  StackItems: 0
   DropHandler: {fileID: 9103974901677249318}
   OnAddItemSfx: {fileID: 8300000, guid: 129dff4ff3abf164d80c7252f96bcff3, type: 3}
   Items: []
-  _recipes: {fileID: 0}
+  _recipes: {fileID: 3756371054214239429}
   _hammerVFX: {fileID: 3625500539386457561}
   _hammerCountText: {fileID: 5276419175300669372}
   _toCraftItemUI: {fileID: 1561187342701618016}
@@ -2008,6 +2008,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 350745077213051263, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00023626281
+      objectReference: {fileID: 0}
     - target: {fileID: 3578666564377254343, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2130,7 +2134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7111908931569687048, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 278
+      value: 272
       objectReference: {fileID: 0}
     - target: {fileID: 7111908931569687048, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2162,3 +2166,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7111908931569687048, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
   m_PrefabInstance: {fileID: 7954430978709600606}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3756371054214239429 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6503935939011079579, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+  m_PrefabInstance: {fileID: 7954430978709600606}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dde28fb8cf0fc947a40fd5c04fff3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

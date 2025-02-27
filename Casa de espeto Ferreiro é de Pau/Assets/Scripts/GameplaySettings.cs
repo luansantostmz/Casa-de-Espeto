@@ -16,6 +16,7 @@ public class GameplaySettings : ScriptableObject
     public int ReputationToLoseOnFail = 20;
 
     [Header("Progression")]
+    public int DayDuration = 600;
     public int NewForgePrice = 500;
     public List<ForgeUpgradeData> ForgeUpgradeSettings = new List<ForgeUpgradeData>();
 }

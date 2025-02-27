@@ -43,6 +43,7 @@ MonoBehaviour:
   MaxReputation: 100
   ReputationToWinOnDeliver: 5
   ReputationToLoseOnFail: 20
+  DayDuration: 10
   NewForgePrice: 500
   ForgeUpgradeSettings:
   - LevelModifier: 1
