@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GameInitializer : MonoBehaviour
 {
-	[SerializeField] DebtsController _debtsController;
 	private void Start()
 	{
+		LocalizationService.Init();
 		AudioManager.Instance.LoadVolume();
 	}
 }
