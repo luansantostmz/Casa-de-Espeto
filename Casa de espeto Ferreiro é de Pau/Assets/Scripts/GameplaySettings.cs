@@ -15,6 +15,9 @@ public class GameplaySettings : ScriptableObject
     public int ReputationToWinOnDeliver = 5;
     public int ReputationToLoseOnFail = 20;
 
+    [Header("Debts")]
+    public List<DebtSettings> Debts = new List<DebtSettings>();
+
     [Header("Progression")]
     public int DayDuration = 600;
     public int NewForgePrice = 500;

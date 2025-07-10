@@ -3,7 +3,15 @@ using System;
 public class GameEvents
 {
     public static Action OnGameOver;
+    public static Action OnGameWin;
     public static Action<AchievementSettings> OnTryGetAchievement;
+
+    public class Time
+    {
+        public static Action<float> OnTimeChanged;
+        public static Action OnTimePaused;
+        public static Action OnTimeResumed;
+    }
 
     public class Day
     {
@@ -47,7 +55,7 @@ public class GameEvents
         public static Action<QualitySettings> OnHammer;
     }
 
-    public class Audio 
+    public class Audio
     {
         public static Action<float> OnMasterChanged;
         public static Action<float> OnMusicChanged;

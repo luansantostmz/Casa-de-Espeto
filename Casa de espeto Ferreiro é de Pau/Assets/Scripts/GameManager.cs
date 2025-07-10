@@ -1,14 +1,17 @@
+using System;
 using NaughtyAttributes;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [Expandable] public GameplaySettings GameplaySettings;
+    [SerializeField] float _currentTime;
 
     public int CurrentReputation;
 
     public UIState GameOverUI;
-    public bool IsGameOver;
+    public UIState GameWinUI;
+    public bool IsGameEnd;
 
     public static GameManager Instance;
 
@@ -35,11 +38,29 @@ public class GameManager : MonoBehaviour
         }
 
         DayManager.Instance.Initialize();
+        GameEvents.OnGameWin += OnGameWin;
+    }
+
+    void Update()
+    {
+        EvaluateTime();
     }
 
     private void OnDestroy()
     {
         ResetProgression();
+        GameEvents.OnGameWin -= OnGameWin;
+    }
+
+    private void OnGameWin()
+    {
+        GameWinUI.Activate();
+    }
+
+    private void EvaluateTime()
+    {
+        _currentTime += Time.deltaTime;
+        GameEvents.Time.OnTimeChanged?.Invoke(_currentTime);
     }
 
     public void SetReputation(int value)
@@ -56,7 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseReputation()
     {
-        if (IsGameOver)
+        if (IsGameEnd)
             return;
 
         CurrentReputation = Mathf.Clamp(CurrentReputation - GameplaySettings.ReputationToLoseOnFail, 0, GameplaySettings.MaxReputation);
@@ -71,7 +92,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
 
-        IsGameOver = true;
+        IsGameEnd = true;
         GameOverUI.Activate();
         GameEvents.OnGameOver?.Invoke();
     }

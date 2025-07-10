@@ -16,3 +16,5 @@ MonoBehaviour:
   Points: 1
   PriceModifier: 1
   Color: {r: 0.6698113, g: 0.5892657, b: 0.38229796, a: 1}
+  ItemBackground: {fileID: 21300000, guid: a9756f9fea4de784c8634f62de49f03d, type: 3}
+  IsSpecial: 0

@@ -27,7 +27,7 @@ public class ItemDisplay : MonoBehaviour
         if (_imageImage) _imageImage.sprite = Item.Sprite;
         if (_qualityText) _qualityText.text = Quality.QualityName;
         if (_amountText) _amountText.text = Quantity > 1 ? Quantity.ToString() : "";
-        if (_qualityBackground) _qualityBackground.color = Quality.Color;
+        if (_qualityBackground) _qualityBackground.sprite = quality.ItemBackground;
         if (_qualityVFX) _qualityVFX.SetActive(Quality.IsSpecial);
     }
 

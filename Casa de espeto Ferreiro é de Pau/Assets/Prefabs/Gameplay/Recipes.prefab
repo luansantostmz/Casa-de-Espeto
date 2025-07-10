@@ -68,8 +68,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 43a7d98bd4222b64e933596512dc09ad, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 2045492094208909694, guid: f8ffa50b09f732b4b805ef7e3632fb16, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -244,8 +244,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280692543
-  m_fontColor: {r: 0.24705884, g: 0.18431373, b: 0.14901961, a: 1}
+    rgba: 4287740634
+  m_fontColor: {r: 0.854902, g: 0.7294118, b: 0.5686275, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8215530958370923671}
   m_HandleRect: {fileID: 3578666564377254343}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -577,7 +577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0004741194}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6903228854046009337
@@ -652,8 +652,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -260.76746, y: -242.1499}
-  m_SizeDelta: {x: 450, y: 327.6}
+  m_AnchoredPosition: {x: -260.76746, y: -127.044}
+  m_SizeDelta: {x: 450, y: 557.813}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7118820235452391693
 CanvasRenderer:
@@ -683,7 +683,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 90a2dde0942123c4ebb9c4af580c5818, type: 3}
+  m_Sprite: {fileID: 3970586780887719533, guid: 32101f499781d0f40be47eadcf9507ca, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -717,7 +717,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7180061209607134744}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -748,7 +748,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemPrefab: {fileID: 684485789358125242, guid: 04a3d20a3f9bf394b98c3a13049bcff0, type: 3}
   _recipesContainer: {fileID: 350745077213051263}
-  _items: []
+  _items:
+  - {fileID: 11400000, guid: ab9b12be653913345b1fd82dde1caa96, type: 2}
+  - {fileID: 11400000, guid: 28526a3c676ed814aa3c4c6969411570, type: 2}
+  - {fileID: 11400000, guid: 9a875c88bc897174daec5048643a07a2, type: 2}
+  - {fileID: 11400000, guid: ef8b032daed19db40a56bb6d3dd71b8a, type: 2}
+  - {fileID: 11400000, guid: 66e14d0033be440438a83a21643fe55d, type: 2}
   _recipeTitleText: {fileID: 6892578176054228424}
   _ingredientPrefab: {fileID: 1645700221048021385, guid: c2955d17fb562a64191d22f3b960d503, type: 3}
   _ingredientsContainer: {fileID: 2723912442773687821}

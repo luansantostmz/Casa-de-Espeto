@@ -743,10 +743,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 350745077213051263, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
-      objectReference: {fileID: 0}
     - target: {fileID: 3092470500669709900, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -767,30 +763,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6503935939011079579, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: _items.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6503935939011079579, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: '_items.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: ab9b12be653913345b1fd82dde1caa96, type: 2}
-    - target: {fileID: 6503935939011079579, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: '_items.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 28526a3c676ed814aa3c4c6969411570, type: 2}
-    - target: {fileID: 6503935939011079579, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: '_items.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 9a875c88bc897174daec5048643a07a2, type: 2}
-    - target: {fileID: 6503935939011079579, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: '_items.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: ef8b032daed19db40a56bb6d3dd71b8a, type: 2}
-    - target: {fileID: 6503935939011079579, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: '_items.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: 66e14d0033be440438a83a21643fe55d, type: 2}
     - target: {fileID: 7111908931569687048, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -875,12 +847,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Recipes
       objectReference: {fileID: 0}
-    - target: {fileID: 7825614026993563561, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
-      propertyPath: m_Value
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5869172292434007779, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
