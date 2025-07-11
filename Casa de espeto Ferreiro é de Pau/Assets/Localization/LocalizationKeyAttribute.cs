@@ -1,3 +1,6 @@
 using UnityEngine;
 
-public class LocalizationKeyAttribute : PropertyAttribute { }
+namespace PirateSheep.Localization
+{
+    public class LocalizationKeyAttribute : PropertyAttribute { }
+}

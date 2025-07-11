@@ -1,19 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class SwitchLanguageButton : BaseButton
+namespace PirateSheep.Localization
 {
-    [SerializeField] string _langCode;
-
-    public void SetLanguage(string languageCode)
+    [RequireComponent(typeof(Button))]
+    public class SwitchLanguageButton : BaseButton
     {
-        LocalizationService.SetLanguage(languageCode);
-    }
+        [SerializeField] string _langCode;
 
-    protected override void OnClick()
-    {
-        base.OnClick();
-        SetLanguage(_langCode);
+        public void SetLanguage(string languageCode)
+        {
+            LocalizationService.SetLanguage(languageCode);
+        }
+
+        protected override void OnClick()
+        {
+            base.OnClick();
+            SetLanguage(_langCode);
+        }
     }
 }

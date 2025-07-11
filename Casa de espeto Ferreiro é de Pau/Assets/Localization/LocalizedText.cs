@@ -1,51 +1,54 @@
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(TMP_Text))]
-public class LocalizedText : MonoBehaviour
+namespace PirateSheep.Localization
 {
-    [LocalizationKey]
-    public string localizationKey;
-
-    private TMP_Text _text;
-
-    private void Awake()
+    [RequireComponent(typeof(TMP_Text))]
+    public class LocalizedText : MonoBehaviour
     {
-        _text = GetComponent<TMP_Text>();
-    }
+        [LocalizationKey]
+        public string localizationKey;
 
-    private void Start()
-    {
-        UpdateText();
-    }
+        private TMP_Text _text;
 
-    private void OnEnable()
-    {
-        LocalizationService.OnLanguageChanged += UpdateText;
-        UpdateText();
-    }
-
-    private void OnDisable()
-    {
-        LocalizationService.OnLanguageChanged -= UpdateText;
-    }
-
-    public void SetKey(string newKey)
-    {
-        localizationKey = newKey;
-        UpdateText();
-    }
-
-    public void UpdateText()
-    {
-        if (_text == null) _text = GetComponent<TMP_Text>();
-        if (!string.IsNullOrEmpty(localizationKey))
+        private void Awake()
         {
-            _text.text = LocalizationService.GetLocalizedText(localizationKey);
+            _text = GetComponent<TMP_Text>();
         }
-        else
+
+        private void Start()
         {
-            _text.text = "";
+            UpdateText();
+        }
+
+        private void OnEnable()
+        {
+            LocalizationService.OnLanguageChanged += UpdateText;
+            UpdateText();
+        }
+
+        private void OnDisable()
+        {
+            LocalizationService.OnLanguageChanged -= UpdateText;
+        }
+
+        public void SetKey(string newKey)
+        {
+            localizationKey = newKey;
+            UpdateText();
+        }
+
+        public void UpdateText()
+        {
+            if (_text == null) _text = GetComponent<TMP_Text>();
+            if (!string.IsNullOrEmpty(localizationKey))
+            {
+                _text.text = LocalizationService.GetLocalizedText(localizationKey);
+            }
+            else
+            {
+                _text.text = "";
+            }
         }
     }
 }

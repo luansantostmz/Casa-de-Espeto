@@ -1110,11 +1110,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayOnEnable: 0
   targetPositionA: {fileID: 1911613729}
-  durationToA: 0.5
-  easeToA: 24
+  durationToA: 0.85
+  easeToA: 27
   targetPositionB: {fileID: 193141575}
-  durationToB: 0.2
-  easeToB: 24
+  durationToB: 0.6
+  easeToB: 27
 --- !u!222 &318990189976216084
 CanvasRenderer:
   m_ObjectHideFlags: 0
