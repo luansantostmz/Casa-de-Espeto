@@ -119,7 +119,7 @@ namespace PirateSheep.Localization
 
             LocalizationService.SetLanguage(languageCode);
 
-            var localizedTexts = GameObject.FindObjectsOfType<LocalizedText>(true);
+            var localizedTexts = GameObject.FindObjectsOfType<LocalizationText>(true);
             int count = 0;
             foreach (var lt in localizedTexts)
             {

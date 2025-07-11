@@ -80,7 +80,6 @@ namespace PirateSheep.Localization
 			if (_localizedTexts.ContainsKey(languageCode))
 			{
 				_currentLanguage = languageCode;
-				Debug.Log($"Language changed to: {languageCode}");
 				OnLanguageChanged?.Invoke();
 			}
 			else

@@ -1,10 +1,14 @@
 using UnityEngine;
 using TMPro;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace PirateSheep.Localization
 {
     [RequireComponent(typeof(TMP_Text))]
-    public class LocalizedText : MonoBehaviour
+    public class LocalizationText : MonoBehaviour
     {
         [LocalizationKey]
         public string localizationKey;
@@ -41,6 +45,7 @@ namespace PirateSheep.Localization
         public void UpdateText()
         {
             if (_text == null) _text = GetComponent<TMP_Text>();
+
             if (!string.IsNullOrEmpty(localizationKey))
             {
                 _text.text = LocalizationService.GetLocalizedText(localizationKey);
@@ -49,6 +54,29 @@ namespace PirateSheep.Localization
             {
                 _text.text = "";
             }
+
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+            {
+                // Marca a cena como modificada e força repaint
+                EditorUtility.SetDirty(this);
+                EditorApplication.QueuePlayerLoopUpdate(); // força atualização da UI
+                SceneView.RepaintAll();
+            }
+#endif
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            // Atualiza texto ao mudar a key no editor
+            if (LocalizationService.GetAllLanguages().Length == 0)
+            {
+                LocalizationService.Init();
+            }
+
+            UpdateText();
+        }
+#endif
     }
 }
