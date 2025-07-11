@@ -2,18 +2,19 @@ using UnityEngine;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using System;
 
 public class ScaleDoTween : TweenObject
 {
     [Header("Tween Settings")]
     [SerializeField] private Vector3 _startScale = Vector3.one * 2; // Escala inicial
     [SerializeField] private Vector3 _endScale = Vector3.one; // Escala final
-    [SerializeField] private float _duration = .15f; // Duração do tween em segundos
+    [SerializeField] private float _duration = .15f; // Duraï¿½ï¿½o do tween em segundos
     [SerializeField] private Ease _easeType = Ease.InOutQuad; // Tipo de easing
     [SerializeField] private bool _loop = false; // Define se o tween deve repetir
     [SerializeField] private LoopType _loopType = LoopType.Restart; // Tipo de loop
 
-    private TweenerCore<Vector3, Vector3, VectorOptions> _currentTween; // Referência ao tween atual
+    private TweenerCore<Vector3, Vector3, VectorOptions> _currentTween; // Referï¿½ncia ao tween atual
 
     private void OnDisable()
     {
@@ -35,6 +36,20 @@ public class ScaleDoTween : TweenObject
     }
 
     /// <summary>
+    /// Inicia o tween de escala reverso (de _endScale para _startScale).
+    /// </summary>
+    public override void PlayReverse()
+    {
+        StopTween(); // Garante que o tween atual seja cancelado antes de criar um novo
+
+        transform.localScale = _endScale; // ComeÃ§a do fim
+
+        _currentTween = transform.DOScale(_startScale, _duration)
+            .SetEase(_easeType)
+            .SetLoops(0); // chama mÃ©todo que desativa o objeto
+    }
+
+    /// <summary>
     /// Para o tween atual.
     /// </summary>
     public void StopTween()
@@ -46,7 +61,7 @@ public class ScaleDoTween : TweenObject
     }
 
     /// <summary>
-    /// Atualiza os valores do tween em tempo de execução.
+    /// Atualiza os valores do tween em tempo de execuï¿½ï¿½o.
     /// </summary>
     public void SetTweenValues(Vector3 startScale, Vector3 endScale, float duration, Ease easeType)
     {

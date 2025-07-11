@@ -4,6 +4,7 @@ using UnityEngine;
 public class TweenObject : MonoBehaviour
 {
     public bool PlayOnEnable = true;
+    public bool PlayOnDisable = true;
 
     protected virtual void OnEnable()
     {
