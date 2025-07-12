@@ -15,6 +15,7 @@ MonoBehaviour:
   QualityName: Super Rare
   Points: 8
   PriceModifier: 1.5
+  DeliverReputationModifier: 1.5
   Color: {r: 0.5751985, g: 0.2681736, b: 0.9169811, a: 1}
   ItemBackground: {fileID: 21300000, guid: 94765b2adae3e7f4ca789c45aff47f6e, type: 3}
   IsSpecial: 1

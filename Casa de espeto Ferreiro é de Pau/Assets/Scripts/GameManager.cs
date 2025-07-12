@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -71,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     public void GainReputation()
     {
-        CurrentReputation = Mathf.Clamp(CurrentReputation + GameplaySettings.ReputationToWinOnDeliver, 0, GameplaySettings.MaxReputation);
+        CurrentReputation = Mathf.Clamp(CurrentReputation + GameplaySettings.ReputationToAddOnDeliver, 0, GameplaySettings.MaxReputation);
         GameEvents.Reputation.OnReputationChanged?.Invoke();
     }
 
@@ -80,13 +81,32 @@ public class GameManager : MonoBehaviour
         if (IsGameEnd)
             return;
 
-        CurrentReputation = Mathf.Clamp(CurrentReputation - GameplaySettings.ReputationToLoseOnFail, 0, GameplaySettings.MaxReputation);
+        CurrentReputation = Mathf.Clamp(CurrentReputation - GameplaySettings.ReputationToSubtractOnFail, 0, GameplaySettings.MaxReputation);
         GameEvents.Reputation.OnReputationChanged?.Invoke();
 
         if (CurrentReputation <= 0)
         {
             GameOver();
         }
+    }
+
+    public void AddReputation(List<InventoryItem> deliveredItems)
+    {
+        if (IsGameEnd)
+            return;
+
+        var value = 0;
+
+        deliveredItems.ForEach(item =>
+        {
+            var qualityModifier = item.Quality.DeliverReputationModifier;
+            value += Mathf.RoundToInt(qualityModifier * GameplaySettings.ReputationToAddOnDeliver);
+        });
+
+        value = value / deliveredItems.Count;
+
+        CurrentReputation = Mathf.Clamp(CurrentReputation + value, 0, GameplaySettings.MaxReputation);
+        GameEvents.Reputation.OnReputationChanged?.Invoke();
     }
 
     private void GameOver()

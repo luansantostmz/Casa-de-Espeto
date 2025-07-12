@@ -12,8 +12,8 @@ public class GameplaySettings : ScriptableObject
 
     [Header("Balancing")]
     public int MaxReputation = 100;
-    public int ReputationToWinOnDeliver = 5;
-    public int ReputationToLoseOnFail = 20;
+    public int ReputationToAddOnDeliver = 5;
+    public int ReputationToSubtractOnFail = 20;
 
     [Header("Debts")]
     public List<DebtSettings> Debts = new List<DebtSettings>();

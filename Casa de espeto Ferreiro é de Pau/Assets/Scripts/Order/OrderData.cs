@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 [System.Serializable]
 public class OrderData
@@ -20,7 +19,7 @@ public class OrderData
 
         OrderState = OrderState.Completed;
 
-        GameManager.Instance.GainReputation();
+        GameManager.Instance.AddReputation(DeliveredItems);
         EconomyService.AddGold(Reward);
 
         GameEvents.Order.OnOrderComplete?.Invoke(this);

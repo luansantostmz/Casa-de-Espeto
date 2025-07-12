@@ -27,7 +27,7 @@ public class UIOrder : ItemContainer
         GameEvents.DragAndDrop.OnAnyDragStart += ControlDropHandler;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         GameEvents.DragAndDrop.OnAnyDragStart -= ControlDropHandler;
     }
@@ -109,6 +109,8 @@ public class UIOrder : ItemContainer
     public override void AddItem(UIItem uiItem)
     {
         base.AddItem(uiItem);
+
+        _orderData.DeliveredItems.Add(new InventoryItem(uiItem.Item, uiItem.Quality));
 
         bool orderCompleted = true;
         bool delivered = false;
