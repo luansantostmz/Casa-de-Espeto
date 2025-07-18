@@ -17,5 +17,5 @@ MonoBehaviour:
   PriceModifier: 1.15
   DeliverReputationModifier: 1.15
   Color: {r: 0.4508864, g: 0.78867924, b: 0.48376888, a: 1}
-  ItemBackground: {fileID: 21300000, guid: c86e3cb5f3c98054bb15d9e81019581b, type: 3}
+  ItemBackground: {fileID: 21300000, guid: af6cd376c94356d4aa85f65abc0dec23, type: 3}
   IsSpecial: 0

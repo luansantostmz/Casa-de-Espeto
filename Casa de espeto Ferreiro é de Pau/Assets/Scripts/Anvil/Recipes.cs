@@ -18,12 +18,12 @@ public class Recipes : MonoBehaviour
     List<ItemDisplay> _uiItems = new List<ItemDisplay>();
     List<UIRecipeIngredient> _uiIngredients = new List<UIRecipeIngredient>();
 
-    private void Awake()
+    private void OnEnable()
     {
         GameEvents.Anvil.OnRecipeItemClicked += ShowRecipe;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         GameEvents.Anvil.OnRecipeItemClicked -= ShowRecipe;
     }
@@ -38,6 +38,7 @@ public class Recipes : MonoBehaviour
         }
 
         GameEvents.Anvil.OnRecipeItemClicked?.Invoke(_uiItems[0].Item);
+        ShowRecipe(_items[0]);
     }
 
     private void ShowRecipe(ItemSettings itemSettings)
@@ -56,7 +57,7 @@ public class Recipes : MonoBehaviour
             }
         }
 
-        foreach(var ingredient in _uiIngredients)
+        foreach (var ingredient in _uiIngredients)
         {
             Destroy(ingredient.gameObject);
         }
@@ -71,7 +72,6 @@ public class Recipes : MonoBehaviour
             _uiIngredients.Add(uiIngredient);
         }
     }
-
 
     public ItemSettings GetToCraftItem(List<UIItem> currentIngredients)
     {
@@ -99,11 +99,11 @@ public class Recipes : MonoBehaviour
         if (firstList.Count != secondList.Count)
             return false;
 
-        // Cria dicionários para contar as ocorrências de cada item
+        // Cria dicionï¿½rios para contar as ocorrï¿½ncias de cada item
         Dictionary<ItemSettings, int> firstListCounts = GetItemCounts(firstList);
         Dictionary<ItemSettings, int> secondListCounts = GetItemCounts(secondList);
 
-        // Compara os dicionários
+        // Compara os dicionï¿½rios
         foreach (var kvp in firstListCounts)
         {
             if (!secondListCounts.TryGetValue(kvp.Key, out int secondCount) || kvp.Value != secondCount)

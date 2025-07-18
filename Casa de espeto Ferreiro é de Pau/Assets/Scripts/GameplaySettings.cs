@@ -21,5 +21,6 @@ public class GameplaySettings : ScriptableObject
     [Header("Progression")]
     public int DayDuration = 600;
     public int NewForgePrice = 500;
+    public int MaxForgeCount = 5;
     public List<ForgeUpgradeData> ForgeUpgradeSettings = new List<ForgeUpgradeData>();
 }

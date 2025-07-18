@@ -6,12 +6,12 @@ public class UIForgeSlot : ItemContainer
 {
     [Header("Forge")]
     [SerializeField] UIFillClock _clock;
-    [SerializeField] TMP_Text _text;
     [SerializeField] int _currentLevel;
     [SerializeField] Button _upgradeButton;
     [SerializeField] TMP_Text _upgradePriceText;
     [SerializeField] TMP_Text _currentLevelText;
 
+    public UIFillClock Clock => _clock;
     ForgeController _controller;
     ItemSettings _toForgeItem;
 
