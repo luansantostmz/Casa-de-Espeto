@@ -22,10 +22,22 @@ public class RotateDOTween : TweenObject
     {
         base.PlayTween();
 
-        // Resetar a rotação antes de iniciar o tween
+        // Verifica se a sequência de rotação já está ativa.
+        // Se estiver ativa e não estiver completada ou morta, saímos do método.
+        // Isso impede que o tween seja reiniciado se já estiver em andamento.
+        if (rotateSequence != null && rotateSequence.IsActive())
+        {
+            Debug.Log("Tween de rotação já ativo, ignorando nova chamada.");
+            return;
+        }
+
+        // Resetar a rotação para o valor inicial antes de iniciar o tween.
+        // Isso garante que a animação sempre comece do ponto de partida original.
         transform.rotation = initialRotation;
 
-        // Mata qualquer tween anterior
+        // Mata qualquer tween anterior no transform.
+        // O 'true' faz com que ele complete instantaneamente se houver um tween anterior,
+        // mas como já resetamos a rotação, o efeito visual será de um novo começo.
         transform.DOKill(true);
 
         // Cria nova sequência
@@ -44,13 +56,12 @@ public class RotateDOTween : TweenObject
         );
 
         rotateSequence.OnComplete(() => Debug.Log("Sequência de rotação (ida e volta) concluída!"));
-        rotateSequence.SetLink(gameObject);
-        rotateSequence.Play();
+        rotateSequence.SetLink(gameObject); // Linka a sequência ao GameObject
+        rotateSequence.Play(); // Inicia a sequência
     }
 
-
-    // Este método não é mais necessário para a lógica de "ida e volta automática"
-    // mas pode ser útil se você quiser um reset manual em outras situações.
+    // Este método 'ResetRotation' ainda pode ser útil para um reset manual forçado para a posição inicial,
+    // independentemente de qualquer animação em andamento.
     public void ResetRotation()
     {
         // Mata a sequência atual e força o objeto de volta à posição inicial

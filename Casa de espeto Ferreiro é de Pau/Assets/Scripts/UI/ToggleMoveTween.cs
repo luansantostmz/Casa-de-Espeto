@@ -1,13 +1,20 @@
 using UnityEngine;
 using DG.Tweening;
+using NaughtyAttributes;
 
 public class ToggleMoveDOTween : TweenObject
 {
+    public Transform positionOnStart;
+
+    [Header("A")]
     public Transform targetPositionA;
+    public Transform initialPositionA;
     public float durationToA = 1f;
     public Ease easeToA = Ease.InOutSine;
 
+    [Header("B")]
     public Transform targetPositionB;
+    public Transform initialPositionB;
     public float durationToB = 1f;
     public Ease easeToB = Ease.InOutSine;
 
@@ -18,6 +25,7 @@ public class ToggleMoveDOTween : TweenObject
     private void Start()
     {
         initialPosition = transform.position;
+        transform.position = positionOnStart.position;
     }
 
     public override void PlayTween()
@@ -40,6 +48,9 @@ public class ToggleMoveDOTween : TweenObject
             return;
         }
 
+        if (initialPositionA)
+            transform.position = initialPositionA.position;
+
         transform.DOMove(targetPositionA.position, durationToA)
                  .SetEase(easeToA)
                  .OnComplete(() => Debug.Log("Chegou em A"));
@@ -53,6 +64,9 @@ public class ToggleMoveDOTween : TweenObject
             return;
         }
 
+        if (initialPositionB)
+            transform.position = initialPositionB.position;
+
         transform.DOMove(targetPositionB.position, durationToB)
                  .SetEase(easeToB)
                  .OnComplete(() => Debug.Log("Chegou em B"));
@@ -64,4 +78,18 @@ public class ToggleMoveDOTween : TweenObject
                  .SetEase(Ease.InOutSine)
                  .OnComplete(() => Debug.Log("Objeto voltou à posição inicial!"));
     }
+
+#if UNITY_EDITOR
+    [Button]
+    public void TranslateToPositionA()
+    {
+        transform.position = targetPositionA.position;
+    }
+
+    [Button]
+    public void TranslateToPositionB()
+    {
+        transform.position = targetPositionB.position;
+    }
+#endif
 }
