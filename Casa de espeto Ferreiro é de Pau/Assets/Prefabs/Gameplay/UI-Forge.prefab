@@ -61,7 +61,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &6762084225277405675
 MonoBehaviour:
@@ -5720,7 +5720,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5355907485753124674}
-  - component: {fileID: 1441156401052614689}
+  - component: {fileID: 3962115462070534367}
   m_Layer: 5
   m_Name: ForgeUI
   m_TagString: Untagged
@@ -5751,7 +5751,7 @@ RectTransform:
   m_AnchoredPosition: {x: -135.99998, y: -65.60082}
   m_SizeDelta: {x: 1222.7524, y: 1202.8}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1441156401052614689
+--- !u!114 &3962115462070534367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5763,16 +5763,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900886a98b4c72743a03c02737ad45ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayOnEnable: 1
-  PlayOnDisable: 1
+  PlayOnEnable: 0
+  PlayOnDisable: 0
   positionOnStart: {fileID: 0}
   targetPositionA: {fileID: 0}
   initialPositionA: {fileID: 0}
-  durationToA: 0.5
+  durationToA: 0.2
   easeToA: 3
   targetPositionB: {fileID: 0}
   initialPositionB: {fileID: 0}
-  durationToB: 0.5
+  durationToB: 0.2
   easeToB: 3
 --- !u!1001 &4682358904603161561
 PrefabInstance:
@@ -5788,7 +5788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 350745077213051263, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0002277178
+      value: -0.000049249295
       objectReference: {fileID: 0}
     - target: {fileID: 3092470500669709900, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchorMax.x

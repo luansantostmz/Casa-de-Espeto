@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1011741150086774751}
   - component: {fileID: 1546676677861817315}
   - component: {fileID: 8205001671033174763}
+  - component: {fileID: 6053710386238078726}
   m_Layer: 5
   m_Name: ForgeButton
   m_TagString: Untagged
@@ -62,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9372549, g: 0.8235294, b: 0.627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -98,7 +99,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.9921569, g: 0.8745099, b: 0.6627451, a: 1}
     m_HighlightedColor: {r: 0.99607843, g: 0.7986035, b: 0.1490196, a: 1}
@@ -124,8 +125,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChangeScreens, Assembly-CSharp
-        m_MethodName: RestartPosForge
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToA
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -136,24 +137,48 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToB
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToB
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3904229061838472064}
+        m_TargetAssemblyTypeName: ButtonSelectionController, Assembly-CSharp
+        m_MethodName: SelectButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1011741150086774751}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -207,6 +232,19 @@ MonoBehaviour:
   easeType: 3
   reverseEaseType: 3
   rotateMode: 0
+--- !u!114 &6053710386238078726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496658955652763943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55be1dc4cac78ce419fbfcb9d91b6994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 7de5b8510bba7a64c8eacb9d45999fe2, type: 3}
 --- !u!1 &2080853935389257117
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +296,7 @@ GameObject:
   - component: {fileID: 3397056630482297049}
   - component: {fileID: 354866763028241643}
   - component: {fileID: 5900214945141865078}
+  - component: {fileID: 2468839664255121369}
   m_Layer: 5
   m_Name: DebtsButton
   m_TagString: Untagged
@@ -306,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9372549, g: 0.8235294, b: 0.627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -342,7 +381,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.9921569, g: 0.8745099, b: 0.6627451, a: 1}
     m_HighlightedColor: {r: 0.99607843, g: 0.7986035, b: 0.1490196, a: 1}
@@ -369,11 +408,59 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
-        m_MethodName: PlayTween
+        m_MethodName: PlayTweenToB
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToA
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3904229061838472064}
+        m_TargetAssemblyTypeName: ButtonSelectionController, Assembly-CSharp
+        m_MethodName: SelectButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 3397056630482297049}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -427,6 +514,19 @@ MonoBehaviour:
   easeType: 3
   reverseEaseType: 3
   rotateMode: 0
+--- !u!114 &2468839664255121369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093729825327367887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55be1dc4cac78ce419fbfcb9d91b6994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 7de5b8510bba7a64c8eacb9d45999fe2, type: 3}
 --- !u!1 &2313992658757152435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,6 +1280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8750656624317759574}
   - component: {fileID: 3321775422389955500}
+  - component: {fileID: 3904229061838472064}
   m_Layer: 5
   m_Name: Navigation
   m_TagString: Untagged
@@ -1236,6 +1337,26 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3904229061838472064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3731964825747812414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8480a889e6e366549a6793e6a6964924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selectedColor: {r: 0.99607843, g: 0.47058824, b: 0.14901961, a: 1}
+  _defaultColor: {r: 0.9372549, g: 0.8235294, b: 0.627451, a: 1}
+  _startButton: {fileID: 2502141894135267792}
+  _buttons:
+  - {fileID: 2502141894135267792}
+  - {fileID: 1011741150086774751}
+  - {fileID: 981961676195748165}
+  - {fileID: 3397056630482297049}
 --- !u!1 &3876885838240681154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,6 +1664,7 @@ GameObject:
   - component: {fileID: 981961676195748165}
   - component: {fileID: 1451182485193698398}
   - component: {fileID: 8271361842526024315}
+  - component: {fileID: 7686625969179785188}
   m_Layer: 5
   m_Name: StoreButton
   m_TagString: Untagged
@@ -1591,7 +1713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9372549, g: 0.8235294, b: 0.627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1627,7 +1749,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.9921569, g: 0.8745099, b: 0.6627451, a: 1}
     m_HighlightedColor: {r: 0.99607843, g: 0.7986035, b: 0.1490196, a: 1}
@@ -1654,6 +1776,30 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
+        m_MethodName: PlayTweenToB
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
         m_MethodName: PlayTweenToA
         m_Mode: 1
         m_Arguments:
@@ -1676,25 +1822,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
-        m_MethodName: PlayTweenToB
-        m_Mode: 1
+      - m_Target: {fileID: 3904229061838472064}
+        m_TargetAssemblyTypeName: ButtonSelectionController, Assembly-CSharp
+        m_MethodName: SelectButton
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
-        m_MethodName: PlayTweenToB
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 981961676195748165}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1748,6 +1882,19 @@ MonoBehaviour:
   easeType: 3
   reverseEaseType: 3
   rotateMode: 0
+--- !u!114 &7686625969179785188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4764603164065210096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55be1dc4cac78ce419fbfcb9d91b6994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 7de5b8510bba7a64c8eacb9d45999fe2, type: 3}
 --- !u!1 &5994883851711652780
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,6 +2344,7 @@ GameObject:
   - component: {fileID: 2502141894135267792}
   - component: {fileID: 4163352862675941348}
   - component: {fileID: 8839641390341908998}
+  - component: {fileID: 6489977250739538757}
   m_Layer: 5
   m_Name: AnvilButton
   m_TagString: Untagged
@@ -2245,7 +2393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9372549, g: 0.8235294, b: 0.627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2281,7 +2429,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 0.9921569, g: 0.8745099, b: 0.6627451, a: 1}
     m_HighlightedColor: {r: 0.99607843, g: 0.7986035, b: 0.1490196, a: 1}
@@ -2308,7 +2456,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ToggleMoveDOTween, Assembly-CSharp
-        m_MethodName: PlayTweenToB
+        m_MethodName: PlayTweenToA
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2349,6 +2497,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3904229061838472064}
+        m_TargetAssemblyTypeName: ButtonSelectionController, Assembly-CSharp
+        m_MethodName: SelectButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2502141894135267792}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2402,6 +2562,19 @@ MonoBehaviour:
   easeType: 3
   reverseEaseType: 3
   rotateMode: 0
+--- !u!114 &6489977250739538757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6721170455683704099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55be1dc4cac78ce419fbfcb9d91b6994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 7de5b8510bba7a64c8eacb9d45999fe2, type: 3}
 --- !u!1 &7133622752694643267
 GameObject:
   m_ObjectHideFlags: 0

@@ -508,7 +508,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &6613651711850358470
 MonoBehaviour:
@@ -804,16 +804,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900886a98b4c72743a03c02737ad45ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayOnEnable: 1
-  PlayOnDisable: 1
+  PlayOnEnable: 0
+  PlayOnDisable: 0
   positionOnStart: {fileID: 0}
   targetPositionA: {fileID: 0}
   initialPositionA: {fileID: 0}
-  durationToA: 0.5
+  durationToA: 0.2
   easeToA: 3
   targetPositionB: {fileID: 0}
   initialPositionB: {fileID: 0}
-  durationToB: 0.5
+  durationToB: 0.2
   easeToB: 3
 --- !u!1 &4128963371783093730
 GameObject:
@@ -2112,7 +2112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 350745077213051263, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000051604733
+      value: -0.000090587986
       objectReference: {fileID: 0}
     - target: {fileID: 3092470500669709900, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2276,7 +2276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7825614026993563561, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Size
-      value: 0.99999785
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7825614026993563561, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Value

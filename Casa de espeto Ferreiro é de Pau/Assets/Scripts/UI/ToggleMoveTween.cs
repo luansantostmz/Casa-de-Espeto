@@ -44,7 +44,6 @@ public class ToggleMoveDOTween : TweenObject
     {
         if (targetPositionA == null)
         {
-            Debug.LogWarning("targetPositionA não foi definido.");
             return;
         }
 
@@ -52,15 +51,13 @@ public class ToggleMoveDOTween : TweenObject
             transform.position = initialPositionA.position;
 
         transform.DOMove(targetPositionA.position, durationToA)
-                 .SetEase(easeToA)
-                 .OnComplete(() => Debug.Log("Chegou em A"));
+                 .SetEase(easeToA);
     }
 
     public void PlayTweenToB()
     {
         if (targetPositionB == null)
         {
-            Debug.LogWarning("targetPositionB não foi definido.");
             return;
         }
 
@@ -68,15 +65,13 @@ public class ToggleMoveDOTween : TweenObject
             transform.position = initialPositionB.position;
 
         transform.DOMove(targetPositionB.position, durationToB)
-                 .SetEase(easeToB)
-                 .OnComplete(() => Debug.Log("Chegou em B"));
+                 .SetEase(easeToB);
     }
 
     public void ResetPosition()
     {
         transform.DOMove(initialPosition, Mathf.Min(durationToA, durationToB))
-                 .SetEase(Ease.InOutSine)
-                 .OnComplete(() => Debug.Log("Objeto voltou à posição inicial!"));
+                 .SetEase(Ease.InOutSine);
     }
 
 #if UNITY_EDITOR

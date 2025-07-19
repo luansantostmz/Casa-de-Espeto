@@ -187,7 +187,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 7
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &4547723015637350178
 MonoBehaviour:
@@ -263,7 +263,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00081449014}
+  m_AnchoredPosition: {x: 0, y: -0.000722417}
   m_SizeDelta: {x: 10.01, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1560794882192050011
@@ -625,16 +625,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900886a98b4c72743a03c02737ad45ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayOnEnable: 1
-  PlayOnDisable: 1
+  PlayOnEnable: 0
+  PlayOnDisable: 0
   positionOnStart: {fileID: 0}
   targetPositionA: {fileID: 0}
   initialPositionA: {fileID: 0}
-  durationToA: 0.5
+  durationToA: 0.2
   easeToA: 3
   targetPositionB: {fileID: 0}
   initialPositionB: {fileID: 0}
-  durationToB: 0.5
+  durationToB: 0.2
   easeToB: 3
 --- !u!1 &3765708102300644265
 GameObject:
