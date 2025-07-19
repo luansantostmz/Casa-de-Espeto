@@ -21,8 +21,10 @@ public class ButtonSelectionController : MonoBehaviour
         foreach (var btn in _buttons)
         {
             btn.GetComponent<Image>().color = _defaultColor;
+            btn.interactable = true;
         }
 
         button.GetComponent<Image>().color = _selectedColor;
+        button.interactable = false;
     }
 }
