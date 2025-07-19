@@ -13,6 +13,9 @@ public class UIOrder : ItemContainer
     [SerializeField] TMP_Text _orderIdText;
     [SerializeField] TMP_Text _rewardText;
     [SerializeField] TMP_Text _remainingTimeText;
+    [SerializeField] TMP_Text _earnedReputationText;
+    [SerializeField] TMP_Text _earnedGoldText;
+    [SerializeField] TMP_Text _lostReputationText;
     [SerializeField] Image _timeBar;
     [SerializeField] RectTransform _container;
 
@@ -77,9 +80,12 @@ public class UIOrder : ItemContainer
     IEnumerator Deliver()
     {
         DropHandler.IsBlocked = true;
+        _earnedReputationText.text = "+" + _orderData.GetReputationBasedOnDeliveredItems();
+        _earnedGoldText.text = "+" + _orderData.GetGoldBasedOnDeliveredItems();
         _deliveredObject.SetActive(true);
         _orderData.OrderState = OrderState.WaitingReward;
         GetComponent<ScaleDoTween>().PlayTween();
+        _orderData.GiveRewards();
         yield return new WaitForSeconds(2f);
         _orderData.Complete();
         Destroy(gameObject);
@@ -87,7 +93,9 @@ public class UIOrder : ItemContainer
 
     IEnumerator Fail()
     {
+        _lostReputationText.text = "-" + GameManager.Instance.GameplaySettings.ReputationToSubtractOnFail;
         _failObject.SetActive(true);
+        _orderData.LoseReputation();
         yield return new WaitForSeconds(2f);
         _orderData.Fail();
         Destroy(gameObject);

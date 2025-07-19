@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test_GameplaySettings
   m_EditorClassIdentifier: 
   InitialReputation: 30
-  InitialGold: 500000
+  InitialGold: 1000
   InitialForgeCount: 2
   InitialItems:
   - Item: {fileID: 11400000, guid: d55c04b49662c5f489be7faee5974a11, type: 2}
@@ -41,8 +41,8 @@ MonoBehaviour:
     Quality: {fileID: 11400000, guid: 1447a5687f423dc49bd480814f6f6201, type: 2}
     Quantity: 10
   MaxReputation: 100
-  ReputationToWinOnDeliver: 5
-  ReputationToLoseOnFail: 20
+  ReputationToAddOnDeliver: 5
+  ReputationToSubtractOnFail: 20
   Debts:
   - DebtName: Shopkeeper
     DebtAmount: 5000
@@ -64,6 +64,7 @@ MonoBehaviour:
       to repay will result in foreclosure.
   DayDuration: 10
   NewForgePrice: 500
+  MaxForgeCount: 5
   ForgeUpgradeSettings:
   - LevelModifier: 1
     UpgradePrice: 10

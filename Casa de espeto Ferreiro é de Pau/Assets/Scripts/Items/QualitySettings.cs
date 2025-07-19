@@ -7,6 +7,7 @@ public class QualitySettings : ScriptableObject
     public int Points;
     public float PriceModifier;
     public float DeliverReputationModifier;
+    public float DeliverGoldModifier;
     public Color Color;
     public Sprite ItemBackground;
     public bool IsSpecial;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class OrderData
@@ -13,25 +14,57 @@ public class OrderData
 
     public OrderState OrderState;
 
+    public void GiveRewards()
+    {
+        GameManager.Instance.AddReputation(GetReputationBasedOnDeliveredItems());
+        EconomyService.AddGold(GetGoldBasedOnDeliveredItems());
+    }
+
+    public void LoseReputation()
+    {
+        GameManager.Instance.LoseReputation();
+    }
+
     public void Complete()
     {
         if (OrderState != OrderState.WaitingReward) return;
-
         OrderState = OrderState.Completed;
-
-        GameManager.Instance.AddReputation(DeliveredItems);
-        EconomyService.AddGold(Reward);
-
         GameEvents.Order.OnOrderComplete?.Invoke(this);
     }
 
     public void Fail()
     {
         if (OrderState == OrderState.Failed || OrderState == OrderState.Completed) return;
-
         OrderState = OrderState.Failed;
-        GameManager.Instance.LoseReputation();
         GameEvents.Order.OnOrderFail?.Invoke(this);
+    }
+
+    public int GetReputationBasedOnDeliveredItems()
+    {
+        var value = 0;
+
+        DeliveredItems.ForEach(item =>
+        {
+            var qualityModifier = item.Quality.DeliverReputationModifier;
+            value += Mathf.RoundToInt(qualityModifier * GameManager.Instance.GameplaySettings.ReputationToAddOnDeliver);
+        });
+
+        value = value / DeliveredItems.Count;
+        return value;
+    }
+
+    public int GetGoldBasedOnDeliveredItems()
+    {
+        var value = 0;
+
+        DeliveredItems.ForEach(item =>
+        {
+            var qualityModifier = item.Quality.DeliverGoldModifier;
+            value += Mathf.RoundToInt(qualityModifier * item.Settings.BasePrice);
+        });
+
+        value = value / DeliveredItems.Count;
+        return value;
     }
 }
 

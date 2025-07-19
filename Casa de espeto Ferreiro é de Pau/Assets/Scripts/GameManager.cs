@@ -90,20 +90,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void AddReputation(List<InventoryItem> deliveredItems)
+    public void AddReputation(int value)
     {
         if (IsGameEnd)
             return;
-
-        var value = 0;
-
-        deliveredItems.ForEach(item =>
-        {
-            var qualityModifier = item.Quality.DeliverReputationModifier;
-            value += Mathf.RoundToInt(qualityModifier * GameplaySettings.ReputationToAddOnDeliver);
-        });
-
-        value = value / deliveredItems.Count;
 
         CurrentReputation = Mathf.Clamp(CurrentReputation + value, 0, GameplaySettings.MaxReputation);
         GameEvents.Reputation.OnReputationChanged?.Invoke();

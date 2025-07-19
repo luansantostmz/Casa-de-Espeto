@@ -16,6 +16,7 @@ MonoBehaviour:
   Points: 1
   PriceModifier: 1
   DeliverReputationModifier: 1
+  DeliverGoldModifier: 1
   Color: {r: 0.6698113, g: 0.5892657, b: 0.38229796, a: 1}
   ItemBackground: {fileID: 21300000, guid: 4731b41107f90eb40a2a4749034a34db, type: 3}
   IsSpecial: 0
