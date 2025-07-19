@@ -5,8 +5,9 @@ using UnityEngine.EventSystems;
 
 public class UITooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private const float DELAY = .5f;
+
     [SerializeField] private GameObject _tooltipObject;
-    [SerializeField] private float _delay = 1f;
 
     private float _timer;
     private bool _isHovering;
@@ -26,7 +27,7 @@ public class UITooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (_isHovering && !IsTooltipActive())
         {
             _timer += Time.unscaledDeltaTime;
-            if (_timer >= _delay)
+            if (_timer >= DELAY)
             {
                 ShowTooltip();
             }
