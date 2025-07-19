@@ -1449,6 +1449,7 @@ MonoBehaviour:
   _orderIdText: {fileID: 5330182586674526986}
   _rewardText: {fileID: 1243217459007814984}
   _remainingTimeText: {fileID: 1991600960121608912}
+  _timeBar: {fileID: 5411832218823403888}
   _container: {fileID: 1588353023468171784}
   _deliveredObject: {fileID: 4605760836717729716}
   _failObject: {fileID: 7524390285190407474}

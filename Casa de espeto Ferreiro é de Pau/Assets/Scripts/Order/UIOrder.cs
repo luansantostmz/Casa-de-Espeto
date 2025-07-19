@@ -13,6 +13,7 @@ public class UIOrder : ItemContainer
     [SerializeField] TMP_Text _orderIdText;
     [SerializeField] TMP_Text _rewardText;
     [SerializeField] TMP_Text _remainingTimeText;
+    [SerializeField] Image _timeBar;
     [SerializeField] RectTransform _container;
 
     [SerializeField] GameObject _deliveredObject;
@@ -41,6 +42,7 @@ public class UIOrder : ItemContainer
         {
             _orderData.RemainingTime -= Time.fixedDeltaTime;
             _remainingTimeText.text = $"{(int)_orderData.RemainingTime}s";
+            _timeBar.fillAmount = _orderData.RemainingTime / _orderData.DeliveryTime;
         }
 
         if (_orderData.RemainingTime < 0)
