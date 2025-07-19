@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class UITooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private const float DELAY = .5f;
+    private const float DELAY = .25f;
 
     [SerializeField] private GameObject _tooltipObject;
 

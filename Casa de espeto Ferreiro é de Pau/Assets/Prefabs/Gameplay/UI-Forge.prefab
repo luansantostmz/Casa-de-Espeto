@@ -5726,6 +5726,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 350745077213051263, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000026226044
+      objectReference: {fileID: 0}
     - target: {fileID: 3092470500669709900, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5829,6 +5833,14 @@ PrefabInstance:
     - target: {fileID: 7180061209607134744, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Name
       value: ForgeRecipes
+      objectReference: {fileID: 0}
+    - target: {fileID: 7825614026993563561, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7825614026993563561, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+      propertyPath: m_Value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
