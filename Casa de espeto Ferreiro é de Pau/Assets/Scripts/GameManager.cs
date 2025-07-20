@@ -38,7 +38,6 @@ public class GameManager : MonoBehaviour
             GameEvents.Inventory.OnAddItem?.Invoke(item.Item, item.Quality, item.Quantity);
         }
 
-        DayManager.Instance.Initialize();
         GameEvents.OnGameWin += OnGameWin;
     }
 

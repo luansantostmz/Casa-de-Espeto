@@ -27,7 +27,6 @@ public class RotateDOTween : TweenObject
         // Isso impede que o tween seja reiniciado se já estiver em andamento.
         if (rotateSequence != null && rotateSequence.IsActive())
         {
-            Debug.Log("Tween de rotação já ativo, ignorando nova chamada.");
             return;
         }
 
@@ -55,7 +54,6 @@ public class RotateDOTween : TweenObject
                 .SetEase(reverseEaseType)
         );
 
-        rotateSequence.OnComplete(() => Debug.Log("Sequência de rotação (ida e volta) concluída!"));
         rotateSequence.SetLink(gameObject); // Linka a sequência ao GameObject
         rotateSequence.Play(); // Inicia a sequência
     }
@@ -70,7 +68,6 @@ public class RotateDOTween : TweenObject
             rotateSequence.Kill();
         }
         transform.rotation = initialRotation;
-        Debug.Log("Objeto resetado para a rotação inicial.");
     }
 
     private void OnDisable()

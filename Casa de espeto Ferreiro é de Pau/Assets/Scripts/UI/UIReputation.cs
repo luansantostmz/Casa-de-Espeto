@@ -23,7 +23,7 @@ public class UIReputation : MonoBehaviour
     private int _currentDisplayedReputation; // A reputação que está *sendo exibida* no texto
     private Tween _textTween; // Referência para o tween do texto para controlá-lo
 
-    private void Awake()
+    private void Start()
     {
         GameEvents.Reputation.OnReputationChanged += OnReputationChange;
 
@@ -52,8 +52,7 @@ public class UIReputation : MonoBehaviour
         // --- Animação da Barra de Preenchimento (já existente) ---
         _fillBar.DOKill(); // Mata qualquer tween anterior na barra
         _fillBar.DOFillAmount(targetFillAmount, fillAnimationDuration)
-            .SetEase(fillEaseType)
-            .OnComplete(() => Debug.Log("Barra de reputação atualizada suavemente."));
+            .SetEase(fillEaseType);
 
         // --- Animação do Texto (NOVO!) ---
         // Mata qualquer tween de texto anterior para evitar sobreposição e garantir fluidez
@@ -71,7 +70,6 @@ public class UIReputation : MonoBehaviour
             {
                 // A cada frame da animação, atualiza o texto do TextMeshPro
                 _reputationText.text = _currentDisplayedReputation.ToString();
-            })
-            .OnComplete(() => Debug.Log("Texto de reputação atualizado suavemente."));
+            });
     }
 }

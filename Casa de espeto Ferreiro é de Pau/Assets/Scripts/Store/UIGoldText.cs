@@ -70,7 +70,6 @@ public class UIGoldText : MonoBehaviour
                     // Garante que o valor final seja exatamente o targetGold ao final da animação
                     _currentDisplayedGold = targetGold;
                     text.text = _currentDisplayedGold.ToString();
-                    Debug.Log("Texto do ouro atualizado suavemente para: " + targetGold);
                 });
         }
         else
@@ -78,7 +77,6 @@ public class UIGoldText : MonoBehaviour
             // Se o valor não mudou e não foi forçado, apenas atualiza o texto diretamente (sem animação)
             // Isso evita criar um tween desnecessário.
             text.text = targetGold.ToString();
-            Debug.Log("Texto do ouro já no valor correto: " + targetGold);
         }
 
         // Você tinha um GetComponent<ScaleDoTween>().PlayTween(); aqui.
