@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,26 +7,22 @@ public class Anvil : ItemContainer
     [Header("Anvil Settings")]
     [SerializeField] Recipes _recipes;
     [SerializeField] GameObject _hammerVFX;
-
-    [SerializeField] TMP_Text _hammerCountText;
-
+    [SerializeField] float _craftCompleteWaitTime;
+    [SerializeField] GameObject _hammer;
+    [SerializeField] AnvilQTE _qte;
     [SerializeField] ItemDisplay _toCraftItemUI;
-    [SerializeField] PingPongSlider _bar;
     [SerializeField] Button _startHammerButton;
-
-    bool _hammerEnabled;
 
     ItemSettings _lastToCraftItem;
 
-    public int _hammerCount;
-    public int _qualityPoints;
+    public bool _inProgress;
+    public int _points;
 
     protected override void Awake()
     {
         base.Awake();
 
-        _bar.gameObject.SetActive(false);
-        _hammerCountText.gameObject.SetActive(false);
+        _qte.gameObject.SetActive(false);
         _startHammerButton.gameObject.SetActive(false);
 
         GameEvents.Anvil.OnHammer += OnHammer;
@@ -36,22 +30,34 @@ public class Anvil : ItemContainer
         _startHammerButton.onClick.AddListener(StartHammer);
     }
 
+    void Start()
+    {
+        _toCraftItemUI.gameObject.SetActive(false);
+        _hammer.gameObject.SetActive(false);
+    }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
         GameEvents.Anvil.OnHammer -= OnHammer;
 
-        _startHammerButton.onClick.AddListener(StartHammer);
+        _startHammerButton.onClick.RemoveListener(StartHammer);
     }
 
     private void StartHammer()
     {
+        _qte.Init(_lastToCraftItem.AnvilSettings);
+
         DropHandler.IsBlocked = true;
 
-        _hammerEnabled = true;
+        _inProgress = true;
+
+        _hammer.gameObject.SetActive(true);
+
         _startHammerButton.gameObject.SetActive(false);
         _toCraftItemUI.gameObject.SetActive(true);
-        _bar.gameObject.SetActive(true);
+        _qte.gameObject.SetActive(true);
+        _qte.StartQTE();
 
         foreach (var item in Items)
         {
@@ -61,58 +67,56 @@ public class Anvil : ItemContainer
         Items.Clear();
     }
 
+    public void OnHit(bool complete)
+    {
+        // _toCraftItemUI.GetComponent<ScaleDoTween>().PlayTween();
+        _toCraftItemUI.gameObject.SetActive(true);
+        StartCoroutine(UpdateItem());
+
+        if (complete)
+        {
+            StartCoroutine(Complete());
+        }
+    }
+
+    IEnumerator UpdateItem()
+    {
+        yield return new WaitForSeconds(.25f);
+        UpdateToCraftItem();
+    }
+
+    IEnumerator Complete()
+    {
+        yield return new WaitForSeconds(_craftCompleteWaitTime);
+
+        GameEvents.Inventory.OnAddItem?.Invoke(
+                           _toCraftItemUI.Item,
+                           _toCraftItemUI.Quality,
+                           _toCraftItemUI.Quantity);
+
+        // AchievementsManager.Instance.OnFirstCraft.TryAchieve();
+
+        _inProgress = false;
+
+        DropHandler.IsBlocked = false;
+        UpdateToCraftItem();
+        _lastToCraftItem = null;
+    }
+
     private void OnHammer(QualitySettings quality)
     {
         DropHandler.IsBlocked = true;
-        _qualityPoints += quality.Points;
-        _qualityPoints = _qualityPoints / 2;
-        _hammerCount++;
-        _toCraftItemUI.GetComponent<ScaleDoTween>().PlayTween();
         UpdateToCraftItem(true);
-        _bar.RestartBar();
         _hammerVFX.gameObject.SetActive(true);
-
-        _hammerCountText.gameObject.SetActive(true);
-        _hammerCountText.text = $"{_hammerCount}/{_lastToCraftItem.HammerCount}";
-
-        StartCoroutine(ReloadHammer());
-    }
-
-    IEnumerator ReloadHammer()
-    {
-        _bar.gameObject.SetActive(false);
-        yield return new WaitForSeconds(.5f);
-        _bar.gameObject.SetActive(true);
-        _hammerVFX.gameObject.SetActive(false);
-
-        if (_hammerCount >= _lastToCraftItem.HammerCount)
-        {
-            GameEvents.Inventory.OnAddItem?.Invoke(
-                _toCraftItemUI.Item, 
-                _toCraftItemUI.Quality, 
-                _toCraftItemUI.Quantity);
-
-            AchievementsManager.Instance.OnFirstCraft.TryAchieve();
-
-            _hammerCount = 0;
-            _qualityPoints = 0;
-            DropHandler.IsBlocked = false;
-            _hammerCountText.gameObject.SetActive(false);
-            UpdateToCraftItem();
-            _lastToCraftItem = null;
-            _startHammerButton.gameObject.SetActive(false);
-            _hammerEnabled = false;
-        }
     }
 
     private void UpdateToCraftItem(bool forceUpdateVisual = false)
     {
-        if (_hammerCount > 0)
+        if (_inProgress)
         {
-            var quality = QualityProvider.Instance.GetQualityByPoints(_qualityPoints);
+            var quality = QualityProvider.Instance.GetQualityByPoints(_qte.Score);
             _toCraftItemUI.UpdateVisual(_lastToCraftItem, quality, 1);
             _toCraftItemUI.gameObject.SetActive(true);
-
             return;
         }
 
@@ -125,43 +129,23 @@ public class Anvil : ItemContainer
         {
             _lastToCraftItem = toCraftItem;
 
-            _bar.SetQTESettings(toCraftItem.AnvilSettings);
-            _bar.gameObject.SetActive(true);
+            _qte.gameObject.SetActive(true);
 
-            if (_qualityPoints == 0)
-            {
-                int ignoreCount = 0;
-                foreach (var ingredient in Items)
-                {
-                    if (ingredient.Item.IgnoreQualityOnAnvil)
-                    {
-                        ignoreCount++;
-                        continue;
-                    }
-
-                    _qualityPoints += ingredient.Quality.Points;
-                }
-
-                _qualityPoints = _qualityPoints / (Items.Count - ignoreCount);
-            }
-
-            var quality = QualityProvider.Instance.GetQualityByPoints(_qualityPoints);
+            var quality = QualityProvider.Instance.GetQualityByPoints(0);
             _toCraftItemUI.UpdateVisual(toCraftItem, quality, 1);
             _toCraftItemUI.gameObject.SetActive(true);
 
-            if (!_hammerEnabled)
+            if (!_inProgress)
             {
                 _startHammerButton.gameObject.SetActive(true);
-                _bar.gameObject.SetActive(false);
-            }
-            else
-            {
+                _qte.gameObject.SetActive(false);
             }
         }
         else
         {
             _toCraftItemUI.gameObject.SetActive(false);
-            _bar.gameObject.SetActive(false);
+            _hammer.gameObject.SetActive(false);
+            _qte.gameObject.SetActive(false);
             _startHammerButton.gameObject.SetActive(false);
         }
     }
@@ -173,11 +157,7 @@ public class Anvil : ItemContainer
         DropHandler.IsBlocked = false;
         UpdateToCraftItem();
         _lastToCraftItem = null;
-        _qualityPoints = 0;
-        _hammerCount = 0;
-        _hammerCountText.gameObject.SetActive(false);
         _startHammerButton.gameObject.SetActive(false);
-        _hammerEnabled = false;
     }
 
     public override void AddItem(UIItem uiItem)

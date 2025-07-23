@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 780c4b3d6d56ddb4faab88bf7755857e, type: 3}
-  m_Name: QTECopperSword
+  m_Name: AnvilQTESilverSword
   m_EditorClassIdentifier: 
-  speed: 2
-  acceleration: 0.2
-  maxSpeed: 4
-  QTESettings: {fileID: 11400000, guid: c5fffe176024ca04586f9859618aa28b, type: 2}
+  InitialPointerSpeed: 200
+  SpeedIncreasePerHit: 50
+  MaxChances: 4
+  MinAreaWidth: 15
+  MaxAreaWidth: 15
+  AreaPadding: 10

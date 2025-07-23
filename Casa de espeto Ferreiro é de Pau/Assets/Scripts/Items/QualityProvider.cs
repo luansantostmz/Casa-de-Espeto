@@ -25,28 +25,13 @@ public class QualityProvider : MonoBehaviour
 
     public QualitySettings GetQualityByPoints(int points)
     {
-        float smallestDifference = float.MaxValue;
-
-        QualitySettings closest = null;
-
-        foreach (var quality in Qualities)
-        {
-            float difference = Mathf.Abs(quality.Points - points);
-
-            if (difference < smallestDifference)
-            {
-                smallestDifference = difference;
-                closest = quality;
-            }
-        }
-
-        return closest;
+        return Qualities[points];
     }
 
     public QualitySettings GetQualityByIngredients(List<UIItem> ingredients)
     {
         int sum = 0;
-        foreach(var ingredient in ingredients)
+        foreach (var ingredient in ingredients)
         {
             sum += ingredient.Quality.Points;
         }

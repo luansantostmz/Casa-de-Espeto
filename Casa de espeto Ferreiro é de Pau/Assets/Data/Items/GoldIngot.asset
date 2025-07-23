@@ -16,7 +16,7 @@ MonoBehaviour:
   IgnoreQualityOnAnvil: 0
   HammerCount: 3
   BasePrice: 500
-  Sprite: {fileID: 21300000, guid: e84b15f4b00d029408a195a313d175c2, type: 3}
+  Sprite: {fileID: 21300000, guid: 851976d631a84dc42ab6779cbb4e7d1f, type: 3}
   ForgeTime: 15
   AnvilSettings: {fileID: 0}
   Ingredients:
