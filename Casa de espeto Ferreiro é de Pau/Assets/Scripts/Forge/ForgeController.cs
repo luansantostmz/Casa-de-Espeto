@@ -13,6 +13,8 @@ public class ForgeController : MonoBehaviour
     public TMP_Text PriceText;
     public Image BurningImage;
 
+    public List<UIForgeSlot> Slots => _slots;
+
     int PurchaseForgePrice => GameManager.Instance.GameplaySettings.NewForgePrice;
 
     private void Awake()

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1546676677861817315}
   - component: {fileID: 8205001671033174763}
   - component: {fileID: 6053710386238078726}
+  - component: {fileID: 1629172903162774301}
   m_Layer: 5
   m_Name: ForgeButton
   m_TagString: Untagged
@@ -34,7 +35,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4318556839574190069}
+  - {fileID: 4548680538326958737}
   m_Father: {fileID: 8750656624317759574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -184,6 +185,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1629172903162774301}
+        m_TargetAssemblyTypeName: ForgeButtonAlert, Assembly-CSharp
+        m_MethodName: SetOnForge
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1546676677861817315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +258,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clip: {fileID: 8300000, guid: 7de5b8510bba7a64c8eacb9d45999fe2, type: 3}
+--- !u!114 &1629172903162774301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496658955652763943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400685e774bac44439130a885351bf94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _forge: {fileID: 0}
+  _alert: {fileID: 6434821315015051538}
 --- !u!1 &2080853935389257117
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8813042944822791798}
   m_Layer: 5
-  m_Name: UI-Gold
+  m_Name: Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,6 +488,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 3397056630482297049}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1629172903162774301}
+        m_TargetAssemblyTypeName: ForgeButtonAlert, Assembly-CSharp
+        m_MethodName: SetOnForge
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -677,7 +716,7 @@ GameObject:
   - component: {fileID: 6508368217747732043}
   - component: {fileID: 531555710305686382}
   m_Layer: 5
-  m_Name: InfoButton
+  m_Name: SettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -699,7 +738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1868, y: -53.42801}
+  m_AnchoredPosition: {x: 68.20001, y: -1019.1}
   m_SizeDelta: {x: 61.83, y: 61.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6795683048243693086
@@ -1834,6 +1873,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1629172903162774301}
+        m_TargetAssemblyTypeName: ForgeButtonAlert, Assembly-CSharp
+        m_MethodName: SetOnForge
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1451182485193698398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2018,7 +2069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4318556839574190069
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2026,17 +2077,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6409590558965113512}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4983794927937819446}
+  m_Father: {fileID: 4548680538326958737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 78.00002, y: 55.000004}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.00007247925, y: -0.5}
+  m_SizeDelta: {x: 8.459999, y: 5.8430023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6778509793451615926
 CanvasRenderer:
@@ -2066,17 +2117,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u2022"
+  m_text: '!'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 397a0f1d49b574843bef97dba7a3c4fe, type: 2}
+  m_sharedMaterial: {fileID: 6097254238860778672, guid: 397a0f1d49b574843bef97dba7a3c4fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288729839
-  m_fontColor: {r: 0.93725497, g: 0.8235295, b: 0.627451, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2093,8 +2144,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2137,6 +2188,103 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6434821315015051538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4548680538326958737}
+  - component: {fileID: 3627072464761528689}
+  - component: {fileID: 3634043013967091848}
+  - component: {fileID: 5540721487064748744}
+  m_Layer: 5
+  m_Name: ForgeAlert
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4548680538326958737
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434821315015051538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4318556839574190069}
+  m_Father: {fileID: 4983794927937819446}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 49.7, y: 24.8}
+  m_SizeDelta: {x: 48.33, y: 48.327}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3627072464761528689
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434821315015051538}
+  m_CullTransparentMesh: 1
+--- !u!114 &3634043013967091848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434821315015051538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6981132, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 23fc3f9054e9b984ba9b810dae88feab, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5540721487064748744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6434821315015051538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab67e8a3a982c643a82a42a3e0421b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayOnEnable: 1
+  PlayOnDisable: 1
+  _startScale: {x: 0, y: 0, z: 0}
+  _endScale: {x: 1, y: 1, z: 1}
+  _duration: 0.25
+  _easeType: 3
+  _loop: 0
+  _loopType: 0
 --- !u!1 &6447092770948081770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,7 +2296,7 @@ GameObject:
   - component: {fileID: 4937328884423736574}
   - component: {fileID: 818309013430342799}
   m_Layer: 5
-  m_Name: UI-Reputation
+  m_Name: Reputation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2509,6 +2657,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 2502141894135267792}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1629172903162774301}
+        m_TargetAssemblyTypeName: ForgeButtonAlert, Assembly-CSharp
+        m_MethodName: SetOnForge
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
