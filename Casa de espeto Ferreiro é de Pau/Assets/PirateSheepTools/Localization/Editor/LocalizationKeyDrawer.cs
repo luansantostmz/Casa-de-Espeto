@@ -3,8 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions; // Mantido, embora SplitCsvLine não seja mais usado
+using Newtonsoft.Json.Linq; // Usado para parsing de JSON
 
 namespace PirateSheep.Localization
 {
@@ -16,6 +16,7 @@ namespace PirateSheep.Localization
 
         private static string[] allKeys = new string[0];
         private static string[] allLanguages = new string[0];
+        // Agora, este dicionário armazenará TODOS os dados de localização (idioma -> chave -> valor)
         private static Dictionary<string, Dictionary<string, string>> localizationData = new Dictionary<string, Dictionary<string, string>>();
 
         private string currentSearch = "";
@@ -32,40 +33,47 @@ namespace PirateSheep.Localization
         private const float TranslationsVerticalPadding = 5f;
         private float PaginationHeight => EditorGUIUtility.singleLineHeight + 5;
 
+        // Caminho relativo à pasta Resources onde os arquivos de idioma estão
+        private const string LocalesFolderPath = "locales";
+
+        /// <summary>
+        /// Garante que todos os dados de localização são carregados a partir dos arquivos JSON separados.
+        /// </summary>
         private void EnsureDataLoaded()
         {
             if (dataLoaded) return;
 
             lock (dataLock)
             {
-                if (dataLoaded) return;
+                if (dataLoaded) return; // Checagem dupla para thread safety
 
-                TextAsset jsonAsset = Resources.Load<TextAsset>("locales"); // espera o arquivo locales.json dentro de Resources
-                if (jsonAsset == null)
+                // Reseta os dados antes de carregar
+                localizationData.Clear();
+                HashSet<string> keysSet = new HashSet<string>();
+                List<string> languagesList = new List<string>();
+
+                // Carrega todos os TextAssets da pasta "Resources/locales"
+                TextAsset[] localeFiles = Resources.LoadAll<TextAsset>(LocalesFolderPath);
+
+                if (localeFiles == null || localeFiles.Length == 0)
                 {
-                    Debug.LogWarning("Localization JSON (locales.json) não encontrado em Resources. Certifique-se que o arquivo está lá.");
-                    allKeys = new[] { "(Nenhuma chave encontrada - JSON missing)" };
+                    Debug.LogWarning($"Nenhum arquivo JSON de idioma encontrado em Resources/{LocalesFolderPath}. Certifique-se que os arquivos estão lá.");
+                    allKeys = new[] { "(Nenhuma chave encontrada - Arquivos JSON missing)" };
                     allLanguages = new string[0];
-                    localizationData = new Dictionary<string, Dictionary<string, string>>();
                     dataLoaded = true;
                     return;
                 }
 
-                try
+                foreach (TextAsset jsonAsset in localeFiles)
                 {
-                    var root = JObject.Parse(jsonAsset.text);
+                    string languageCode = jsonAsset.name; // O nome do arquivo é o código do idioma (ex: "en", "pt-br")
+                    languagesList.Add(languageCode);
 
-                    localizationData = new Dictionary<string, Dictionary<string, string>>();
-                    HashSet<string> keysSet = new HashSet<string>();
-
-                    foreach (var langProperty in root.Properties())
+                    try
                     {
-                        string lang = langProperty.Name;
+                        // Parseia o JSON do arquivo de idioma atual
+                        JObject translations = JObject.Parse(jsonAsset.text);
                         var langDict = new Dictionary<string, string>();
-
-                        JObject translations = langProperty.Value as JObject;
-                        if (translations == null)
-                            continue;
 
                         foreach (var keyProperty in translations.Properties())
                         {
@@ -73,48 +81,37 @@ namespace PirateSheep.Localization
                             string val = keyProperty.Value.ToString();
 
                             langDict[key] = val;
-                            keysSet.Add(key);
+                            keysSet.Add(key); // Adiciona a chave ao conjunto de todas as chaves
                         }
-
-                        localizationData[lang] = langDict;
+                        localizationData[languageCode] = langDict;
                     }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"Erro ao parsear o arquivo JSON de idioma '{languageCode}.json': {e.Message}");
+                    }
+                }
 
-                    allLanguages = localizationData.Keys.OrderBy(l => l).ToArray();
-                    allKeys = keysSet.OrderBy(k => k).ToArray();
-                }
-                catch (System.Exception e)
+                allLanguages = languagesList.OrderBy(l => l).ToArray();
+                allKeys = keysSet.OrderBy(k => k).ToArray();
+
+                if (allKeys.Length == 0 && allLanguages.Length > 0)
                 {
-                    Debug.LogError("Erro ao parsear JSON de localização: " + e.Message);
-                    allKeys = new[] { "(Erro ao parsear JSON)" };
-                    allLanguages = new string[0];
-                    localizationData = new Dictionary<string, Dictionary<string, string>>();
+                    Debug.LogWarning("Nenhuma chave de localização encontrada em nenhum dos arquivos de idioma carregados.");
+                    allKeys = new[] { "(Nenhuma chave encontrada em idiomas carregados)" };
                 }
+                else if (allKeys.Length == 0 && allLanguages.Length == 0)
+                {
+                    allKeys = new[] { "(Nenhum idioma ou chave carregada)" };
+                }
+
 
                 dataLoaded = true;
+                Debug.Log($"LocalizationKeyDrawer: Carregados {allLanguages.Length} idiomas e {allKeys.Length} chaves únicas.");
             }
         }
 
-        // Função que faz split CSV respeitando aspas (ex: "a,b",c -> ["a,b", "c"])
-        private static string[] SplitCsvLine(string line)
-        {
-            var pattern = @"
-                # Match one value in valid CSV string.
-                (?!\s*$)                                      # Don't match empty last value.
-                \s*                                           # Strip whitespace.
-                (?:                                           # Group for value alternatives.
-                  '(?<val>(?:[^']|'')*)'                      # Single quoted string.
-                | ""(?<val>(?:[^""]|"""")*)""                 # Double quoted string.
-                | (?<val>[^,'""]*)                            # Non-comma, non-quote stuff.
-                )                                             # End group of value alternatives.
-                \s*                                           # Strip whitespace.
-                (?:,|$)                                       # Field ends on comma or EOS.
-                ";
-
-            var regex = new Regex(pattern, RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
-            var matches = regex.Matches(line);
-
-            return matches.Cast<Match>().Select(m => m.Groups["val"].Value.Replace("''", "'").Replace("\"\"", "\"")).ToArray();
-        }
+        // Removido SplitCsvLine, pois não é mais relevante para o formato JSON.
+        // Se a funcionalidade fosse para ler CSV, ela ficaria aqui.
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -133,8 +130,8 @@ namespace PirateSheep.Localization
             {
                 property.stringValue = newPropertyValue;
                 currentSearch = newPropertyValue;
-                filteredKeysCache = null;
-                currentPage = 0;
+                filteredKeysCache = null; // Invalida o cache para recalcular
+                currentPage = 0; // Reseta a página ao mudar a pesquisa
             }
 
             bool focused = GUI.GetNameOfFocusedControl() == controlName;
@@ -151,9 +148,11 @@ namespace PirateSheep.Localization
                 }
                 else
                 {
+                    // Filtra as chaves com base na pesquisa atual
                     filteredQuery = allKeys.Where(k => k.IndexOf(currentSearch, System.StringComparison.OrdinalIgnoreCase) >= 0);
                 }
 
+                // Aplica paginação diretamente aqui
                 filteredKeysCache = filteredQuery.Skip(currentPage * KeysPerPage).Take(KeysPerPage).ToArray();
             }
 
@@ -163,6 +162,7 @@ namespace PirateSheep.Localization
                 if (filteredKeysCache != null && filteredKeysCache.Length < MaxDropdownSuggestions)
                     dropdownContentHeight = LineHeight * filteredKeysCache.Length;
 
+                // A paginação só aparece se não houver pesquisa e o número de chaves for maior que KeysPerPage
                 bool hasPagination = string.IsNullOrEmpty(currentSearch) && (allKeys.Length > KeysPerPage);
 
                 float totalDropdownAndPaginationHeight = dropdownContentHeight + DropdownPadding * 2;
@@ -186,26 +186,35 @@ namespace PirateSheep.Localization
                     for (int i = 0; i < filteredKeysCache.Length; i++)
                     {
                         Rect itemRect = new Rect(0, i * LineHeight, scrollContentRect.width, LineHeight);
-                        if (GUI.Button(itemRect, filteredKeysCache[i], EditorStyles.label))
+                        // Estilo para o item de sugestão
+                        GUIStyle itemStyle = new GUIStyle(EditorStyles.label);
+                        itemStyle.normal.textColor = EditorGUIUtility.isProSkin ? Color.white : Color.black; // Cor de texto padrão
+                        if (filteredKeysCache[i] == property.stringValue) // Destaca a chave atualmente selecionada
+                        {
+                            EditorGUI.DrawRect(itemRect, new Color(0.2f, 0.4f, 0.6f, 0.5f)); // Cor de destaque
+                            itemStyle.normal.textColor = Color.white; // Texto branco para contraste
+                        }
+                        else if (itemRect.Contains(Event.current.mousePosition)) // Destaque ao passar o mouse
+                        {
+                            EditorGUI.DrawRect(itemRect, new Color(0.2f, 0.4f, 0.6f, 0.3f));
+                        }
+
+                        if (GUI.Button(itemRect, filteredKeysCache[i], itemStyle))
                         {
                             property.stringValue = filteredKeysCache[i];
                             currentSearch = filteredKeysCache[i];
-                            filteredKeysCache = null;
+                            filteredKeysCache = null; // Limpa o cache para que ele seja recomputado na próxima vez
 
-                            GUI.FocusControl(null);
-                            GUI.changed = true;
-                            Event.current.Use();
+                            GUI.FocusControl(null); // Tira o foco do campo de texto
+                            GUI.changed = true; // Força uma atualização do Editor
+                            Event.current.Use(); // Consome o evento
                             break;
-                        }
-
-                        if (itemRect.Contains(Event.current.mousePosition) && Event.current.type == EventType.Repaint)
-                        {
-                            EditorGUI.DrawRect(itemRect, new Color(0.2f, 0.4f, 0.6f, 0.3f));
                         }
                     }
                 }
                 GUI.EndScrollView();
 
+                // Desenha a paginação se aplicável
                 if (hasPagination)
                 {
                     Rect paginationRect = new Rect(
@@ -229,20 +238,20 @@ namespace PirateSheep.Localization
                     if (GUI.Button(prevButtonRect, "<"))
                     {
                         currentPage--;
-                        filteredKeysCache = null;
-                        dropdownScroll = Vector2.zero;
+                        filteredKeysCache = null; // Invalida o cache
+                        dropdownScroll = Vector2.zero; // Reseta o scroll
                         GUI.changed = true;
                     }
                     GUI.enabled = true;
 
-                    GUI.Label(labelRect, $"< {currentPage + 1}/{totalPages} >", EditorStyles.centeredGreyMiniLabel);
+                    GUI.Label(labelRect, $"Página {currentPage + 1}/{totalPages}", EditorStyles.centeredGreyMiniLabel);
 
                     GUI.enabled = currentPage < totalPages - 1;
                     if (GUI.Button(nextButtonRect, ">"))
                     {
                         currentPage++;
-                        filteredKeysCache = null;
-                        dropdownScroll = Vector2.zero;
+                        filteredKeysCache = null; // Invalida o cache
+                        dropdownScroll = Vector2.zero; // Reseta o scroll
                         GUI.changed = true;
                     }
                     GUI.enabled = true;
@@ -264,8 +273,11 @@ namespace PirateSheep.Localization
             }
 
             float translationsStartY = position.y + EditorGUIUtility.singleLineHeight + actualDropdownAndPaginationHeight + TranslationsVerticalPadding;
-            float translationsHeight = EditorGUIUtility.singleLineHeight * allLanguages.Length;
-            Rect translationsRect = new Rect(position.x, translationsStartY, position.width, translationsHeight);
+
+            // Altura das traduções: um linha para cada idioma, mais uma linha se não houver chave selecionada
+            float translationsContentHeight = string.IsNullOrEmpty(property.stringValue) ? EditorGUIUtility.singleLineHeight : (EditorGUIUtility.singleLineHeight * allLanguages.Length);
+
+            Rect translationsRect = new Rect(position.x, translationsStartY, position.width, translationsContentHeight);
 
             GUI.BeginGroup(translationsRect);
             float currentLineY = 0;
@@ -297,7 +309,7 @@ namespace PirateSheep.Localization
         {
             EnsureDataLoaded();
 
-            float height = EditorGUIUtility.singleLineHeight;
+            float height = EditorGUIUtility.singleLineHeight; // Altura do campo de texto principal
 
             string controlName = property.propertyPath;
             bool focused = GUI.GetNameOfFocusedControl() == controlName;
@@ -305,6 +317,7 @@ namespace PirateSheep.Localization
 
             if (willShowDropdown)
             {
+                // Calcula a altura do dropdown para estimar o layout
                 IEnumerable<string> tempFilteredQuery;
                 if (string.IsNullOrEmpty(property.stringValue))
                 {
@@ -315,13 +328,14 @@ namespace PirateSheep.Localization
                     tempFilteredQuery = allKeys.Where(k => k.IndexOf(property.stringValue, System.StringComparison.OrdinalIgnoreCase) >= 0);
                 }
 
+                // Considera a paginação para o cálculo da altura
                 string[] tempFilteredKeys = tempFilteredQuery.Skip(currentPage * KeysPerPage).Take(KeysPerPage).ToArray();
 
                 float dropdownContentHeight = LineHeight * MaxDropdownSuggestions;
                 if (tempFilteredKeys.Length < MaxDropdownSuggestions)
                     dropdownContentHeight = LineHeight * tempFilteredKeys.Length;
 
-                if (tempFilteredKeys.Length > 0)
+                if (tempFilteredKeys.Length > 0) // Só adiciona o dropdown se houver sugestões
                 {
                     height += dropdownContentHeight + DropdownPadding * 2;
 
@@ -331,12 +345,24 @@ namespace PirateSheep.Localization
                 }
             }
 
-            height += EditorGUIUtility.singleLineHeight * allLanguages.Length;
-            height += TranslationsVerticalPadding;
+            // Altura das traduções da chave selecionada
+            if (string.IsNullOrEmpty(property.stringValue))
+            {
+                height += EditorGUIUtility.singleLineHeight; // "Nenhuma chave selecionada."
+            }
+            else
+            {
+                height += EditorGUIUtility.singleLineHeight * allLanguages.Length;
+            }
+            height += TranslationsVerticalPadding; // Padding entre o campo e as traduções
 
             return height;
         }
 
+        /// <summary>
+        /// Limpa o cache de dados de localização quando o Unity é recarregado (ex: script compilado).
+        /// Isso garante que os dados mais recentes sejam carregados.
+        /// </summary>
         [InitializeOnLoadMethod]
         private static void ClearCacheOnReload()
         {

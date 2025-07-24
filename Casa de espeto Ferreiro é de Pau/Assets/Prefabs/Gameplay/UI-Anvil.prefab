@@ -52405,7 +52405,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 723fed7c6727346499f88e330fb365b9, type: 2}
     - target: {fileID: 6892578176054228424, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_text
-      value: Recipes
+      value: Receitas
       objectReference: {fileID: 0}
     - target: {fileID: 7111908931569687048, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Pivot.x

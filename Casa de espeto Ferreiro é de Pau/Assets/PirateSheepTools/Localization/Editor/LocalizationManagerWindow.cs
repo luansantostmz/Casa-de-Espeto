@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic; // Adicionado para usar Dictionary
 
 namespace PirateSheep.Localization
 {
@@ -23,7 +24,7 @@ namespace PirateSheep.Localization
 
         private void OnEnable()
         {
-            LoadLanguagesFromJSON();
+            LoadLanguagesFromJSONFiles(); // Alterado para carregar dos arquivos separados
         }
 
         private void OnGUI()
@@ -31,14 +32,14 @@ namespace PirateSheep.Localization
             EditorGUILayout.Space();
 
             DrawSectionHeader("📥 Update locales.json from Google Sheets (Apps Script)", ref showHelpDownload,
-                "Downloads the JSON file from your Google Apps Script endpoint.\nThe JSON will be saved into Resources/locales.json.");
+                "Downloads the JSON file from your Google Apps Script endpoint.\nEach language will be saved into a separate JSON file in Resources/Locales/.");
 
             googleJsonUrl = EditorGUILayout.TextField("JSON URL:", googleJsonUrl);
 
-            if (GUILayout.Button("⬇️ Download and update locales.json"))
+            if (GUILayout.Button("⬇️ Download and update locale files")) // Texto do botão alterado
             {
-                DownloadAndReplaceJSON(googleJsonUrl);
-                LoadLanguagesFromJSON();
+                DownloadAndSplitJSON(googleJsonUrl); // Chamada para a nova função
+                LoadLanguagesFromJSONFiles(); // Recarrega dos arquivos
             }
 
             EditorGUILayout.Space(20);
@@ -48,10 +49,10 @@ namespace PirateSheep.Localization
 
             if (availableLanguages.Length == 0)
             {
-                GUILayout.Label("No languages found in locales.json");
+                GUILayout.Label("No languages found in Resources/Locales folder."); // Texto alterado
                 if (GUILayout.Button("🔄 Reload languages"))
                 {
-                    LoadLanguagesFromJSON();
+                    LoadLanguagesFromJSONFiles();
                 }
                 return;
             }
@@ -81,56 +82,76 @@ namespace PirateSheep.Localization
             }
         }
 
-        private void LoadLanguagesFromJSON()
+        private void LoadLanguagesFromJSONFiles() // Função alterada para carregar dos arquivos separados
         {
-            var textAsset = Resources.Load<TextAsset>("locales");
-            if (textAsset == null)
+            string localesFolderPath = Path.Combine(Application.dataPath, "Resources/Locales");
+            if (!Directory.Exists(localesFolderPath))
             {
-                Debug.LogError("File 'locales.json' not found in Resources folder.");
+                Debug.LogWarning("Pasta 'Resources/Locales' não encontrada. Crie-a ou faça o download dos arquivos.");
                 availableLanguages = new string[0];
                 return;
             }
 
-            try
-            {
-                JObject json = JObject.Parse(textAsset.text);
+            // Pega todos os arquivos .json na pasta Locales e extrai o nome do arquivo (sem extensão)
+            availableLanguages = Directory.GetFiles(localesFolderPath, "*.json")
+                                    .Select(path => Path.GetFileNameWithoutExtension(path))
+                                    .ToArray();
 
-                // Corrigido: pegar as keys do root JSON (idiomas)
-                availableLanguages = json.Properties().Select(p => p.Name).ToArray();
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError("Failed to parse locales.json: " + e.Message);
-                availableLanguages = new string[0];
-            }
+            // Certifica-se de que a lista de idiomas no LocalizationService está atualizada
+            // Isso pode exigir uma alteração em LocalizationService para que ele carregue múltiplos arquivos
+            // ou tenha um método para registrar os idiomas disponíveis.
+            // Por simplicidade, assumimos que LocalizationService irá lidar com isso internamente
+            // ao ser inicializado com os arquivos separados.
         }
 
-        private void DownloadAndReplaceJSON(string url)
+        private void DownloadAndSplitJSON(string url) // Nova função para baixar e separar
         {
             try
             {
                 using (WebClient client = new WebClient())
                 {
                     string jsonContent = client.DownloadString(url);
+                    JObject fullJson = JObject.Parse(jsonContent);
 
-                    string path = Path.Combine(Application.dataPath, "Resources/locales.json");
-                    File.WriteAllText(path, jsonContent);
+                    string localesFolderPath = Path.Combine(Application.dataPath, "Resources/Locales");
+                    if (!Directory.Exists(localesFolderPath))
+                    {
+                        Directory.CreateDirectory(localesFolderPath);
+                    }
 
-                    Debug.Log("✅ locales.json updated: " + path);
+                    // Limpa a pasta antes de baixar novos arquivos
+                    foreach (string file in Directory.GetFiles(localesFolderPath, "*.json"))
+                    {
+                        File.Delete(file);
+                    }
+
+                    foreach (var property in fullJson.Properties())
+                    {
+                        string languageCode = property.Name;
+                        JToken languageData = property.Value;
+
+                        string languageFilePath = Path.Combine(localesFolderPath, $"{languageCode}.json");
+                        File.WriteAllText(languageFilePath, languageData.ToString(Newtonsoft.Json.Formatting.Indented));
+                        Debug.Log($"✅ Arquivo de idioma '{languageCode}.json' salvo em: {languageFilePath}");
+                    }
+
+                    Debug.Log("🎉 Download e separação de arquivos de idioma concluídos!");
                     AssetDatabase.Refresh();
                 }
             }
             catch (System.Exception ex)
             {
-                Debug.LogError("Error downloading JSON: " + ex.Message);
+                Debug.LogError("Erro ao baixar e separar JSON: " + ex.Message);
             }
         }
 
         private void ApplyLanguageToScene(string languageCode)
         {
+            // O LocalizationService precisará ser ajustado para carregar um arquivo de idioma específico
+            // de `Resources/Locales/{languageCode}.json`
             if (LocalizationService.GetAllLanguages().Length == 0)
             {
-                LocalizationService.Init();
+                LocalizationService.Init(); // Ainda precisa carregar os dados. Isso será um ponto de atenção.
             }
 
             LocalizationService.SetLanguage(languageCode);
@@ -143,7 +164,7 @@ namespace PirateSheep.Localization
                 count++;
             }
 
-            Debug.Log($"Language '{languageCode}' applied. {count} texts updated.");
+            Debug.Log($"Idioma '{languageCode}' aplicado. {count} textos atualizados.");
 
             SceneView.RepaintAll();
         }
