@@ -356,6 +356,7 @@ MonoBehaviour:
   PurchaseForgeButton: {fileID: 7288710114283906031}
   PriceText: {fileID: 1405896130291870241}
   BurningImage: {fileID: 7159780270800509221}
+  CoalVFX: {fileID: 0}
 --- !u!1 &1022799844480272832
 GameObject:
   m_ObjectHideFlags: 0
@@ -5814,6 +5815,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6892578176054228424, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+      propertyPath: m_text
+      value: Recipes
+      objectReference: {fileID: 0}
     - target: {fileID: 7111908931569687048, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5904,7 +5909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7825614026993563561, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7955842754901954597, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_AnchoredPosition.y

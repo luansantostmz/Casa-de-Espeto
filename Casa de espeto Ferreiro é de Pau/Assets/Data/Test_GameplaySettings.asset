@@ -47,24 +47,21 @@ MonoBehaviour:
   ReputationToAddOnDeliver: 5
   ReputationToSubtractOnFail: 20
   Debts:
-  - DebtName: Shopkeeper
-    DebtAmount: 5000
-    DebtDescription: Payment to the shopkeeper who sells you products such as wood,
-      bones, leather, and some minerals.
-  - DebtName: Store Maintenance
-    DebtAmount: 5000
-    DebtDescription: Costs for shop maintenance, food, and advertising.
-  - DebtName: Taxes
-    DebtAmount: 20000
-    DebtDescription: Taxes levied by the King.
-  - DebtName: Back Rent
-    DebtAmount: 25000
-    DebtDescription: Accumulation of 5 past-due rent payments for the shop. Failure
-      to repay will result in expropriation.
-  - DebtName: Loan with the King
-    DebtAmount: 100000
-    DebtDescription: Loans taken out with King Julius VI to open your shop. Failure
-      to repay will result in foreclosure.
+  - DebtAmount: 5000
+    DebtName: shopkeeper
+    DebtDescription: shopkeeper-description
+  - DebtAmount: 5000
+    DebtName: store-maintenance
+    DebtDescription: store-maintenance-description
+  - DebtAmount: 20000
+    DebtName: taxes
+    DebtDescription: taxes-description
+  - DebtAmount: 25000
+    DebtName: late-rent
+    DebtDescription: late-rent-description
+  - DebtAmount: 100000
+    DebtName: real-debts
+    DebtDescription: real-debts-description
   DayDuration: 10
   NewForgePrice: 500
   MaxForgeCount: 5

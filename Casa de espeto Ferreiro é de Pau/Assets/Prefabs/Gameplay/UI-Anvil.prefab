@@ -20046,7 +20046,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5763694871256374420}
-  - {fileID: 3496037113806484385}
   - {fileID: 9041242748691662363}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25236,6 +25235,7 @@ RectTransform:
   m_Children:
   - {fileID: 4978359228519513548}
   - {fileID: 4358896640266229566}
+  - {fileID: 3496037113806484385}
   - {fileID: 107129147109378246}
   - {fileID: 3675373645155410302}
   - {fileID: 2912409742443654879}
@@ -36827,17 +36827,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8493759116416143765}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3182166094054088288}
-  m_Father: {fileID: 2521969886157058382}
+  m_Father: {fileID: 9041242748691662363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 136, y: 65.60085}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8680180028876383197
@@ -52403,6 +52403,10 @@ PrefabInstance:
       propertyPath: '_items.Array.data[11]'
       value: 
       objectReference: {fileID: 11400000, guid: 723fed7c6727346499f88e330fb365b9, type: 2}
+    - target: {fileID: 6892578176054228424, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
+      propertyPath: m_text
+      value: Recipes
+      objectReference: {fileID: 0}
     - target: {fileID: 7111908931569687048, guid: fec6e06808e73ed488acd2b62e586375, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -2,6 +2,9 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 namespace PirateSheep.Localization
 {
@@ -11,23 +14,23 @@ namespace PirateSheep.Localization
         private static volatile bool dataLoaded = false;
         private static readonly object dataLock = new object();
 
-        private static string[] allKeys;
-        private static string[] allLanguages;
-        private static Dictionary<string, Dictionary<string, string>> localizationData;
+        private static string[] allKeys = new string[0];
+        private static string[] allLanguages = new string[0];
+        private static Dictionary<string, Dictionary<string, string>> localizationData = new Dictionary<string, Dictionary<string, string>>();
 
         private string currentSearch = "";
-        private string[] filteredKeysCache;
+        private string[] filteredKeysCache = null;
 
         private Vector2 dropdownScroll;
 
         private int currentPage = 0;
         private const int KeysPerPage = 10;
 
-        private float LineHeight = EditorGUIUtility.singleLineHeight + 2;
+        private float LineHeight => EditorGUIUtility.singleLineHeight + 2;
         private const int MaxDropdownSuggestions = 10;
         private const float DropdownPadding = 2f;
         private const float TranslationsVerticalPadding = 5f;
-        private float PaginationHeight = EditorGUIUtility.singleLineHeight + 5;
+        private float PaginationHeight => EditorGUIUtility.singleLineHeight + 5;
 
         private void EnsureDataLoaded()
         {
@@ -37,76 +40,80 @@ namespace PirateSheep.Localization
             {
                 if (dataLoaded) return;
 
-                TextAsset csv = Resources.Load<TextAsset>("locales");
-
-                if (csv == null)
+                TextAsset jsonAsset = Resources.Load<TextAsset>("locales"); // espera o arquivo locales.json dentro de Resources
+                if (jsonAsset == null)
                 {
-                    Debug.LogWarning("Localization CSV (locales.csv) não encontrado em Resources. Certifique-se de que o arquivo está lá.");
-                    allKeys = new[] { "(Nenhuma chave encontrada - CSV missing)" };
+                    Debug.LogWarning("Localization JSON (locales.json) não encontrado em Resources. Certifique-se que o arquivo está lá.");
+                    allKeys = new[] { "(Nenhuma chave encontrada - JSON missing)" };
                     allLanguages = new string[0];
                     localizationData = new Dictionary<string, Dictionary<string, string>>();
                     dataLoaded = true;
                     return;
                 }
 
-                var lines = csv.text.Split(new[] { '\r', '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
-                if (lines.Length < 2)
+                try
                 {
-                    Debug.LogWarning("Localization CSV (locales.csv) está vazio ou mal formatado.");
-                    allKeys = new[] { "(CSV vazio ou inválido)" };
+                    var root = JObject.Parse(jsonAsset.text);
+
+                    localizationData = new Dictionary<string, Dictionary<string, string>>();
+                    HashSet<string> keysSet = new HashSet<string>();
+
+                    foreach (var langProperty in root.Properties())
+                    {
+                        string lang = langProperty.Name;
+                        var langDict = new Dictionary<string, string>();
+
+                        JObject translations = langProperty.Value as JObject;
+                        if (translations == null)
+                            continue;
+
+                        foreach (var keyProperty in translations.Properties())
+                        {
+                            string key = keyProperty.Name;
+                            string val = keyProperty.Value.ToString();
+
+                            langDict[key] = val;
+                            keysSet.Add(key);
+                        }
+
+                        localizationData[lang] = langDict;
+                    }
+
+                    allLanguages = localizationData.Keys.OrderBy(l => l).ToArray();
+                    allKeys = keysSet.OrderBy(k => k).ToArray();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError("Erro ao parsear JSON de localização: " + e.Message);
+                    allKeys = new[] { "(Erro ao parsear JSON)" };
                     allLanguages = new string[0];
                     localizationData = new Dictionary<string, Dictionary<string, string>>();
-                    dataLoaded = true;
-                    return;
                 }
 
-                var headers = lines[0].Split(',')
-                                     .Select(h => h.Trim())
-                                     .ToArray();
-                allLanguages = headers.Skip(1).ToArray();
-
-                localizationData = new Dictionary<string, Dictionary<string, string>>();
-                HashSet<string> keysSet = new HashSet<string>();
-
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    var cols = lines[i].Split(',')
-                                      .Select(c => c.Trim())
-                                      .ToArray();
-
-                    if (cols.Length < 2)
-                    {
-                        Debug.LogWarning($"Linha {i + 1} do CSV de localização inválida: '{lines[i]}'. Pulando.");
-                        continue;
-                    }
-
-                    string key = cols[0];
-                    if (string.IsNullOrEmpty(key))
-                    {
-                        Debug.LogWarning($"Linha {i + 1} do CSV de localização tem uma chave vazia. Pulando.");
-                        continue;
-                    }
-
-                    if (!keysSet.Add(key))
-                    {
-                        Debug.LogWarning($"Chave de localização duplicada encontrada: '{key}' na linha {i + 1}. A primeira ocorrência será usada.");
-                    }
-
-                    for (int langIndex = 1; langIndex < headers.Length; langIndex++)
-                    {
-                        string lang = headers[langIndex];
-                        string val = langIndex < cols.Length ? cols[langIndex] : "";
-
-                        if (!localizationData.ContainsKey(lang))
-                            localizationData[lang] = new Dictionary<string, string>();
-
-                        localizationData[lang][key] = val;
-                    }
-                }
-
-                allKeys = keysSet.OrderBy(k => k).ToArray();
                 dataLoaded = true;
             }
+        }
+
+        // Função que faz split CSV respeitando aspas (ex: "a,b",c -> ["a,b", "c"])
+        private static string[] SplitCsvLine(string line)
+        {
+            var pattern = @"
+                # Match one value in valid CSV string.
+                (?!\s*$)                                      # Don't match empty last value.
+                \s*                                           # Strip whitespace.
+                (?:                                           # Group for value alternatives.
+                  '(?<val>(?:[^']|'')*)'                      # Single quoted string.
+                | ""(?<val>(?:[^""]|"""")*)""                 # Double quoted string.
+                | (?<val>[^,'""]*)                            # Non-comma, non-quote stuff.
+                )                                             # End group of value alternatives.
+                \s*                                           # Strip whitespace.
+                (?:,|$)                                       # Field ends on comma or EOS.
+                ";
+
+            var regex = new Regex(pattern, RegexOptions.IgnorePatternWhitespace | RegexOptions.Multiline);
+            var matches = regex.Matches(line);
+
+            return matches.Cast<Match>().Select(m => m.Groups["val"].Value.Replace("''", "'").Replace("\"\"", "\"")).ToArray();
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -144,31 +151,22 @@ namespace PirateSheep.Localization
                 }
                 else
                 {
-                    filteredQuery = allKeys
-                        .Where(k => k.ToLower().Contains(currentSearch.ToLower()));
+                    filteredQuery = allKeys.Where(k => k.IndexOf(currentSearch, System.StringComparison.OrdinalIgnoreCase) >= 0);
                 }
 
-                filteredKeysCache = filteredQuery
-                                    .Skip(currentPage * KeysPerPage)
-                                    .Take(KeysPerPage)
-                                    .ToArray();
+                filteredKeysCache = filteredQuery.Skip(currentPage * KeysPerPage).Take(KeysPerPage).ToArray();
             }
 
             if (willShowDropdown)
             {
                 float dropdownContentHeight = LineHeight * MaxDropdownSuggestions;
                 if (filteredKeysCache != null && filteredKeysCache.Length < MaxDropdownSuggestions)
-                {
                     dropdownContentHeight = LineHeight * filteredKeysCache.Length;
-                }
 
                 bool hasPagination = string.IsNullOrEmpty(currentSearch) && (allKeys.Length > KeysPerPage);
 
                 float totalDropdownAndPaginationHeight = dropdownContentHeight + DropdownPadding * 2;
-                if (hasPagination)
-                {
-                    totalDropdownAndPaginationHeight += PaginationHeight;
-                }
+                if (hasPagination) totalDropdownAndPaginationHeight += PaginationHeight;
 
                 Rect dropdownOverallRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight + DropdownPadding, position.width, totalDropdownAndPaginationHeight);
                 GUI.Box(dropdownOverallRect, GUIContent.none, EditorStyles.helpBox);
@@ -199,6 +197,7 @@ namespace PirateSheep.Localization
                             Event.current.Use();
                             break;
                         }
+
                         if (itemRect.Contains(Event.current.mousePosition) && Event.current.type == EventType.Repaint)
                         {
                             EditorGUI.DrawRect(itemRect, new Color(0.2f, 0.4f, 0.6f, 0.3f));
@@ -220,26 +219,9 @@ namespace PirateSheep.Localization
                     float labelWidth = 100f;
                     float spacing = 10f;
 
-                    Rect prevButtonRect = new Rect(
-                        paginationRect.x,
-                        paginationRect.y,
-                        buttonWidth,
-                        paginationRect.height
-                    );
-
-                    Rect labelRect = new Rect(
-                        prevButtonRect.xMax + spacing,
-                        paginationRect.y,
-                        labelWidth,
-                        paginationRect.height
-                    );
-
-                    Rect nextButtonRect = new Rect(
-                        labelRect.xMax + spacing,
-                        paginationRect.y,
-                        buttonWidth,
-                        paginationRect.height
-                    );
+                    Rect prevButtonRect = new Rect(paginationRect.x, paginationRect.y, buttonWidth, paginationRect.height);
+                    Rect labelRect = new Rect(prevButtonRect.xMax + spacing, paginationRect.y, labelWidth, paginationRect.height);
+                    Rect nextButtonRect = new Rect(labelRect.xMax + spacing, paginationRect.y, buttonWidth, paginationRect.height);
 
                     int totalPages = Mathf.CeilToInt((float)allKeys.Length / KeysPerPage);
 
@@ -267,21 +249,18 @@ namespace PirateSheep.Localization
                 }
             }
 
+            // Mostrar traduções do key selecionado
             float actualDropdownAndPaginationHeight = 0;
             if (willShowDropdown)
             {
                 float contentHeight = LineHeight * MaxDropdownSuggestions;
                 if (filteredKeysCache != null && filteredKeysCache.Length < MaxDropdownSuggestions)
-                {
                     contentHeight = LineHeight * filteredKeysCache.Length;
-                }
 
                 actualDropdownAndPaginationHeight += contentHeight + DropdownPadding * 2;
 
                 if (string.IsNullOrEmpty(currentSearch) && (allKeys.Length > KeysPerPage))
-                {
                     actualDropdownAndPaginationHeight += PaginationHeight;
-                }
             }
 
             float translationsStartY = position.y + EditorGUIUtility.singleLineHeight + actualDropdownAndPaginationHeight + TranslationsVerticalPadding;
@@ -333,20 +312,14 @@ namespace PirateSheep.Localization
                 }
                 else
                 {
-                    tempFilteredQuery = allKeys
-                        .Where(k => k.ToLower().Contains(property.stringValue.ToLower()));
+                    tempFilteredQuery = allKeys.Where(k => k.IndexOf(property.stringValue, System.StringComparison.OrdinalIgnoreCase) >= 0);
                 }
 
-                string[] tempFilteredKeys = tempFilteredQuery
-                                            .Skip(currentPage * KeysPerPage)
-                                            .Take(KeysPerPage)
-                                            .ToArray();
+                string[] tempFilteredKeys = tempFilteredQuery.Skip(currentPage * KeysPerPage).Take(KeysPerPage).ToArray();
 
                 float dropdownContentHeight = LineHeight * MaxDropdownSuggestions;
                 if (tempFilteredKeys.Length < MaxDropdownSuggestions)
-                {
                     dropdownContentHeight = LineHeight * tempFilteredKeys.Length;
-                }
 
                 if (tempFilteredKeys.Length > 0)
                 {
@@ -354,9 +327,7 @@ namespace PirateSheep.Localization
 
                     bool hasPagination = string.IsNullOrEmpty(property.stringValue) && (allKeys.Length > KeysPerPage);
                     if (hasPagination)
-                    {
                         height += PaginationHeight;
-                    }
                 }
             }
 
@@ -369,9 +340,9 @@ namespace PirateSheep.Localization
         [InitializeOnLoadMethod]
         private static void ClearCacheOnReload()
         {
-            localizationData = null;
-            allKeys = null;
-            allLanguages = null;
+            localizationData = new Dictionary<string, Dictionary<string, string>>();
+            allKeys = new string[0];
+            allLanguages = new string[0];
             dataLoaded = false;
         }
     }

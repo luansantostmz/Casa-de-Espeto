@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d58579db34c2f4ea13caf4848ed104, type: 3}
   m_Name: GoldOre
   m_EditorClassIdentifier: 
-  ItemName: Gold Ore
+  ItemName: ore-gold
   IgnoreQualityOnAnvil: 0
   HammerCount: 3
   BasePrice: 250

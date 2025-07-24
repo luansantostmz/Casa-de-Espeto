@@ -1,11 +1,11 @@
 
 using System;
-using UnityEngine;
+using PirateSheep.Localization;
 
 [Serializable]
 public class DebtSettings
 {
-    public string DebtName;
     public int DebtAmount;
-    [TextArea] public string DebtDescription;
+    [LocalizationKey] public string DebtName;
+    [LocalizationKey] public string DebtDescription;
 }

@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 140889687960924360}
   - component: {fileID: 4791205376907961959}
   - component: {fileID: 6892578176054228424}
+  - component: {fileID: 7527982026831741302}
   m_Layer: 5
   m_Name: RecipesTitle
   m_TagString: Untagged
@@ -306,6 +307,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7527982026831741302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051781393599625503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f32fada2719c8a469c09cdd8c1d3aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: recipes
 --- !u!1 &1347911822767415736
 GameObject:
   m_ObjectHideFlags: 0

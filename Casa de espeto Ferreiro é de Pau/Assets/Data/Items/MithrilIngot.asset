@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d58579db34c2f4ea13caf4848ed104, type: 3}
   m_Name: MithrilIngot
   m_EditorClassIdentifier: 
-  ItemName: Mithril Ingot
+  ItemName: ingot-mithril
   IgnoreQualityOnAnvil: 0
   HammerCount: 3
   BasePrice: 100

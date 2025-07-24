@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace PirateSheep.Localization
 {
 	public static class LocalizationService
 	{
+		// Dicionário: idioma -> (chave -> valor)
 		private static Dictionary<string, Dictionary<string, string>> _localizedTexts;
 		private static string _currentLanguage = "en";
 
@@ -18,55 +19,39 @@ namespace PirateSheep.Localization
 
 		public static void Init()
 		{
-			LoadLocalizationCSV();
+			LoadLocalizationJSON();
 			OnLanguageChanged?.Invoke();
 		}
 
-		private static void LoadLocalizationCSV()
+		private static void LoadLocalizationJSON()
 		{
-			TextAsset csvFile = Resources.Load<TextAsset>("locales");
+			TextAsset jsonFile = Resources.Load<TextAsset>("locales");
 
-			if (csvFile == null)
+			if (jsonFile == null)
 			{
-				Debug.LogError("Locales.csv file not found in Resources folder.");
+				Debug.LogError("File 'locales.json' not found in Resources folder.");
 				return;
 			}
 
-			_localizedTexts = new Dictionary<string, Dictionary<string, string>>();
-
-			string[] lines = csvFile.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-
-			if (lines.Length < 2)
+			try
 			{
-				Debug.LogError("CSV not found or is empty.");
-				return;
-			}
+				// Desserializa para Dictionary<language, Dictionary<key, value>>
+				_localizedTexts = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(jsonFile.text);
 
-			string[] headers = lines[0].Split(',');
-
-			allLanguages = headers.Skip(1).Select(h => h.Trim()).ToArray();
-
-			for (int i = 1; i < lines.Length; i++)
-			{
-				string[] values = lines[i].Split(',');
-
-				if (values.Length < 2) continue;
-
-				string key = values[0].Trim();
-
-				for (int j = 1; j < headers.Length; j++)
+				if (_localizedTexts == null || _localizedTexts.Count == 0)
 				{
-					string lang = headers[j].Trim();
-					string value = j < values.Length ? values[j].Trim() : "";
-
-					if (!_localizedTexts.ContainsKey(lang))
-						_localizedTexts[lang] = new Dictionary<string, string>();
-
-					_localizedTexts[lang][key] = value;
+					Debug.LogError("Localization JSON is empty or invalid.");
+					return;
 				}
-			}
 
-			Debug.Log("Localization loaded successfully.");
+				allLanguages = new List<string>(_localizedTexts.Keys).ToArray();
+
+				Debug.Log("Localization loaded successfully from JSON.");
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError("Failed to load localization JSON: " + ex.Message);
+			}
 		}
 
 		public static void SetLanguage(string languageCode)
@@ -77,17 +62,16 @@ namespace PirateSheep.Localization
 				Init();
 			}
 
-			if (_localizedTexts.ContainsKey(languageCode))
+			if (allLanguages != null && Array.Exists(allLanguages, lang => lang == languageCode))
 			{
 				_currentLanguage = languageCode;
 				OnLanguageChanged?.Invoke();
 			}
 			else
 			{
-				Debug.LogWarning($"Language '{languageCode}' not found on CSV.");
+				Debug.LogWarning($"Language '{languageCode}' not found in localization data.");
 			}
 		}
-
 
 		public static string GetLocalizedText(string key)
 		{
@@ -107,16 +91,33 @@ namespace PirateSheep.Localization
 			return $"[!{key}]";
 		}
 
-
 		public static string[] GetAllKeys()
 		{
 			if (_localizedTexts == null || _localizedTexts.Count == 0)
 				return new string[] { "(no keys)" };
 
-			var firstLang = _localizedTexts.Values.FirstOrDefault();
-			if (firstLang == null) return new string[] { "(no keys)" };
+			// Pega todas as chaves do idioma atual (ou do primeiro idioma disponível)
+			Dictionary<string, string> dict = null;
 
-			return firstLang.Keys.ToArray();
+			if (_localizedTexts.TryGetValue(_currentLanguage, out var translations))
+			{
+				dict = translations;
+			}
+			else
+			{
+				// fallback: pega o primeiro idioma
+				foreach (var langDict in _localizedTexts.Values)
+				{
+					dict = langDict;
+					break;
+				}
+			}
+
+			if (dict == null)
+				return new string[] { "(no keys)" };
+
+			var keys = new List<string>(dict.Keys);
+			return keys.ToArray();
 		}
 
 		public static string[] GetAllLanguages()
@@ -124,5 +125,4 @@ namespace PirateSheep.Localization
 			return allLanguages;
 		}
 	}
-
 }

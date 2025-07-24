@@ -10,10 +10,11 @@ public class DebtsController : MonoBehaviour
 
     public void Start()
     {
-        foreach (var debtSettings in GameManager.Instance.GameplaySettings.Debts)
+        for (int i = 0; i < GameManager.Instance.GameplaySettings.Debts.Count; i++)
         {
+            var debtSettings = GameManager.Instance.GameplaySettings.Debts[i];
             var debtUI = Instantiate(_debtPrefab, _debtsContainer);
-            debtUI.Init(this, debtSettings);
+            debtUI.Init(this, debtSettings, i % 2 != 0);
         }
     }
 

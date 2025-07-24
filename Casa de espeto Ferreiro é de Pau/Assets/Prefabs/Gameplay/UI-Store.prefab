@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 4795539892438627127}
   - component: {fileID: 508816677808480293}
   - component: {fileID: 3695090237164116202}
+  - component: {fileID: 6181894168713540260}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -445,7 +446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STORE
+  m_text: Loja
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae1c41257b090564fa463c76d2d8eb1b, type: 2}
   m_sharedMaterial: {fileID: -9205701917645402902, guid: ae1c41257b090564fa463c76d2d8eb1b, type: 2}
@@ -516,6 +517,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6181894168713540260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2258960784224667609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f32fada2719c8a469c09cdd8c1d3aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationKey: store
 --- !u!1 &3091593550310567469
 GameObject:
   m_ObjectHideFlags: 0

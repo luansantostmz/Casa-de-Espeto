@@ -3,14 +3,14 @@ using UnityEditor;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 
 namespace PirateSheep.Localization
 {
     public class LocalizationManagerWindow : EditorWindow
     {
         private string[] availableLanguages = new string[0];
-        private string googleSheetsUrl = "https://docs.google.com/spreadsheets/d/1T0ofHNGO1M_zu5dARDv7RQf-Q35tLS46QgFO8gP9Sic/edit?usp=sharing";
+        private string googleJsonUrl = "https://script.google.com/macros/s/SEU_ID_AQUI/exec";
 
         private bool showHelpDownload = false;
         private bool showHelpApply = false;
@@ -23,29 +23,22 @@ namespace PirateSheep.Localization
 
         private void OnEnable()
         {
-            LoadLanguagesFromCSV();
+            LoadLanguagesFromJSON();
         }
 
         private void OnGUI()
         {
             EditorGUILayout.Space();
 
-            DrawSectionHeader("📥 Update locales.csv from Google Sheets", ref showHelpDownload,
-                "Downloads the CSV file from your shared Google Sheet.\nMake sure the spreadsheet is public or shared properly.\nThe CSV will be saved into Resources/locales.csv.");
+            DrawSectionHeader("📥 Update locales.json from Google Sheets (Apps Script)", ref showHelpDownload,
+                "Downloads the JSON file from your Google Apps Script endpoint.\nThe JSON will be saved into Resources/locales.json.");
 
-            googleSheetsUrl = EditorGUILayout.TextField("Spreadsheet URL:", googleSheetsUrl);
+            googleJsonUrl = EditorGUILayout.TextField("JSON URL:", googleJsonUrl);
 
-            if (GUILayout.Button("⬇️ Download and update locales.csv"))
+            if (GUILayout.Button("⬇️ Download and update locales.json"))
             {
-                string csvUrl = ConvertToCsvUrl(googleSheetsUrl);
-                if (string.IsNullOrEmpty(csvUrl))
-                {
-                    Debug.LogError("Invalid URL.");
-                    return;
-                }
-
-                DownloadAndReplaceCSV(csvUrl);
-                LoadLanguagesFromCSV();
+                DownloadAndReplaceJSON(googleJsonUrl);
+                LoadLanguagesFromJSON();
             }
 
             EditorGUILayout.Space(20);
@@ -55,10 +48,10 @@ namespace PirateSheep.Localization
 
             if (availableLanguages.Length == 0)
             {
-                GUILayout.Label("No languages found in locales.csv");
+                GUILayout.Label("No languages found in locales.json");
                 if (GUILayout.Button("🔄 Reload languages"))
                 {
-                    LoadLanguagesFromCSV();
+                    LoadLanguagesFromJSON();
                 }
                 return;
             }
@@ -88,26 +81,49 @@ namespace PirateSheep.Localization
             }
         }
 
-        private void LoadLanguagesFromCSV()
+        private void LoadLanguagesFromJSON()
         {
             var textAsset = Resources.Load<TextAsset>("locales");
             if (textAsset == null)
             {
-                Debug.LogError("File 'locales.csv' not found in Resources folder.");
+                Debug.LogError("File 'locales.json' not found in Resources folder.");
                 availableLanguages = new string[0];
                 return;
             }
 
-            string[] lines = textAsset.text.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
-            if (lines.Length == 0)
+            try
             {
-                Debug.LogError("locales.csv is empty.");
-                availableLanguages = new string[0];
-                return;
-            }
+                JObject json = JObject.Parse(textAsset.text);
 
-            string[] headers = lines[0].Split(',');
-            availableLanguages = headers.Skip(1).Select(h => h.Trim()).ToArray();
+                // Corrigido: pegar as keys do root JSON (idiomas)
+                availableLanguages = json.Properties().Select(p => p.Name).ToArray();
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Failed to parse locales.json: " + e.Message);
+                availableLanguages = new string[0];
+            }
+        }
+
+        private void DownloadAndReplaceJSON(string url)
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    string jsonContent = client.DownloadString(url);
+
+                    string path = Path.Combine(Application.dataPath, "Resources/locales.json");
+                    File.WriteAllText(path, jsonContent);
+
+                    Debug.Log("✅ locales.json updated: " + path);
+                    AssetDatabase.Refresh();
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError("Error downloading JSON: " + ex.Message);
+            }
         }
 
         private void ApplyLanguageToScene(string languageCode)
@@ -130,40 +146,6 @@ namespace PirateSheep.Localization
             Debug.Log($"Language '{languageCode}' applied. {count} texts updated.");
 
             SceneView.RepaintAll();
-        }
-
-        private string ConvertToCsvUrl(string fullUrl)
-        {
-            var match = Regex.Match(fullUrl, @"https:\/\/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9-_]+)");
-
-            if (match.Success && match.Groups.Count > 1)
-            {
-                string sheetId = match.Groups[1].Value;
-                return $"https://docs.google.com/spreadsheets/d/{sheetId}/export?format=csv";
-            }
-
-            return null;
-        }
-
-        private void DownloadAndReplaceCSV(string url)
-        {
-            try
-            {
-                using (WebClient client = new WebClient())
-                {
-                    string csvContent = client.DownloadString(url);
-
-                    string path = Path.Combine(Application.dataPath, "Resources/locales.csv");
-                    File.WriteAllText(path, csvContent);
-
-                    Debug.Log("✅ locales.csv updated: " + path);
-                    AssetDatabase.Refresh();
-                }
-            }
-            catch (System.Exception ex)
-            {
-                Debug.LogError("Error downloading CSV: " + ex.Message);
-            }
         }
     }
 }
