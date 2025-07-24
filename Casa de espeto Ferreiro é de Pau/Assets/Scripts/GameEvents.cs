@@ -55,6 +55,11 @@ public class GameEvents
         public static Action<QualitySettings> OnHammer;
     }
 
+    public class Forge
+    {
+        public static Action OnAddCoal;
+    }
+
     public class Audio
     {
         public static Action<float> OnMasterChanged;

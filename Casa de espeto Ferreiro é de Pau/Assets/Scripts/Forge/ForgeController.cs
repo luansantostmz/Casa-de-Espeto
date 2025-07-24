@@ -12,6 +12,7 @@ public class ForgeController : MonoBehaviour
     public Button PurchaseForgeButton;
     public TMP_Text PriceText;
     public Image BurningImage;
+    public ParticleSystem CoalVFX;
 
     public List<UIForgeSlot> Slots => _slots;
 
@@ -21,6 +22,8 @@ public class ForgeController : MonoBehaviour
     {
         PurchaseForgeButton.onClick.AddListener(PurchaseNewForge);
         GameEvents.Economy.OnGoldChanged += RefreshButton;
+
+        GameEvents.Forge.OnAddCoal += OnAddCoal;
     }
 
     private void Start()
@@ -43,10 +46,16 @@ public class ForgeController : MonoBehaviour
         BurningImage.gameObject.SetActive(isOn);
     }
 
+    private void OnAddCoal()
+    {
+        CoalVFX.Play();
+    }
+
     private void OnDestroy()
     {
         PurchaseForgeButton.onClick.RemoveListener(PurchaseNewForge);
         GameEvents.Economy.OnGoldChanged -= RefreshButton;
+        GameEvents.Forge.OnAddCoal -= OnAddCoal;
     }
 
     private void Initialize()

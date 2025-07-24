@@ -185,6 +185,8 @@ public class UIForgeSlot : ItemContainer
             _activeCoalModifier = _coalModifier;
             _coalBuffed = true;
 
+            GameEvents.Forge.OnAddCoal?.Invoke();
+
             if (_toForgeItem != null && _clock.IsRunning)
             {
                 // Se já estiver forjando, recalcula o tempo imediatamente
