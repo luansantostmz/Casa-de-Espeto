@@ -36863,6 +36863,7 @@ MonoBehaviour:
   actionButton: {fileID: 1377158877127883098}
   correctFeedback: {fileID: 4973937385967871682}
   errorFeedback: {fileID: 5174922468146490549}
+  _errorSfx: {fileID: 8300000, guid: 7de5b8510bba7a64c8eacb9d45999fe2, type: 3}
   _hammerAnimator: {fileID: 3584144840220402974}
   _hammerShakeTween: {fileID: 975776583544437016}
   _qualityVfx: {fileID: 4777038149179338834}
@@ -46762,6 +46763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParticleSystem: {fileID: 1421275332280091541}
   Tween: {fileID: 1717673200892844564}
+  SFX: {fileID: 8300000, guid: aff470e6c28fe2f4b99749a812b49d5f, type: 3}
 --- !u!114 &975776583544437016
 MonoBehaviour:
   m_ObjectHideFlags: 0

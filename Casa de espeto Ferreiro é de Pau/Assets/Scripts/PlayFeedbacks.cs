@@ -4,6 +4,7 @@ public class PlayFeedbacks : MonoBehaviour
 {
     public ParticleSystem ParticleSystem;
     public TweenObject Tween;
+    public AudioClip SFX;
 
     public void PlayParticle()
     {
@@ -13,5 +14,10 @@ public class PlayFeedbacks : MonoBehaviour
     public void PlayTween()
     {
         Tween.PlayTween();
+    }
+
+    public void PlaySFX()
+    {
+        AudioManager.Instance.PlaySFX(SFX);
     }
 }

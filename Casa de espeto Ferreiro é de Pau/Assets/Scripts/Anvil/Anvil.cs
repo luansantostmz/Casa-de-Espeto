@@ -75,6 +75,7 @@ public class Anvil : ItemContainer
 
         if (complete)
         {
+            _qte.gameObject.SetActive(false);
             StartCoroutine(Complete());
         }
     }

@@ -13,6 +13,7 @@ public class AnvilQTE : MonoBehaviour
     [SerializeField] private Button actionButton;
     [SerializeField] private ParticleSystem correctFeedback;
     [SerializeField] private ParticleSystem errorFeedback;
+    [SerializeField] private AudioClip _errorSfx;
     [SerializeField] private Animator _hammerAnimator;
     [SerializeField] private TweenObject _hammerShakeTween;
 
@@ -199,6 +200,7 @@ public class AnvilQTE : MonoBehaviour
         {
             errorFeedback.transform.position = new Vector3(pointer.transform.position.x, qteBar.transform.position.y, 0);
             errorFeedback.Play();
+            AudioManager.Instance.PlaySFX(_errorSfx);
             _hammerShakeTween.PlayTween();
         }
 
